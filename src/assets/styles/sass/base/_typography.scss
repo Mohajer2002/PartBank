@@ -1,0 +1,25 @@
+$fonts: (
+  100: 'Peyda-Thin',
+  200: 'Peyda-extralight',
+  300: 'Peyda-light',
+  400: 'Peyda-Regular',
+  500: 'Peyda-Medium',
+  600: 'Peyda-SemiBold',
+  700: 'Peyda-Bold',
+  800: 'Peyda-ExtraBold',
+  900: 'Peyda-Black'
+);
+
+@each $key, $value in $fonts {
+  @font-face {
+    font: {
+      family: 'Peyda';
+      weight: #{$key};
+      style: normal;
+    }
+    src: url('/src/assets/fonts/#{$value}.ttf') format('truetype');
+  }
+}
+* {
+  font-family: 'Peyda';
+}
