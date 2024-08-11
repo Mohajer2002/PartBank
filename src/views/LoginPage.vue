@@ -1,6 +1,20 @@
 <script setup>
-
-
+import CustomInput from '@/components/common/CustomInput.vue'
+import { ref } from 'vue'
+const loginInputs = ref([
+  {
+    name: 'phone-number',
+    label: 'شماره همراه',
+    placeholder: 'مثلا ۰۹۱۲۳۴۵۶۷۸۹',
+    class: 'md-width'
+  },
+  {
+    name: 'password',
+    label: 'رمز عبور',
+    placeholder: 'رمز عبور',
+    class: 'md-width'
+  }
+])
 </script>
 <template>
   <div class="body-login-page">
@@ -8,9 +22,19 @@
       <section class="main-login__login login">
         <div class="login__logo">
           <!-- logo -->
-         
-        </div>
 
+          <div v-for="input in loginInputs">
+            <component
+              :is="CustomInput"
+              :name="input.name"
+              :label="input.label"
+              :placeholder="input.placeholder"
+              :class="input.class"
+            ></component>
+          </div>
+
+          <!-- <CustomInput /> -->
+        </div>
       </section>
       <section class="main-login__basic-image basic-image">
         <img
@@ -20,18 +44,15 @@
         />
       </section>
     </main>
-  
   </div>
 </template>
 
 <style lang="scss" scoped>
-
 .body-login-page {
   height: 100vh;
   width: 100%;
   @include global.customFlex(row, center, center);
-  background: url("../../src/assets/images/bg-image.png") lightgray 0px -100px /
-    100% 118.519% no-repeat;
+  background: url('../../src/assets/images/bg-image.png') lightgray 0px -100px / 100% 118.519% no-repeat;
   padding: 7.5rem, 22.5rem;
 }
 
@@ -47,7 +68,6 @@
   }
 }
 
-
 .basic-image {
   $padding-size: 1rem;
   padding: $padding-size 0 $padding-size $padding-size;
@@ -60,6 +80,4 @@
     border-radius: 0.75rem;
   }
 }
-
-
 </style>
