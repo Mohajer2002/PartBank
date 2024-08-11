@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <h1>hello world</h1>
+  <h1>این یک متن تستی می باشد .</h1>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

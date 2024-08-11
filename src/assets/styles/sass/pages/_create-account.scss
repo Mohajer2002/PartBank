@@ -1,0 +1,212 @@
+@use '../abstracts/mixins' as mixins;
+@use '../abstracts/variables' as variables;
+
+$t-duration: 0.3s;
+$t-timing-function: ease-out;
+
+.create-account-body {
+  background-color: var(--basic-background);
+}
+
+.information-box-container {
+  margin-top: 2.6rem;
+
+  @include mixins.customFlex(row, center, center);
+}
+
+.information-box {
+  background-color: var(--white);
+  border-radius: 0.75rem;
+  width: 82.5rem;
+  padding: 2.5rem;
+
+  &__header {
+    color: var(--black-500);
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  &__divider {
+    margin: 2.5rem;
+    background-color: var(--hr-color);
+    border: none;
+    height: 1px;
+  }
+
+  &__button-group {
+    @include mixins.customFlex(row, flex-end, center, 1rem);
+    width: 100%;
+    padding-top: 2.5rem;
+  }
+  &__button {
+    height: 2.5rem;
+    width: 11rem;
+    &--previous {
+      background-color: var(--primary-50);
+      color: var(--black-500);
+    }
+    &--next {
+      background-color: var(--primary-500);
+    }
+  }
+}
+
+.information-form {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  &__form-content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.25rem;
+    width: 24rem;
+    &--address {
+      flex-basis: 100%;
+    }
+  }
+
+  &__title {
+    color: var(--text-gray);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding-right: 0.5rem;
+  }
+  &__input {
+    background-color: #f9fafb;
+    border-radius: 0.375rem;
+    color: var(--black-500);
+    border: 1px solid #ececee;
+    height: 3rem;
+    padding: 0rem 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+
+    &--address {
+      resize: none;
+      height: 7.5rem;
+      padding-top: 1rem;
+    }
+  }
+
+  &__value {
+    color: var(--black-500);
+    padding-right: 0.5rem;
+    font-weight: 600;
+  }
+}
+
+.personal-information {
+  display: 'flex';
+}
+//section2
+.upload-files-section {
+  @include mixins.customFlex(row, center, center, 2.5rem);
+  display: none;
+}
+.file-section {
+  width: 20rem;
+  @include mixins.customFlex(column);
+  border-radius: 0.75rem;
+  overflow: hidden;
+
+  &__upload-section {
+    width: 100%;
+    height: 11.25rem;
+    @include mixins.customFlex(column, center, center, 0.5rem);
+    padding: 2.55rem 4.53rem;
+  }
+
+  &__detail {
+    @include mixins.customFlex(row, space-between, center);
+    background-color: var(--background-input);
+    padding: 1rem 0.75rem;
+    @include mixins.fontStyle(0.825rem, 400);
+  }
+  &__option {
+    @include mixins.customFlex(row, center, center);
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    &--active:hover .tools-menu {
+      height: 5.5rem;
+      padding: 0.75rem;
+      opacity: 1;
+    }
+  }
+}
+.upload-box {
+  background: var(--background-input);
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  &__preview {
+    display: none;
+    position: absolute;
+
+    width: 100%;
+    height: 11.25rem;
+    object-fit: fill;
+    object-position: center;
+  }
+  &__icon {
+    width: 4.25rem;
+  }
+  &__text-helper {
+    color: var(--text-gray);
+    @include mixins.fontStyle(0.875rem, 600);
+  }
+  &__text-helper--important {
+    color: var(--primary-500);
+  }
+  &__input-file {
+    display: none;
+  }
+}
+
+.tools-menu {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  @include mixins.customFlex(column, flex-start, stretch, 0.75rem);
+  padding: 0;
+  height: 0;
+  border-radius: 0.75rem;
+  background: var(--white);
+  box-shadow: 0px 0px 4px 0px rgba(0, 67, 101, 0.05);
+  overflow: hidden;
+  opacity: 0;
+  list-style: none;
+  @include mixins.fontStyle(0.825rem);
+  line-height: 1.25rem;
+  color: var(--text-title);
+
+  &--transition {
+    transition:
+      height $t-duration $t-timing-function,
+      opacity $t-duration $t-timing-function,
+      padding $t-duration $t-timing-function;
+  }
+
+  &__item {
+    text-wrap: nowrap;
+    @include mixins.customFlex($alignItem: center, $gap: 0.5rem);
+
+    &--warring {
+      color: var(--fail-500);
+    }
+  }
+
+  &__divider {
+    width: 100%;
+    border-bottom: 1px solid #e2edff;
+  }
+}
+
+.section3 {
+  display: none;
+}
+.confirm-information {
+  display: none;
+}

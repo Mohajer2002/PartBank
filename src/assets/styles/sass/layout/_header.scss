@@ -1,0 +1,56 @@
+@use '../abstracts/mixins' as mixins;
+@use '../abstracts/variables' as variables;
+
+$background-avatar: #e8e8e8;
+
+.header {
+  background-color: var(--white);
+  box-shadow: 0px 2px 8px 0px rgba(21, 0, 43, 0.05);
+  height: variables.$header-height;
+  @include mixins.customFlex(row, space-between, center);
+  padding: 0 2.5rem;
+  color: var(--black-500);
+  &__logo {
+    @include mixins.customFlex($alignItem: center, $gap: 0.75rem);
+  }
+  &__logo-img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  &__logo-title {
+    font: {
+      size: 1rem;
+      weight: 400;
+    }
+  }
+  &__option {
+    @include mixins.customFlex($alignItem: center, $gap: 1rem);
+  }
+  &__option-notif {
+    @include mixins.customFlex(row, center, center);
+  }
+  &__option-notif-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  &__option-user {
+    @include mixins.customFlex($alignItem: center, $gap: 0.5rem);
+  }
+  &__option-user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: $background-avatar;
+    border-radius: 50%;
+  }
+  &__option-user-phone-number {
+    @include mixins.fontStyle(0.875rem);
+    // margin-top: 0.3rem;
+    color: var(--black-500);
+  }
+  &__more-option {
+    @include mixins.customFlex(row, center, center);
+    width: 1.5rem;
+    height: 1.5rem;
+    padding-bottom: 0.1rem;
+  }
+}
