@@ -1,14 +1,13 @@
-<script>
-
+<script setup>
+import CreateAccountLayot from '@/layouts/CreateAccountLayout.vue'
 </script>
 <template>
   <div>
-    CreateAccountView
-    <router-view/>
+    <CreateAccountLayot header-title="اطلاعات فردی">
+      <!-- CreateAccountView
+      <router-view /> -->
+    </CreateAccountLayot>
   </div>
-
 </template>
 
-<style>
-
-</style>
+<style></style>
