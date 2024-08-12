@@ -18,6 +18,9 @@ const props = defineProps({
   }
 })
 
+const modelValue=defineModel();
+
+
 
 </script>
 <template>
@@ -28,6 +31,7 @@ const props = defineProps({
       :id="props.name"
       :placeholder="props.placeholder"
       :class="[props.class]"
+      v-model="modelValue"
     />
   </div>
 </template>

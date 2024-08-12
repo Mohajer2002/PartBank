@@ -8,25 +8,26 @@ const loginInputs = ref([
     name: 'phone-number',
     label: 'شماره همراه',
     placeholder: 'مثلا ۰۹۱۲۳۴۵۶۷۸۹',
-    class: 'md-width'
+    class: 'md-width',
+    value: null
   },
   {
     name: 'password',
     label: 'رمز عبور',
     placeholder: 'رمز عبور',
-    class: 'md-width'
+    class: 'md-width',
+    value: null
   }
 ])
 
-const loginForm = ref({
-  phoneNumber: null,
-  passowrd: null
-})
+
 </script>
 
 <template>
-  <div v-for="input in loginInputs">
+
+  <div v-for="(input, index) in loginInputs" :key="index">
     <component
+      v-model="input.value"
       :is="CustomInput"
       :name="input.name"
       :label="input.label"
