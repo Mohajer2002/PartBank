@@ -8,7 +8,7 @@ const props=defineProps({
 })
 </script>
 <template>
-  <div class="create-account-layout">
+  
     <main class="information-box-container">
       <div class="information-box">
         <h4 class="information-box__header">{{props.headerTitle}}</h4>
@@ -17,17 +17,14 @@ const props=defineProps({
 
       </div>
     </main>
-  </div>
+  
 </template>
 
 <style lang="scss" scoped>
-.create-account-layout {
-  background-color: var(--basic-background);
 
-}
 
 .information-box-container {
-  margin-top: 2.6rem;
+  // margin-top: 2.6rem;
 
   @include global.customFlex(row, center, center);
 }

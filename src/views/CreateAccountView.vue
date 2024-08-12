@@ -2,7 +2,7 @@
 import CreateAccountLayot from '@/layouts/CreateAccountLayout.vue'
 </script>
 <template>
-  <div>
+  <div class="create-account-body">
     <CreateAccountLayot header-title="اطلاعات فردی">
       <!-- CreateAccountView
       <router-view /> -->
@@ -10,4 +10,11 @@ import CreateAccountLayot from '@/layouts/CreateAccountLayout.vue'
   </div>
 </template>
 
-<style></style>
+<style lang="scss" scoped>
+.create-account-body {
+  background-color: var(--basic-background);
+  height: 100vh;
+  //   @include global.customFlex(row, center, center);
+  padding-top: 2.6rem;
+}
+</style>
