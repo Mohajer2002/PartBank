@@ -3,10 +3,8 @@
 </script>
 <template>
   <div>
-    CreateAccountView
-    <router-view/>
+    ConfirmInformation
   </div>
-
 </template>
 
 <style>

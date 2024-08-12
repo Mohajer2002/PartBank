@@ -3,10 +3,8 @@
 </script>
 <template>
   <div>
-    CreateAccountView
-    <router-view/>
+    upload card
   </div>
-
 </template>
 
 <style>
