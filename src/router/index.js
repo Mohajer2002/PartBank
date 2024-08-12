@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginPage from '@/views/LoginPage.vue'
+import LoginPage from '@/views/LoginView.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import CreateAccountView from '@/views/CreateAccountView.vue'
+
+import ConfirmInformation from "@/components/views/CreateAccount/ConfirmInformation.vue"
+import PersonalInformation from "@/components/views/CreateAccount/PersonalInformation.vue"
+import UploadCard from "@/components/views/CreateAccount/UploadCard.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +19,31 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView
+    },
+    {
+      path: '/create-account',
+      name: 'create-account',
+      component: CreateAccountView,
+      children:[
+        {
+          path: 'personl-information',
+          name: 'personl-information',
+          component: PersonalInformation,
+        },
+
+        {
+          path: 'upload-card',
+          name: 'upload-card',
+          component: UploadCard,
+        },
+        {
+          path: 'confirm-information',
+          name: 'confirm-information',
+          component: ConfirmInformation,
+        }
+      ]
     }
+
     // {
     //   path: '/about',
     //   name: 'about'
