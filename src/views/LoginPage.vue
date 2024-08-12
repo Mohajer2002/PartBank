@@ -1,40 +1,33 @@
 <script setup>
-import CustomInput from '@/components/common/CustomInput.vue'
-import { ref } from 'vue'
-const loginInputs = ref([
-  {
-    name: 'phone-number',
-    label: 'شماره همراه',
-    placeholder: 'مثلا ۰۹۱۲۳۴۵۶۷۸۹',
-    class: 'md-width'
-  },
-  {
-    name: 'password',
-    label: 'رمز عبور',
-    placeholder: 'رمز عبور',
-    class: 'md-width'
-  }
-])
+import LoginFormComponent from '@/components/views/LoginFormComponent.vue'
 </script>
 <template>
   <div class="body-login-page">
     <main class="main-login">
       <section class="main-login__login login">
         <div class="login__logo">
-          <!-- logo -->
+        
+            <!-- logo -->
+            <img class="login__logo-file" src="../../src/assets/images/logo.png" />
+            <div>
+              <h1 class="login__title">پارت بانک</h1>
+              <h5 class="login__subtitle">تجربه‌ای نوین در بانک داری</h5>
+            </div>
+         
 
-          <div v-for="input in loginInputs">
-            <component
-              :is="CustomInput"
-              :name="input.name"
-              :label="input.label"
-              :placeholder="input.placeholder"
-              :class="input.class"
-            ></component>
-          </div>
-
-          <!-- <CustomInput /> -->
         </div>
+        <form class="login__login-form login-form">
+       
+          
+
+            <LoginFormComponent/>
+      
+        </form>
+         <footer class="login__footer">
+          <!-- support -->
+          <span> پشتیبانی: </span>
+          <span> ۱۲۳۴۵۶۷۸-۰۲۱ </span>
+        </footer>
       </section>
       <section class="main-login__basic-image basic-image">
         <img
@@ -66,6 +59,44 @@ const loginInputs = ref([
   &__login {
     width: 50%;
   }
+}
+
+.login {
+  @include global.customFlex(column, space-around, center);
+
+  &__logo {
+    @include global.customFlex($alignItem: center, $gap: 1rem);
+    color: var(--primary-500);
+  }
+  &__logo-file {
+    width: 5rem;
+    height: 4s.75rem;
+  }
+  &__title {
+    font: {
+      size: 2.2rem;
+      weight: 700;
+    }
+  }
+  &__subtitle {
+    font: {
+      size: 1rem;
+      weight: 400;
+    }
+  }
+  &__footer {
+    color: var(--black-500);
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+}
+
+.login-form {
+  @include global.customFlex(column, start, center, 1rem);
+
+  // &__button {
+  //   margin-top: 2rem;
+  // }
 }
 
 .basic-image {

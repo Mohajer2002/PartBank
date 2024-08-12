@@ -17,6 +17,11 @@ const props = defineProps({
     required: true
   }
 })
+
+const modelValue=defineModel();
+
+
+
 </script>
 <template>
   <div class="custom-input-component">
@@ -26,6 +31,7 @@ const props = defineProps({
       :id="props.name"
       :placeholder="props.placeholder"
       :class="[props.class]"
+      v-model="modelValue"
     />
   </div>
 </template>
