@@ -1,5 +1,5 @@
 <script setup>
-import LoginFormComponent from '@/components/views/LoginFormComponent.vue'
+import LoginFormComponent from '@/components/views/Login/LoginFormComponent.vue'
 </script>
 <template>
   <div class="body-login-page">
