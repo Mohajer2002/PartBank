@@ -23,7 +23,7 @@ const props = defineProps({
 <template>
   <div class="button-container">
     <button class="base-button" :class="[props.type, props.size]">
-      <!-- <IconJoon/> -->
+      <!-- <Icon Slot/> -->
       <span>
         {{ props.text }}
       </span>
@@ -33,12 +33,10 @@ const props = defineProps({
 <style lang="scss" scoped>
 .button-container {
   padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include global.customFlex(column, center);
 }
 .base-button {
-  border: 0;
+  border: none;
   height: 3rem;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -49,21 +47,11 @@ const props = defineProps({
   line-height: 2rem;
 }
 .primary {
-  color: white;
-  background-color: #4152a0;
+  color:var(--white);
+  background-color: var(--primary-500);
 }
 .secondary {
-  color: rgb(0, 0, 0);
-  background-color: #eceef6;
+  color: var(--black-500);
+  background-color: var(--primary-50);
 }
-/* .lg-button {
-  width: 22rem;
-}
-
-.md-button {
-  width: 18rem;
-}
-.sm-button {
-  width: 13rem;
-} */
 </style>
