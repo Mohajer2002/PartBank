@@ -18,10 +18,7 @@ const props = defineProps({
   }
 })
 
-const modelValue=defineModel();
-
-
-
+const modelValue = defineModel()
 </script>
 <template>
   <div class="custom-input-component">
@@ -43,10 +40,9 @@ const modelValue=defineModel();
 
   &__inputs {
     border: 0;
-
+    height: 3rem;
     padding: 0rem 0.5rem;
     background-color: var(--background-input);
-    width: 20rem;
     border-radius: 0.375rem;
     direction: rtl;
     font: {
@@ -67,6 +63,6 @@ const modelValue=defineModel();
   }
 }
 .md-width {
-  height: 3rem;
+  width: 22rem;
 }
 </style>

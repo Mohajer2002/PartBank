@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
+import CustomButton from '@/components/common/CustomButton.vue'
 
 const loginInputs = ref([
   {
@@ -19,12 +20,9 @@ const loginInputs = ref([
     value: null
   }
 ])
-
-
 </script>
 
 <template>
-
   <div v-for="(input, index) in loginInputs" :key="index">
     <component
       v-model="input.value"
@@ -35,6 +33,15 @@ const loginInputs = ref([
       :class="input.class"
     ></component>
   </div>
+  <div class="submit-login-button">
+  <CustomButton type="primary" text="ورود" size="lg-button" />
+
+  </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.submit-login-button {
+  width: 22rem;
+}
+
+</style>
