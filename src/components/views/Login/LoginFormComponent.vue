@@ -10,6 +10,7 @@ const loginInputs = ref([
     label: 'شماره همراه',
     placeholder: 'مثلا ۰۹۱۲۳۴۵۶۷۸۹',
     class: 'md-width',
+    type: 'input',
     value: null
   },
   {
@@ -17,6 +18,8 @@ const loginInputs = ref([
     label: 'رمز عبور',
     placeholder: 'رمز عبور',
     class: 'md-width',
+    type: 'input',
+
     value: null
   }
 ])
@@ -31,6 +34,7 @@ const loginInputs = ref([
       :label="input.label"
       :placeholder="input.placeholder"
       :class="input.class"
+      :type="input.type"
     ></component>
   </div>
   <div class="submit-login-button">
@@ -42,6 +46,9 @@ const loginInputs = ref([
 <style lang="scss" scoped>
 .submit-login-button {
   width: 22rem;
+}
+.login-form-inputs{
+  
 }
 
 </style>

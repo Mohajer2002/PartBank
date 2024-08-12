@@ -43,12 +43,28 @@ const personalInformationInputs = ref([
 </script>
 <template>
   <div class="form-group">
- 
+    <div class="form-group__inputs" v-for="(input, index) in personalInformationInputs" :key="index">
+      <component
+        v-model="input.value"
+        :is="CustomInput"
+        :name="input.name"
+        :label="input.label"
+        :placeholder="input.placeholder"
+        :class="input.class"
+        :type="input.type"
+      ></component>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .form-group {
   @include global.customFlex(row, space-between, center, 2rem);
+  flex-wrap: wrap;
+  &__inputs{
+    width: 22rem;
+  }
+  
 }
+
 </style>

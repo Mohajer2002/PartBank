@@ -15,6 +15,11 @@ const props = defineProps({
   class: {
     type: String,
     required: true
+  },
+  type: {
+    type: String,
+    required: false,
+    defualt: 'input'
   }
 })
 
@@ -23,13 +28,25 @@ const modelValue = defineModel()
 <template>
   <div class="custom-input-component">
     <label class="custom-input-component__labels">{{ props.label }}</label>
-    <input
-      class="custom-input-component__inputs custom-input-component__inputs--focus"
-      :id="props.name"
-      :placeholder="props.placeholder"
-      :class="[props.class]"
-      v-model="modelValue"
-    />
+
+    <div class="custom-input-component__content" v-if="props.type == 'input'">
+      <input
+        class="custom-input-component__inputs custom-input-component__inputs--focus"
+        :id="props.name"
+        :placeholder="props.placeholder"
+        :class="[props.class]"
+        v-model="modelValue"
+      />
+    </div>
+    <div class="custom-input-component__content custom-input-component__content--address" v-else-if="props.type == 'textarea'">
+      <textarea
+        class="custom-input-component__inputs custom-input-component__inputs--focus custom-input-component__inputs--address"
+        :id="props.name"
+        :placeholder="props.placeholder"
+        :class="[props.class]"
+        v-model="modelValue"
+      />
+    </div>
   </div>
 </template>
 
@@ -37,6 +54,17 @@ const modelValue = defineModel()
 .custom-input-component {
   @include global.customFlex(column, $gap: 0.25rem);
   color: var(--black-500);
+  
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.25rem;
+  
+    &--address {
+      flex-basis: 100%;
+    }
+  }
 
   &__inputs {
     border: 0;
@@ -52,6 +80,13 @@ const modelValue = defineModel()
     &--focus:focus {
       outline: 0.125rem solid var(--primary-200);
     }
+
+    &--address {
+      resize: none;
+      height: 7.5rem;
+      padding-top: 1rem;
+      
+    }
   }
 
   &__labels {
@@ -62,7 +97,5 @@ const modelValue = defineModel()
     }
   }
 }
-.md-width {
-  width: 22rem;
-}
+
 </style>
