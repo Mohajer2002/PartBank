@@ -1,10 +1,6 @@
-<script setup>
-import sideMenu from '@/components/views/dashboard/SideMenu.vue'
-</script>
+<script setup></script>
 <template>
-  <main>
-    <sideMenu />
-  </main>
+  <main></main>
 </template>
 
 <style scoped lang="sass"></style>
