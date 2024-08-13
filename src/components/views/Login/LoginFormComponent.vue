@@ -10,6 +10,7 @@ const loginInputs = ref([
     label: 'شماره همراه',
     placeholder: 'مثلا ۰۹۱۲۳۴۵۶۷۸۹',
     class: 'md-width',
+    type: 'input',
     value: null
   },
   {
@@ -17,13 +18,15 @@ const loginInputs = ref([
     label: 'رمز عبور',
     placeholder: 'رمز عبور',
     class: 'md-width',
+    type: 'input',
+
     value: null
   }
 ])
 </script>
 
 <template>
-  <div v-for="(input, index) in loginInputs" :key="index">
+  <div v-for="(input, index) in loginInputs" :key="index"  class="form-group">
     <component
       v-model="input.value"
       :is="CustomInput"
@@ -31,6 +34,7 @@ const loginInputs = ref([
       :label="input.label"
       :placeholder="input.placeholder"
       :class="input.class"
+      :type="input.type"
     ></component>
   </div>
   <div class="submit-login-button">
@@ -40,8 +44,15 @@ const loginInputs = ref([
 </template>
 
 <style lang="scss" scoped>
+.form-group {
+
+    width: 22rem;
+  
+}
+
 .submit-login-button {
   width: 22rem;
 }
+
 
 </style>

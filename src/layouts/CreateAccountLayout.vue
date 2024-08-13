@@ -1,31 +1,49 @@
 <script setup>
-const props=defineProps({
-  headerTitle:{
-    type:String,
-    required:false,
-    defualt:"اطلاعات فردی"
-  }
-})
+import { useRouter, useRoute } from 'vue-router'
+import CustomButton from '@/components/common/CustomButton.vue'
+import { ref, watch } from 'vue'
+
+const router = useRouter()
+const route = useRoute()
+
+const layoutHeaderTitle = ref()
+const layoutNextStep = ref()
+watch(
+  () => route.path,
+  () => {
+    console.log("here")
+    layoutHeaderTitle.value = route.meta.headerTitle
+    layoutNextStep.value = route.meta.nextStep
+  },
+  { immediate: true }
+)
 </script>
 <template>
-  
-    <main class="information-box-container">
-      <div class="information-box">
-        <h4 class="information-box__header">{{props.headerTitle}}</h4>
-        <hr class="information-box__divider" />
-      <router-view/>
+  <main class="information-box-container">
+    {{ layoutNextStep }}
+    <div class="information-box">
+      <h4 class="information-box__header">{{ layoutHeaderTitle }}</h4>
+      <hr class="information-box__divider" />
+      <router-view />
 
+      <div class="information-box__button-group">
+        <div class="information-box__button">
+          <CustomButton type="secondary" text="قبلی" />
+        </div>
+        <div class="information-box__button">
+          <CustomButton
+            type="primary"
+            :text="route.name == 'confirm-information' ? 'افتتاح حساب' : 'ثبت و ادامه'"
+            @click="router.push(layoutNextStep)"
+          />
+        </div>
       </div>
-    </main>
-  
+    </div>
+  </main>
 </template>
 
 <style lang="scss" scoped>
-
-
 .information-box-container {
-  // margin-top: 2.6rem;
-
   @include global.customFlex(row, center, center);
 }
 
@@ -54,15 +72,7 @@ const props=defineProps({
     padding-top: 2.5rem;
   }
   &__button {
-    height: 2.5rem;
     width: 11rem;
-    &--previous {
-      background-color: var(--primary-50);
-      color: var(--black-500);
-    }
-    &--next {
-      background-color: var(--primary-500);
-    }
   }
 }
 </style>
