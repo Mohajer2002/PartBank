@@ -38,7 +38,7 @@ const uploadFile=(event)=>{
         for="input-file1"
         class="file-section__upload-section file-section__upload-section--front upload-box"
       >
-        <img alt="front image" class="upload-box__preview" :ref="" />
+        <img alt="front image" class="upload-box__preview"  />
         <div class="upload-box__icon">
           <IconUpload />
         </div>
