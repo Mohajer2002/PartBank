@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
+import IconCheck from '@/components/icons/IconCheck.vue'
 
 const loginInputs = ref([
   {
@@ -26,9 +27,22 @@ const loginInputs = ref([
     value: null
   }
 ])
+
+const toastOptions = ref({
+  type: 'success',
+  text: 'عملیات با موفقیت انجام شد',
+  position: 'top-right',
+  show: false
+})
 </script>
 
 <template>
+  <CustomToast :config="toastOptions">
+    <template v-slot:append-icon>
+      <IconCheck />
+    </template>
+  </CustomToast>
+
   <div v-for="input in loginInputs" :key="input.id" class="form-group">
     <component
       v-model="input.value"

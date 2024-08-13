@@ -1,19 +1,12 @@
 <script setup>
+import IconFolan from '@/components/icons/IconCheck.vue'
+
 const props = defineProps({
-  type: {
-    type: String,
+  config: {
+    type: Object,
     required: true
-  },
-  text: {
-    type: String,
-    required: true
-  },
-  show:{
-    type:Boolean,
-    required:true
   }
 })
-
 
 const setToastColor = (type) => {
   switch (type) {
@@ -29,89 +22,99 @@ const setToastColor = (type) => {
   }
 }
 
-const setToastIcon = (type) => {
-  switch (type) {
-    case 'success':
-      return '/src/assets/check-circle-svgrepo-com.svg'
-    case 'warning':
-      return '/src/assets/info-svgrepo-com (1).svg'
-    case 'error':
-      return '/src/assets/close-ellipse-svgrepo-com (1).svg'
+// const test = (type) => {
+//   switch (type) {
+//     case 'success':
+//       return <IconFolan/>
+    
 
-    default:
-      break
-  }
-}
+//     default:
+//       break
+//   }
+// }
 </script>
 <template>
-  <div v-if="props.show" class="toast-container">
-   
-    <div class="information-box__toast toast" :class="setToastColor(props.type)">
-      {{ props.text }}
+  <div v-if="props.config.show"  :class="[`toast-container toast-container__${props.config.position}`]">
+    <div class="toast" :class="setToastColor(props.config.type)">
+      <slot name="append-icon"></slot>
 
-      <img class="toat-icon" :src="setToastIcon(props.type)" />
+      {{ props.config.text }}
     </div>
   </div>
 </template>
-<style scoped>
-@font-face {
-  font-family: 'peyda';
-  src: url('../assets/Peyda-Bold.ttf');
+<style lang="scss" scoped>
+@keyframes slideInDown {
+  from {
+    transform: translate3d(0, -120px, 0) scaleY(0.8);
+    visibility: visible;
+    /*     opacity: 0; */
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 
-@keyframes test {
-  0%,
-  7% {
-    transform: rotateZ(0);
+.toast-container {
+  padding-top: 1rem;
+
+  &__top-center {
+    position: fixed;
+    width: 100%;
+    top: 0.75rem;
+    right: 40%;
   }
-  15% {
-    transform: rotateZ(-15deg);
+  &__top-left {
+    position: fixed;
+    top: 0.5rem;
+    left: 1rem;
   }
-  20% {
-    transform: rotateZ(10deg);
+  &__top-right {
+    position: fixed;
+    top: 0.5rem;
+    right: 3rem;
   }
-  25% {
-    transform: rotateZ(-10deg);
+
+  &__bottom-center {
+    position: fixed;
+    width: 100%;
+    bottom: 0.75rem;
+    right: 40%;
   }
-  30% {
-    transform: rotateZ(6deg);
+  &__bottom-left {
+    position: fixed;
+    bottom: 3rem;
+    left: 3rem;
   }
-  35% {
-    transform: rotateZ(-4deg);
+  &__bottom-right {
+    position: fixed;
+    bottom: 3em;
+    right: 3rem;
   }
-  40%,
-  100% {
-    transform: rotateZ(0);
-  }
-}
-.toast-container{
-    padding-top: 1rem;
 }
 .toast {
-  font-family: 'peyda';
-  display: flex;
-  justify-content: center;
+  @include global.customFlex(row, flex-start, center, 0.75rem);
+
   height: 2.75rem;
   width: 17rem;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem;
-  color: white;
-  border-radius: 1rem;
-  animation: test 2s linear infinite;
+  padding: 0.5rem 1rem;
+  color: var(--white);
+  border-radius: 0.5rem;
+  animation: slideInDown 0.5s;
 }
-.toat-icon {
-  width: 24px;
-  height: 24px;
-}
+// .toat-icon {
+//   width: 24px;
+//   height: 24px;
+// }
 .toast-success {
-  background-color: #198754 ;
+  background-color: var(--success-500);
 }
 .toast-warning {
-  background-color: #ffc107 ;
+  background-color: #ffc107;
   color: black;
 }
 .toast-error {
-  background-color: #dc3545 ;
+  background-color: var(--fail-500);
 }
 </style>
