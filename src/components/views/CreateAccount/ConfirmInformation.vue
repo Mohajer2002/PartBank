@@ -1,4 +1,6 @@
-<script></script>
+<script setup>
+
+</script>
 <template>
   <section class="confirm-information">
     <div class="information-form">
