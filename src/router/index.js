@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -8,12 +7,11 @@ const router = createRouter({
       path: '/',
       name: 'login',
       component: () => import('@/views/LoginView.vue')
-
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import("@/views/DashboardView.vue")
+      component: () => import('@/views/DashboardView.vue')
     },
     {
       path: '/create-account',
@@ -24,9 +22,10 @@ const router = createRouter({
           path: 'personl-information',
           name: 'personl-information',
           component: () => import('@/components/views/CreateAccount/PersonalInformation.vue'),
-          meta:{
-            headerTitle:"اطلاعات فردی",
-            nextStep:"upload-card"
+          meta: {
+            headerTitle: 'اطلاعات فردی',
+            nextStep: 'upload-card',
+            previousStep: 'personl-information'
           }
         },
 
@@ -34,18 +33,20 @@ const router = createRouter({
           path: 'upload-card',
           name: 'upload-card',
           component: () => import('@/components/views/CreateAccount/UploadCard.vue'),
-          meta:{
-            headerTitle:"تصویر کارت ملی",
-             nextStep:"confirm-information"
+          meta: {
+            headerTitle: 'تصویر کارت ملی',
+            nextStep: 'confirm-information',
+            previousStep: 'personl-information'
           }
         },
         {
           path: 'confirm-information',
           name: 'confirm-information',
           component: () => import('@/components/views/CreateAccount/ConfirmInformation.vue'),
-          meta:{
-            headerTitle:"تایید اطلاعات",
-            nextStep:"confirm-information"
+          meta: {
+            headerTitle: 'تایید اطلاعات',
+            nextStep: 'confirm-information',
+            previousStep: 'upload-card'
           }
         }
       ]

@@ -8,12 +8,14 @@ const route = useRoute()
 
 const layoutHeaderTitle = ref()
 const layoutNextStep = ref()
+const layoutPreviousStep = ref()
 watch(
   () => route.path,
   () => {
     console.log("here")
     layoutHeaderTitle.value = route.meta.headerTitle
     layoutNextStep.value = route.meta.nextStep
+    layoutPreviousStep.value=route.meta.previousStep
   },
   { immediate: true }
 )
@@ -28,7 +30,7 @@ watch(
 
       <div class="information-box__button-group">
         <div class="information-box__button">
-          <CustomButton type="secondary" text="قبلی" />
+          <CustomButton type="secondary" text="قبلی"  @click="router.push(layoutPreviousStep)"/>
         </div>
         <div class="information-box__button">
           <CustomButton
