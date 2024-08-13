@@ -1,14 +1,14 @@
 <script setup>
 const props = defineProps({
-  toastType: {
+  type: {
     type: String,
     required: true
   },
-  toastText: {
+  text: {
     type: String,
     required: true
   },
-  showToast:{
+  show:{
     type:Boolean,
     required:true
   }
@@ -44,12 +44,12 @@ const setToastIcon = (type) => {
 }
 </script>
 <template>
-  <div v-if="props.showToast" class="toast-container">
+  <div v-if="props.show" class="toast-container">
    
-    <div class="information-box__toast toast" :class="setToastColor(props.toastType)">
-      {{ props.toastText }}
+    <div class="information-box__toast toast" :class="setToastColor(props.type)">
+      {{ props.text }}
 
-      <img class="toat-icon" :src="setToastIcon(props.toastType)" />
+      <img class="toat-icon" :src="setToastIcon(props.type)" />
     </div>
   </div>
 </template>
