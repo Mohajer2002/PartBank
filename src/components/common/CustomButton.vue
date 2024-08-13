@@ -32,7 +32,7 @@ const props = defineProps({
 </template>
 <style lang="scss" scoped>
 .button-container {
-  padding: 1rem 0;
+  // padding: 1rem 0;
   @include global.customFlex(column, center);
    width: 100%;
 }
