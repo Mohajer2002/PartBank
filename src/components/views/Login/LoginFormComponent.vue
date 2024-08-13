@@ -6,6 +6,7 @@ import CustomButton from '@/components/common/CustomButton.vue'
 
 const loginInputs = ref([
   {
+    id: '1',
     name: 'phone-number',
     label: 'شماره همراه',
     placeholder: 'مثلا ۰۹۱۲۳۴۵۶۷۸۹',
@@ -14,6 +15,8 @@ const loginInputs = ref([
     value: null
   },
   {
+    id: '2',
+
     name: 'password',
     label: 'رمز عبور',
     placeholder: 'رمز عبور',
@@ -26,7 +29,7 @@ const loginInputs = ref([
 </script>
 
 <template>
-  <div v-for="(input, index) in loginInputs" :key="index" class="form-group">
+  <div v-for="input in loginInputs" :key="input.id" class="form-group">
     <component
       v-model="input.value"
       :is="CustomInput"
