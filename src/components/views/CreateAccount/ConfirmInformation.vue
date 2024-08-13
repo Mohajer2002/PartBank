@@ -3,7 +3,7 @@
 </script>
 <template>
   <div>
-    ConfirmInformation
+    ConfirmInformation added
   </div>
 </template>
 
