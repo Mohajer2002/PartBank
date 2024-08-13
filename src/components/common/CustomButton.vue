@@ -34,6 +34,7 @@ const props = defineProps({
 .button-container {
   padding: 1rem 0;
   @include global.customFlex(column, center);
+   width: 100%;
 }
 .base-button {
   border: none;
