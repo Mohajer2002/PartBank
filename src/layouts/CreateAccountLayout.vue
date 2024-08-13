@@ -20,7 +20,7 @@ watch(
 </script>
 <template>
   <main class="information-box-container">
-    {{ layoutNextStep }}
+    
     <div class="information-box">
       <h4 class="information-box__header">{{ layoutHeaderTitle }}</h4>
       <hr class="information-box__divider" />
