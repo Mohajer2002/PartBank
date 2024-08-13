@@ -62,7 +62,7 @@ const personalInformationInputs = ref([
   @include global.customFlex(row, space-between, center, 2rem);
   flex-wrap: wrap;
   &__inputs{
-    width: 22rem;
+    width: 26rem;
   }
   
 }

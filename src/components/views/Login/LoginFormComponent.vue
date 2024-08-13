@@ -26,7 +26,7 @@ const loginInputs = ref([
 </script>
 
 <template>
-  <div v-for="(input, index) in loginInputs" :key="index">
+  <div v-for="(input, index) in loginInputs" :key="index"  class="form-group">
     <component
       v-model="input.value"
       :is="CustomInput"
@@ -44,11 +44,15 @@ const loginInputs = ref([
 </template>
 
 <style lang="scss" scoped>
+.form-group {
+
+    width: 22rem;
+  
+}
+
 .submit-login-button {
   width: 22rem;
 }
-.login-form-inputs{
-  
-}
+
 
 </style>

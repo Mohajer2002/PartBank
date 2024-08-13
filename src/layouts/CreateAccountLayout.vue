@@ -1,21 +1,28 @@
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import CustomButton from '@/components/common/CustomButton.vue'
+import { ref, watch } from 'vue'
 
 const router = useRouter()
+const route = useRoute()
 
-const props = defineProps({
-  headerTitle: {
-    type: String,
-    required: false,
-    defualt: 'اطلاعات فردی'
-  }
-})
+const layoutHeaderTitle = ref()
+const layoutNextStep = ref()
+watch(
+  () => route.path,
+  () => {
+    console.log("here")
+    layoutHeaderTitle.value = route.meta.headerTitle
+    layoutNextStep.value = route.meta.nextStep
+  },
+  { immediate: true }
+)
 </script>
 <template>
   <main class="information-box-container">
+    {{ layoutNextStep }}
     <div class="information-box">
-      <h4 class="information-box__header">{{ props.headerTitle }}</h4>
+      <h4 class="information-box__header">{{ layoutHeaderTitle }}</h4>
       <hr class="information-box__divider" />
       <router-view />
 
@@ -26,8 +33,8 @@ const props = defineProps({
         <div class="information-box__button">
           <CustomButton
             type="primary"
-            text="ثبت و ادامه"
-            @click="router.push('/create-account/upload-card')"
+            :text="route.name == 'confirm-information' ? 'افتتاح حساب' : 'ثبت و ادامه'"
+            @click="router.push(layoutNextStep)"
           />
         </div>
       </div>
