@@ -1,17 +1,55 @@
 <script setup>
+import CustomMenu from '@/components/common/CustomMenu.vue'
 import IconConvertCard from '@/components/icons/IconConvertCard.vue'
 import IconLogout from '@/components/icons/IconLogout.vue'
 import IconMore from '@/components/icons/IconMore.vue'
+import { useFetch } from '@/services/api'
+import { deleteDepositAccountConfig } from '@/services/apiConfigs'
+import { ref, shallowRef } from 'vue'
 
-defineProps({
-  bankCardInformation: {
-    type: Object,
+const props = defineProps({
+  cardNumber: {
+    type: String,
     required: true,
-    default: () => {
-      return { cardNumber: '۱۲۳۴۵۶۷۸۱۲۳۴۵۶۷۸', cardBalance: '۲۰۰۰۰۰۰' }
-    }
+    default: '۱۲۳۴۵۶۷۸۱۲۳۴۵۶۷۸'
+  },
+  cardBalance: {
+    type: String,
+    required: true,
+    default: '۴۳۰۹۷۶۳۱۳۳'
+  },
+  userId: {
+    type: String,
+    required: true,
+    default: ''
   }
 })
+const menuItems = shallowRef([
+  {
+    itemId: 1,
+    itemName: 'تغییر حساب متصل',
+    itemAction: 'clickChangeAccount',
+    itemIcon: IconConvertCard,
+    baseStyle: 'tools-menu__item-button',
+    customStyle: 'accound-card__more-option-item'
+  },
+  {
+    itemId: 2,
+    itemName: 'حذف حساب بانکی',
+    itemAction: 'clickDeleteAccount',
+    itemIcon: IconLogout,
+    baseStyle: 'tools-menu__item-button',
+    customStyle: 'accound-card__more-option-item-delete'
+  }
+])
+const menuButton = ref(false)
+
+const handleMenu = () => {
+  menuButton.value = !menuButton.value
+}
+const handleDeleteAccount = () => {
+  useFetch((deleteDepositAccountConfig['params'] = { id: props.userId }))
+}
 </script>
 <template>
   <div class="account-information-preview__account-card account-card">
@@ -19,32 +57,36 @@ defineProps({
       <div class="account-card__card-quantity">
         <span class="account-card__card-quantity-title">موجودی کل</span>
 
-        <span class="account-card__card-balance"> {{ bankCardInformation.cardBalance }} </span>
+        <span class="account-card__card-balance"> {{ cardBalance }} </span>
       </div>
 
-      <div class="account-card__more">
+      <button class="account-card__more" @click="handleMenu">
         <!-- <img src="../../../public/assets/icons/more.svg" /> -->
         <IconMore />
-        <div class="account-card-more-options">
+        <!-- <div class="account-card-more-options">
           <div class="account-card-more-options__items account-card-more-options__items--change">
-            <!-- <img src="../../../public/assets/icons/convert-card.svg" /> -->
             <IconConvertCard />
             تغییر حساب متصل
           </div>
           <div class="account-card-more-options__items account-card-more-options__items--logout">
-            <!-- <img src="../../../public/assets/icons/logout.svg" /> -->
             <IconLogout />
             <span>حذف حساب بانکی</span>
           </div>
-        </div>
-      </div>
+        </div> -->
+        <CustomMenu
+          :menu-items="menuItems"
+          v-if="menuButton"
+          class="account-card__more-options"
+          @clickDeleteAccount="handleDeleteAccount"
+        />
+      </button>
     </div>
 
     <div class="account-card__card-number">
-      <span> {{ bankCardInformation.cardNumber.substring(0, 4) }}</span>
-      <span> {{ bankCardInformation.cardNumber.substring(4, 8) }}</span>
-      <span> {{ bankCardInformation.cardNumber.substring(8, 12) }}</span>
-      <span> {{ bankCardInformation.cardNumber.substring(12, 16) }}</span>
+      <span> {{ cardNumber.substring(0, 4) }}</span>
+      <span> {{ cardNumber.substring(4, 8) }}</span>
+      <span> {{ cardNumber.substring(8, 12) }}</span>
+      <span> {{ cardNumber.substring(12, 16) }}</span>
     </div>
   </div>
 </template>
@@ -86,11 +128,26 @@ $key-frame-name: 'wiggle';
     @include global.fontStyle(2.5rem, 600);
   }
   &__more {
+    width: 2rem;
+    height: 2rem;
     position: relative;
-    &:hover .account-card-more-options {
-      display: block;
-      animation: wiggle 2s linear infinite;
-    }
+  }
+  &__more-options {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    display: flex;
+    direction: rtl;
+    height: 5.5rem;
+    padding: 0.75rem;
+    width: 11rem;
+    opacity: 1;
+  }
+  &__more-option-item {
+    color: var(--text-gray);
+  }
+  &__more-option-item-delete {
+    color: var(--fail-500);
   }
 
   &__card-number {
