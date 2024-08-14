@@ -2,12 +2,16 @@
 import TheHeader from '@/components/common/TheHeader.vue'
 import SideMenu from '@/components/views/dashboard/SideMenu.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
+import { useDataStore } from '@/stores/dataStore'
+
+const dataStore = useDataStore()
 </script>
 <template>
   <dashboard-layout>
     <template v-slot:header>
       <TheHeader />
     </template>
+
     <template v-slot:main>
       <main class="main-dashboard">
         <SideMenu />

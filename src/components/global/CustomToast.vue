@@ -1,5 +1,5 @@
 <script setup>
-import IconFolan from '@/components/icons/IconCheck.vue'
+import { watch } from 'vue'
 
 const props = defineProps({
   config: {
@@ -7,7 +7,7 @@ const props = defineProps({
     required: true
   }
 })
-
+const emit = defineEmits('toasterTimeOut')
 const setToastColor = (type) => {
   switch (type) {
     case 'success':
@@ -22,19 +22,24 @@ const setToastColor = (type) => {
   }
 }
 
-// const test = (type) => {
-//   switch (type) {
-//     case 'success':
-//       return <IconFolan/>
-    
 
-//     default:
-//       break
-//   }
-// }
+watch(
+  () => props.config.show,
+  (value) => {
+    if (value) {
+      setTimeout(() => {
+        emit('toasterTimeOut', false)
+      }, 3000)
+    }
+  },
+
+)
 </script>
 <template>
-  <div v-if="props.config.show"  :class="[`toast-container toast-container__${props.config.position}`]">
+  <div
+    v-if="props.config.show"
+    :class="[`toast-container toast-container__${props.config.position}`]"
+  >
     <div class="toast" :class="setToastColor(props.config.type)">
       <slot name="append-icon"></slot>
 

@@ -1,12 +1,16 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import { useDataStore } from '@/stores/dataStore'
+import { loginConfig } from '@/services/apiConfigs'
+import { useFetch } from '@/services/api'
+import {useRouter} from "vue-router"
 
 const dataStore = useDataStore()
+const router=useRouter()
 
 const loginInputs = ref([
   {
@@ -29,20 +33,50 @@ const loginInputs = ref([
   }
 ])
 
-const toastOptions = ref({
-  type: 'success',
-  text: 'عملیات با موفقیت انجام شد',
-  position: 'top-right',
-  show: false
+
+const toastOptions = ref({})
+
+
+const form = computed(() => {
+  return {
+    phoneNumber: loginInputs.value[0].value,
+    password: loginInputs.value[1].value
+  }
 })
 
-const submitLogin = () => {
+const submitLogin = async () => {
+  loginConfig['data'] = JSON.stringify(form.value)
 
+  const { errorMessage } = await useFetch(loginConfig)
+
+
+  if (errorMessage.value) {
+ 
+
+    toastOptions.value = {
+      type: 'error',
+      text: errorMessage,
+      position: 'top-right',
+      show: true
+    }
+  }
+  else
+  {
+    router.push("/dashboard")
+    dataStore.setPhoneNumber(form.value.phoneNumber);
+    
+  }
+
+
+}
+
+const closeToast = (value) => {
+  toastOptions.value.show = value
 }
 </script>
 
 <template>
-  <CustomToast :config="toastOptions">
+  <CustomToast :config="toastOptions" @toasterTimeOut="closeToast">
     <template v-slot:append-icon>
       <IconCheck />
     </template>

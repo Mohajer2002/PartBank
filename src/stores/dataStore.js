@@ -3,7 +3,8 @@ import { defineStore } from 'pinia'
 export const useDataStore = defineStore('dataStore', {
   state: () => {
     return {
-      userInfo:{}
+      userInfo:{},
+      phoneNumber:null,
 
     }
   },
@@ -12,6 +13,9 @@ export const useDataStore = defineStore('dataStore', {
     setUserInfo(userInfoObject) {
       this.userInfo = userInfoObject
       
+    },
+    setPhoneNumber(phoneNumber){
+      this.phoneNumber = phoneNumber
     }
   }
 })
