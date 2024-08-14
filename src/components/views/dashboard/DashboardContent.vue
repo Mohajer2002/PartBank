@@ -1,10 +1,18 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, toRaw } from 'vue'
 import DashboardNoContent from './DashboardNoContent.vue'
 import BankCard from './BankCard.vue'
 import AccountInformationCard from './AccountInformationCard.vue'
+import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
+import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
+import { useDataStore } from '@/stores/dataStore'
+import toShamsi from '@/helper/toShamsi'
+import toFormatBalance from '@/helper/toFormatBalance'
 
-const createAccountWarring = ref(false)
+const dataStore = useDataStore()
+const createAccountWarring = ref(Object.keys(dataStore.userInfo).length > 0 ? false : true)
+
+const { cardNumber, balance, score, upcomingInstalment, id: userId } = toRaw(dataStore.userInfo)
 </script>
 <template>
   <section class="main-dashboard__dashboard-content dashboard-content">
@@ -13,7 +21,11 @@ const createAccountWarring = ref(false)
     <div class="dashboard-content__content">
       <div class="dashboard-content__account-information-preview account-information-preview">
         <!-- account information preview -->
-        <BankCard />
+        <BankCard
+          :card-number="cardNumber"
+          :cardBalance="toFormatBalance(balance)"
+          :user-id="userId"
+        />
         <AccountInformationCard header-title="امتیاز حساب" button-title="محاسبه امتیاز">
           <template v-slot:prepend-icon>
             <div class="score-card__icon">
@@ -23,11 +35,11 @@ const createAccountWarring = ref(false)
           <template v-slot:content>
             <div class="score-card__content">
               <span class="score-card__amount">
-                <span class="score-card__amount-number">۰</span>
+                <span class="score-card__amount-number">{{ toFormatBalance(score.amount) }}</span>
                 <small class="score-card__content-unit">ریال</small>
               </span>
               <span class="score-card__month">
-                <span class="score-card__month-number">۰</span>
+                <span class="score-card__month-number">{{ score.paymentPeriod }}</span>
                 <small class="score-card__content-unit">ماهه</small>
               </span>
             </div>
@@ -45,14 +57,18 @@ const createAccountWarring = ref(false)
             <div class="installment-card__content">
               <div class="installment-card__item">
                 <span class="installment-card__item-title">مبلغ قسط:</span>
-                <span class="installment-card__item-value"
-                  ><span class="installment-card__item-value-amount">۰</span>
+                <span class="installment-card__item-value">
+                  <p class="installment-card__item-value-amount">
+                    {{ toFormatBalance(upcomingInstalment.amount) }}
+                  </p>
                   <span class="installment-card__item-value-unit">ریال</span>
                 </span>
               </div>
               <div class="installment-card__item">
                 <span class="installment-card__item-title">تاریخ سررسید:</span>
-                <span class="installment-card__item-value" id="installment-card-dueDate">-</span>
+                <span class="installment-card__item-value" id="installment-card-dueDate">{{
+                  toShamsi(upcomingInstalment.dueDate)
+                }}</span>
               </div>
             </div>
           </template>
@@ -113,6 +129,9 @@ const createAccountWarring = ref(false)
     @include global.fontStyle(2.5rem, 700);
     @include global.customFlex(row, $alignItem: center, $gap: 0.25rem);
   }
+  &__amount-number {
+    direction: ltr;
+  }
 }
 .installment-card {
   &__content {
@@ -132,6 +151,11 @@ const createAccountWarring = ref(false)
     color: var(--black-500);
     @include global.fontStyle(0.875rem, 600);
   }
+  &__item-value-amount {
+    display: inline;
+    direction: ltr;
+  }
+
   &__button {
     @include global.customFlex(row, center, center, 0.5rem);
   }
