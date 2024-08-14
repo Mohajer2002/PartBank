@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
@@ -14,6 +14,8 @@ import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
 const dataStore = useDataStore()
 const router = useRouter()
 
+const disabledSubmitButton = ref(true)
+
 const loginInputs = ref([
   {
     id: '1',
@@ -23,7 +25,7 @@ const loginInputs = ref([
     class: 'md-width',
     componentType: 'input',
     type: 'text',
-    value: null
+    value: ''
   },
   {
     id: '2',
@@ -34,7 +36,7 @@ const loginInputs = ref([
     componentType: 'input',
     type: 'password',
 
-    value: null
+    value: ''
   }
 ])
 
@@ -68,6 +70,19 @@ const submitLogin = async () => {
 const closeToast = (value) => {
   toastOptions.value.show = value
 }
+
+watch(
+  () => form.value,
+  (value) => {
+    console.log('chenge it', value)
+    if (value.phoneNumber && value.password !== '') {
+      disabledSubmitButton.value = false
+    } else {
+      disabledSubmitButton.value = true
+    }
+  },
+  { deep: true }
+)
 </script>
 
 <template>
@@ -76,6 +91,7 @@ const closeToast = (value) => {
       <IconInfoCircle svgColor="#fff" />
     </template>
   </CustomToast>
+  {{ form }}
 
   <div v-for="input in loginInputs" :key="input.id" class="form-group">
     <component
@@ -95,7 +111,13 @@ const closeToast = (value) => {
     </component>
   </div>
   <div class="submit-login-button">
-    <CustomButton type="primary" text="ورود" size="lg-button" @click="submitLogin" />
+    <CustomButton
+      type="primary"
+      text="ورود"
+      size="lg-button"
+      @click="submitLogin"
+      :disabledButton="disabledSubmitButton"
+    />
   </div>
 </template>
 

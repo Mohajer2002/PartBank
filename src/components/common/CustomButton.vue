@@ -17,12 +17,17 @@ const props = defineProps({
     type: String,
     required: false,
     default: 'sm-button'
+  },
+  disabledButton:{
+    type:Boolean,
+    required:false,
+    default:false
   }
 })
 </script>
 <template>
   <div class="button-container">
-    <button class="base-button" type="button" :class="[props.type, props.size]">
+    <button class="base-button" type="button" :class="[props.type, props.size]" :disabled="props.disabledButton">
       <!-- <Icon Slot/> -->
       <span>
         {{ props.text }}
@@ -46,6 +51,14 @@ const props = defineProps({
   font-size: 1rem;
   font-weight: 700;
   line-height: 2rem;
+
+
+  &:disabled{
+background-color:var(--primary-50) ;
+cursor: not-allowed;
+  
+
+  }
 }
 .primary {
   color:var(--white);
