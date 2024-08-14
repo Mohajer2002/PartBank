@@ -55,8 +55,6 @@ const saveData = (name, value) => {
 }
 </script>
 <template>
-  {{ dataStore.userInfo }}
-  <!-- {{localStorage.getItem("userInfo")}} -->
   <div class="form-group">
     <div
       class="form-group__inputs"
