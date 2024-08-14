@@ -1,10 +1,10 @@
 <script setup>
 import UploadImage from './UploadImage.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const route = useRoute()
+
 </script>
 <template>
   <section>

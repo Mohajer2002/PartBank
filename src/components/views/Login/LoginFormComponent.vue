@@ -1,9 +1,8 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
-import IconCheck from '@/components/icons/IconCheck.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
 
 import { useDataStore } from '@/stores/dataStore'
