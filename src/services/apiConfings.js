@@ -10,3 +10,8 @@ export const loginConfig = {
   //     password: passwordInputValue
   //   })
 }
+
+export const dashboardConfig = {
+  method: 'get',
+  url: 'deposit-account'
+}
