@@ -8,10 +8,10 @@ import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
 import { useDataStore } from '@/stores/dataStore'
 import { loginConfig } from '@/services/apiConfigs'
 import { useFetch } from '@/services/api'
-import {useRouter} from "vue-router"
+import { useRouter } from 'vue-router'
 
 const dataStore = useDataStore()
-const router=useRouter()
+const router = useRouter()
 
 const loginInputs = ref([
   {
@@ -20,7 +20,8 @@ const loginInputs = ref([
     label: 'شماره همراه',
     placeholder: 'مثلا ۰۹۱۲۳۴۵۶۷۸۹',
     class: 'md-width',
-    type: 'input',
+    componentType: 'input',
+    type: 'text',
     value: null
   },
   {
@@ -29,14 +30,14 @@ const loginInputs = ref([
     label: 'رمز عبور',
     placeholder: 'رمز عبور',
     class: 'md-width',
-    type: 'input',
+    componentType: 'input',
+    type: 'password',
+
     value: null
   }
 ])
 
-
 const toastOptions = ref({})
-
 
 const form = computed(() => {
   return {
@@ -50,25 +51,17 @@ const submitLogin = async () => {
 
   const { errorMessage } = await useFetch(loginConfig)
 
-
   if (errorMessage.value) {
- 
-
     toastOptions.value = {
       type: 'error',
       text: errorMessage,
       position: 'top-right',
       show: true
     }
+  } else {
+    router.push('/dashboard')
+    dataStore.setPhoneNumber(form.value.phoneNumber)
   }
-  else
-  {
-    router.push("/dashboard")
-    dataStore.setPhoneNumber(form.value.phoneNumber);
-    
-  }
-
-
 }
 
 const closeToast = (value) => {
@@ -92,6 +85,7 @@ const closeToast = (value) => {
       :placeholder="input.placeholder"
       :class="input.class"
       :type="input.type"
+      :component-type="input.componentType"
     ></component>
   </div>
   <div class="submit-login-button">
@@ -103,6 +97,7 @@ const closeToast = (value) => {
 .form-group {
   width: 20rem;
   padding-bottom: 1rem;
+  position: relative;
 }
 
 .submit-login-button {
