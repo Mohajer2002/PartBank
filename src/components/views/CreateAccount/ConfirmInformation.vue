@@ -46,10 +46,10 @@ const closeToast = (value) => {
 
     <CustomToast :config="toastOptions" @toasterTimeOut="closeToast">
     <template v-slot:append-icon-success v-if="toastOptions.type == 'success'">
-      <IconCheck />
+      <IconCheck svgColor="#fff"/>
     </template>
     <template v-slot:append-icon-error v-if="toastOptions.type == 'error'">
-      <IconInfoCircle svgColor="#ffffff" />
+      <IconInfoCircle svgColor="#fff" />
     </template>
   </CustomToast>
 
