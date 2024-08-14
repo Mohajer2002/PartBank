@@ -37,9 +37,9 @@ $transition-duration: 0.3s;
 $transition-timing-function: ease-out;
 
 .tools-menu {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  // position: absolute;
+  // bottom: 0;
+  // left: 0;
   @include global.customFlex(column, flex-start, stretch, 0.75rem);
   padding: 0;
   height: 0;
@@ -60,15 +60,11 @@ $transition-timing-function: ease-out;
       padding $transition-duration $transition-timing-function;
   }
 
-  &__item {
-    // text-wrap: nowrap;
-    @include global.customFlex($alignItem: center, $gap: 0.5rem);
-  }
   &__item-button {
     width: 100%;
     text-wrap: nowrap;
     color: var(--text-title);
-    @include global.customFlex($alignItem: center);
+    @include global.customFlex($alignItem: center, $gap: 0.5rem);
 
     &--warring {
       color: var(--fail-500);
