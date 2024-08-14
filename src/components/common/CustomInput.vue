@@ -104,7 +104,8 @@ const modelValue = defineModel()
   &__icon {
     position: absolute;
     left: 0.5rem;
-    bottom: 1.8rem;
+    bottom: 1.3rem;
+    cursor: pointer;
   }
 
   &__labels {

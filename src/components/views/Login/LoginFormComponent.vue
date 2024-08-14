@@ -4,11 +4,12 @@ import { ref, computed } from 'vue'
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
-
 import { useDataStore } from '@/stores/dataStore'
 import { loginConfig } from '@/services/apiConfigs'
 import { useFetch } from '@/services/api'
 import { useRouter } from 'vue-router'
+import IconEye from '@/components/icons/IconEye.vue'
+import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
 
 const dataStore = useDataStore()
 const router = useRouter()
@@ -87,9 +88,10 @@ const closeToast = (value) => {
       :type="input.type"
       :component-type="input.componentType"
     >
-    <template v-slot:prepend-icon v-if="input.name==='password'">
-      icon
-    </template>
+      <template v-slot:prepend-icon v-if="input.name === 'password'">
+        <IconEyeClosed v-if="input.type == 'password'" type="button" @click="input.type = 'text'" />
+        <IconEye v-if="input.type == 'text'" type="button" @click="input.type = 'password'" />
+      </template>
     </component>
   </div>
   <div class="submit-login-button">
