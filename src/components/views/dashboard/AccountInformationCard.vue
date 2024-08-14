@@ -20,16 +20,15 @@ const props = defineProps({
       <div class="account-information__header">
         <h5 class="account-information__header-title">{{ props.headerTitle }}</h5>
         <div class="account-information__header-icon">
-        <slot name="prepend-icon"></slot>
-
+          <slot name="prepend-icon"></slot>
         </div>
         <!-- <img
           class="account-information__header-icon"
           src="../../../public/assets/icons/info-circle.svg"
         /> -->
       </div>
-      
-      <slot name="content"> </slot>
+
+      <slot name="content"></slot>
       <div class="card-action">
         <CustomButton type="secondary" :text="props.buttonTitle" />
       </div>
@@ -42,7 +41,7 @@ const props = defineProps({
 }
 
 .account-information {
-  width: 60%;
+  width: 30%;
   display: flex;
   gap: 1rem;
   &__header {
@@ -53,14 +52,13 @@ const props = defineProps({
     color: var(--black-500);
   }
 
-
   &__card {
-    background-color: var(--white);
-    width: 50%;
+    width: 100%;
     height: 100%;
+    @include global.customFlex(column, space-between);
     padding: 1.5rem;
     border-radius: 0.75rem;
-    @include global.customFlex(column, space-between);
+    background-color: var(--white);
   }
 }
 

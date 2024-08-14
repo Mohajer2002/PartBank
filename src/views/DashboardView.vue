@@ -1,5 +1,6 @@
 <script setup>
 import TheHeader from '@/components/common/TheHeader.vue'
+import DashboardContent from '@/components/views/dashboard/DashboardContent.vue'
 import SideMenu from '@/components/views/dashboard/SideMenu.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 import { useDataStore } from '@/stores/dataStore'
@@ -16,6 +17,7 @@ const dataStore = useDataStore()
       <main class="main-dashboard">
         <SideMenu />
         <!-- dashboard-content -->
+        <DashboardContent />
       </main>
     </template>
   </dashboard-layout>
