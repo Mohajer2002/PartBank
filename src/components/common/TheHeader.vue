@@ -1,5 +1,7 @@
 <script setup>
+import { useDataStore } from '@/stores/dataStore'
 import TheHeaderOptions from './TheHeaderOptions.vue'
+const dataStore = useDataStore()
 </script>
 <template>
   <header class="header">
@@ -7,7 +9,7 @@ import TheHeaderOptions from './TheHeaderOptions.vue'
       <img src="/src/assets//images/favicon.svg" alt="Logo" class="header__logo-img" />
       <h6 class="header__logo-title">پارت بانک</h6>
     </div>
-    <TheHeaderOptions />
+    <TheHeaderOptions :phone-number="dataStore.phoneNumber" />
   </header>
 </template>
 
