@@ -1,26 +1,91 @@
 <script setup>
+import { ref } from 'vue'
+import { useDataStore } from '@/stores/dataStore'
+import CustomButton from '@/components/common/CustomButton.vue'
+import { createAccountConfig } from '@/services/apiConfigs'
+import { useFetch } from '@/services/api'
 
+import IconCheck from '@/components/icons/IconCheck.vue'
+import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
+
+import { useRouter, useRoute } from 'vue-router'
+
+
+const router = useRouter()
+const dataStore = useDataStore()
+const informationForm = ref(dataStore.userInfo)
+
+
+const toastOptions = ref({})
+
+const registerAccount = async () => {
+  createAccountConfig['data'] = JSON.stringify(dataStore.userInfo)
+  const { responseData } = await useFetch(createAccountConfig)
+  const status = responseData.value.data
+  if (status.result == 'success') {
+    toastOptions.value = {
+      type: 'success',
+      text: 'عملیات با موفقیت انجام شد',
+      position: 'top-center',
+      show: true
+    }
+  } else {
+    toastOptions.value = {
+      type: 'error',
+      text: 'عملیات با شکست مواجه شد',
+      position: 'top-center',
+      show: true
+    }
+  }
+}
+const closeToast = (value) => {
+  toastOptions.value.show = value
+}
 </script>
 <template>
+
+    <CustomToast :config="toastOptions" @toasterTimeOut="closeToast">
+    <template v-slot:append-icon-success v-if="toastOptions.type == 'success'">
+      <IconCheck svgColor="#fff"/>
+    </template>
+    <template v-slot:append-icon-error v-if="toastOptions.type == 'error'">
+      <IconInfoCircle svgColor="#fff" />
+    </template>
+  </CustomToast>
+
   <section class="confirm-information">
     <div class="information-form">
       <div class="information-form__form-content">
         <span class="information-form__title"> نام: </span>
-        <span class="information-form__value" id="firstname">بهنام</span>
+        <span class="information-form__value" id="firstname">{{ informationForm.firstName }}</span>
       </div>
       <div class="information-form__form-content">
         <span class="information-form__title"> نام خانوادگی: </span>
-        <span class="information-form__value" id="lastname"> وهانی </span>
+        <span class="information-form__value" id="lastname"> {{ informationForm.lastName }} </span>
       </div>
       <div class="information-form__form-content">
         <span class="information-form__title"> کدپستی: </span>
-        <span class="information-form__value" id="code"> ۹۱۷۵۶۸۷۴۲۳ </span>
+        <span class="information-form__value" id="code"> {{ informationForm.postalCode }} </span>
       </div>
       <div class="information-form__form-content information-form__form-content--address">
         <span class="information-form__title"> محل سکونت: </span>
         <span class="information-form__value" id="address">
-          بولوار ملک آباد ، خیام جنوبی ۱۳ ، گلایل ۱۰ ، پلاک۱۲۳ ، واحد۱
+          {{ informationForm.address }}
         </span>
+      </div>
+    </div>
+
+
+        <div class="button-group">
+      <div class="button-group__button">
+        <CustomButton type="secondary" text="قبلی" @click="router.push('upload-card')" />
+      </div>
+      <div class="button-group__button">
+        <CustomButton
+          type="primary"
+          text="افتتاح حساب"
+          @click="registerAccount()"
+        />
       </div>
     </div>
   </section>
@@ -70,6 +135,16 @@
     color: var(--black-500);
     padding-right: 0.5rem;
     font-weight: 600;
+  }
+}
+
+.button-group {
+  @include global.customFlex(row, flex-end, center, 1rem);
+  width: 100%;
+  padding-top: 2.5rem;
+
+  &__button {
+    width: 11rem;
   }
 }
 </style>

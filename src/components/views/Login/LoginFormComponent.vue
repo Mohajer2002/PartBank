@@ -4,6 +4,8 @@ import { ref, computed, watch } from 'vue'
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import IconCheck from '@/components/icons/IconCheck.vue'
+import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
+
 import { useDataStore } from '@/stores/dataStore'
 import { loginConfig } from '@/services/apiConfigs'
 import { useFetch } from '@/services/api'
@@ -77,8 +79,8 @@ const closeToast = (value) => {
 
 <template>
   <CustomToast :config="toastOptions" @toasterTimeOut="closeToast">
-    <template v-slot:append-icon>
-      <IconCheck />
+    <template v-slot:append-icon-error>
+      <IconInfoCircle svgColor="#fff" />
     </template>
   </CustomToast>
 

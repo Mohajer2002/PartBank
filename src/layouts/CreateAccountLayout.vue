@@ -1,45 +1,24 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
-import CustomButton from '@/components/common/CustomButton.vue'
 import { ref, watch } from 'vue'
 
-const router = useRouter()
 const route = useRoute()
 
 const layoutHeaderTitle = ref()
-const layoutNextStep = ref()
-const layoutPreviousStep = ref()
 watch(
   () => route.path,
   () => {
-    console.log("here")
     layoutHeaderTitle.value = route.meta.headerTitle
-    layoutNextStep.value = route.meta.nextStep
-    layoutPreviousStep.value=route.meta.previousStep
   },
   { immediate: true }
 )
 </script>
 <template>
   <main class="information-box-container">
-    
     <div class="information-box">
       <h4 class="information-box__header">{{ layoutHeaderTitle }}</h4>
       <hr class="information-box__divider" />
       <router-view />
-
-      <div class="information-box__button-group">
-        <div class="information-box__button">
-          <CustomButton type="secondary" text="قبلی"  @click="router.push(layoutPreviousStep)"/>
-        </div>
-        <div class="information-box__button">
-          <CustomButton
-            type="primary"
-            :text="route.name == 'confirm-information' ? 'افتتاح حساب' : 'ثبت و ادامه'"
-            @click="router.push(layoutNextStep)"
-          />
-        </div>
-      </div>
     </div>
   </main>
 </template>

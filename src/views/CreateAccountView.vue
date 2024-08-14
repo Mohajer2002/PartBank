@@ -3,7 +3,7 @@ import CreateAccountLayot from '@/layouts/CreateAccountLayout.vue'
 </script>
 <template>
   <div class="create-account-body">
-    <CreateAccountLayot header-title="اطلاعات فردی">
+    <CreateAccountLayot>
       <!-- CreateAccountView
       <router-view /> -->
     </CreateAccountLayot>
