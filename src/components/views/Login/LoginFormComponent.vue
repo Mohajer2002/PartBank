@@ -10,6 +10,8 @@ import { useFetch } from '@/services/api'
 import { useRouter } from 'vue-router'
 import IconEye from '@/components/icons/IconEye.vue'
 import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
+import { checkObjectIsEmpty } from '@/composables/validation'
+
 
 const dataStore = useDataStore()
 const router = useRouter()
@@ -71,14 +73,14 @@ const closeToast = (value) => {
   toastOptions.value.show = value
 }
 
+
 watch(
   () => form.value,
   (value) => {
-    console.log('chenge it', value)
-    if (value.phoneNumber && value.password !== '') {
+    if (checkObjectIsEmpty(form.value)) {
       disabledSubmitButton.value = false
     } else {
-      disabledSubmitButton.value = true
+     disabledSubmitButton.value = true
     }
   },
   { deep: true }
