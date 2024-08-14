@@ -1,13 +1,16 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/dataStore'
+
+import { checkObjectIsEmpty } from '@/composables/validation'
 
 const router = useRouter()
 const dataStore = useDataStore()
+const disabledNextSteptButton = ref(true)
 
 const personalInformationInputs = ref([
   {
@@ -16,7 +19,7 @@ const personalInformationInputs = ref([
     placeholder: 'نام فارسی',
     class: 'md-width',
     componentType: 'input',
-    type:"text",
+    type: 'text',
     value: null
   },
   {
@@ -25,7 +28,7 @@ const personalInformationInputs = ref([
     placeholder: 'نام خانوادگی به صورت کامل',
     class: 'md-width',
     componentType: 'input',
-    type:"text",
+    type: 'text',
     value: null
   },
 
@@ -35,7 +38,7 @@ const personalInformationInputs = ref([
     placeholder: 'کدپستی',
     class: 'md-width',
     componentType: 'input',
-    type:"text",
+    type: 'text',
     value: null
   },
 
@@ -45,7 +48,7 @@ const personalInformationInputs = ref([
     placeholder: 'محل سکونت',
     class: 'md-width',
     componentType: 'textarea',
-    type:"text",
+    type: 'text',
     value: null
   }
 ])
@@ -56,6 +59,18 @@ const saveData = (name, value) => {
     [name]: value
   })
 }
+
+watch(
+  () => dataStore.userInfo,
+  (value) => {
+    if (checkObjectIsEmpty(dataStore.userInfo)) {
+      disabledNextSteptButton.value = false
+    } else {
+      disabledNextSteptButton.value = true
+    }
+  },
+  { deep: true }
+)
 </script>
 <template>
   <div class="form-group">
@@ -79,10 +94,15 @@ const saveData = (name, value) => {
   </div>
   <div class="button-group">
     <div class="button-group__button">
-      <CustomButton type="secondary" text="قبلی" disabled />
+      <CustomButton type="secondary" text="قبلی" :disabledButton="true" />
     </div>
     <div class="button-group__button">
-      <CustomButton type="primary" text="ثبت و ادامه" @click="router.push('upload-card')" />
+      <CustomButton
+        type="primary"
+        text="ثبت و ادامه"
+        @click="router.push('upload-card')"
+        :disabledButton="disabledNextSteptButton"
+      />
     </div>
   </div>
 </template>
