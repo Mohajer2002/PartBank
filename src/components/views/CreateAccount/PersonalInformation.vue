@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
+import { useDataStore } from '@/stores/dataStore'
+const dataStore = useDataStore()
 
 const personalInformationInputs = ref([
   {
@@ -30,7 +32,7 @@ const personalInformationInputs = ref([
     type: 'input',
     value: null
   },
-  
+
   {
     name: 'address',
     label: 'محل سکونت',
@@ -38,12 +40,24 @@ const personalInformationInputs = ref([
     class: 'md-width',
     type: 'textarea',
     value: null
-  },
+  }
 ])
+
+const saveData = (name, value) => {
+  dataStore.setUserInfo({
+    ...dataStore.userInfo,
+    [name]: value
+  })
+}
 </script>
 <template>
+  {{ dataStore.userInfo }}
   <div class="form-group">
-    <div class="form-group__inputs" v-for="(input, index) in personalInformationInputs" :key="index">
+    <div
+      class="form-group__inputs"
+      v-for="(input, index) in personalInformationInputs"
+      :key="index"
+    >
       <component
         v-model="input.value"
         :is="CustomInput"
@@ -52,6 +66,7 @@ const personalInformationInputs = ref([
         :placeholder="input.placeholder"
         :class="input.class"
         :type="input.type"
+        @change="saveData(input.name, input.value)"
       ></component>
     </div>
   </div>
@@ -61,10 +76,8 @@ const personalInformationInputs = ref([
 .form-group {
   @include global.customFlex(row, space-between, center, 2rem);
   flex-wrap: wrap;
-  &__inputs{
+  &__inputs {
     width: 26rem;
   }
-  
 }
-
 </style>

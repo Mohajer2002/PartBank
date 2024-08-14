@@ -1,25 +1,30 @@
 <script setup>
-
+import { ref } from 'vue'
+import { useDataStore } from '@/stores/dataStore'
+const dataStore = useDataStore()
+const informationForm = ref(dataStore.userInfo)
 </script>
 <template>
+  {{ dataStore.userInfo }}
+
   <section class="confirm-information">
     <div class="information-form">
       <div class="information-form__form-content">
         <span class="information-form__title"> نام: </span>
-        <span class="information-form__value" id="firstname">بهنام</span>
+        <span class="information-form__value" id="firstname">{{ informationForm.firstname }}</span>
       </div>
       <div class="information-form__form-content">
         <span class="information-form__title"> نام خانوادگی: </span>
-        <span class="information-form__value" id="lastname"> وهانی </span>
+        <span class="information-form__value" id="lastname"> {{ informationForm.lastname }} </span>
       </div>
       <div class="information-form__form-content">
         <span class="information-form__title"> کدپستی: </span>
-        <span class="information-form__value" id="code"> ۹۱۷۵۶۸۷۴۲۳ </span>
+        <span class="information-form__value" id="code"> {{ informationForm.code }} </span>
       </div>
       <div class="information-form__form-content information-form__form-content--address">
         <span class="information-form__title"> محل سکونت: </span>
         <span class="information-form__value" id="address">
-          بولوار ملک آباد ، خیام جنوبی ۱۳ ، گلایل ۱۰ ، پلاک۱۲۳ ، واحد۱
+          {{ informationForm.address }}
         </span>
       </div>
     </div>
