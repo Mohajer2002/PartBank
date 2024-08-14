@@ -1,15 +1,12 @@
 <script setup>
+import { useDataStore } from '@/stores/dataStore'
 import NavbarView from './NavbarView.vue'
-defineProps({
-  fullName: {
-    type: String,
-    default: 'نام و نام خانوادگی'
-  },
-  idNumber: {
-    type: String,
-    default: '******'
-  }
-})
+import { toRaw } from 'vue'
+
+const dataStore = useDataStore()
+
+const { firstName, lastName, postalCode } = toRaw(dataStore.userInfo)
+const fullName = firstName + ' ' + lastName
 </script>
 <template>
   <section class="main-dashboard__side-menu side-menu">
@@ -18,7 +15,7 @@ defineProps({
       <h3 class="side-menu__user-name">{{ fullName }}</h3>
       <div class="side-menu__national-code">
         <span class="side-menu__national-code-label"> کدملی </span>
-        <span class="side-menu__national-code-value"> {{ idNumber }} </span>
+        <span class="side-menu__national-code-value"> {{ postalCode }} </span>
       </div>
     </div>
     <hr class="side-menu__hr" />
