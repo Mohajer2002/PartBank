@@ -86,7 +86,11 @@ const closeToast = (value) => {
       :class="input.class"
       :type="input.type"
       :component-type="input.componentType"
-    ></component>
+    >
+    <template v-slot:prepend-icon v-if="input.name==='password'">
+      icon
+    </template>
+    </component>
   </div>
   <div class="submit-login-button">
     <CustomButton type="primary" text="ورود" size="lg-button" @click="submitLogin" />

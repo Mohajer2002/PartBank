@@ -45,7 +45,10 @@ const modelValue = defineModel()
       />
 
   
-      <div class="custom-input-component__icon">icon</div>
+      <div class="custom-input-component__icon">
+      <slot name="prepend-icon"></slot>
+
+      </div>
     </div>
     <div
       class="custom-input-component__content custom-input-component__content--address"
