@@ -15,7 +15,8 @@ const personalInformationInputs = ref([
     label: 'نام',
     placeholder: 'نام فارسی',
     class: 'md-width',
-    type: 'input',
+    componentType: 'input',
+    type:"text",
     value: null
   },
   {
@@ -23,8 +24,8 @@ const personalInformationInputs = ref([
     label: 'نام خانوادگی',
     placeholder: 'نام خانوادگی به صورت کامل',
     class: 'md-width',
-    type: 'input',
-
+    componentType: 'input',
+    type:"text",
     value: null
   },
 
@@ -33,7 +34,8 @@ const personalInformationInputs = ref([
     label: 'کدپستی',
     placeholder: 'کدپستی',
     class: 'md-width',
-    type: 'input',
+    componentType: 'input',
+    type:"text",
     value: null
   },
 
@@ -42,7 +44,8 @@ const personalInformationInputs = ref([
     label: 'محل سکونت',
     placeholder: 'محل سکونت',
     class: 'md-width',
-    type: 'textarea',
+    componentType: 'textarea',
+    type:"text",
     value: null
   }
 ])
@@ -68,6 +71,7 @@ const saveData = (name, value) => {
         :label="input.label"
         :placeholder="input.placeholder"
         :class="input.class"
+        :component-type="input.componentType"
         :type="input.type"
         @change="saveData(input.name, input.value)"
       ></component>

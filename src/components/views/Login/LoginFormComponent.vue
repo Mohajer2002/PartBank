@@ -1,18 +1,18 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
-import IconCheck from '@/components/icons/IconCheck.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
-
 import { useDataStore } from '@/stores/dataStore'
 import { loginConfig } from '@/services/apiConfigs'
 import { useFetch } from '@/services/api'
-import {useRouter} from "vue-router"
+import { useRouter } from 'vue-router'
+import IconEye from '@/components/icons/IconEye.vue'
+import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
 
 const dataStore = useDataStore()
-const router=useRouter()
+const router = useRouter()
 
 const loginInputs = ref([
   {
@@ -21,7 +21,8 @@ const loginInputs = ref([
     label: 'شماره همراه',
     placeholder: 'مثلا ۰۹۱۲۳۴۵۶۷۸۹',
     class: 'md-width',
-    type: 'input',
+    componentType: 'input',
+    type: 'text',
     value: null
   },
   {
@@ -30,14 +31,14 @@ const loginInputs = ref([
     label: 'رمز عبور',
     placeholder: 'رمز عبور',
     class: 'md-width',
-    type: 'input',
+    componentType: 'input',
+    type: 'password',
+
     value: null
   }
 ])
 
-
 const toastOptions = ref({})
-
 
 const form = computed(() => {
   return {
@@ -51,25 +52,17 @@ const submitLogin = async () => {
 
   const { errorMessage } = await useFetch(loginConfig)
 
-
   if (errorMessage.value) {
- 
-
     toastOptions.value = {
       type: 'error',
       text: errorMessage,
       position: 'top-right',
       show: true
     }
+  } else {
+    router.push('/dashboard')
+    dataStore.setPhoneNumber(form.value.phoneNumber)
   }
-  else
-  {
-    router.push("/dashboard")
-    dataStore.setPhoneNumber(form.value.phoneNumber);
-    
-  }
-
-
 }
 
 const closeToast = (value) => {
@@ -93,7 +86,13 @@ const closeToast = (value) => {
       :placeholder="input.placeholder"
       :class="input.class"
       :type="input.type"
-    ></component>
+      :component-type="input.componentType"
+    >
+      <template v-slot:prepend-icon v-if="input.name === 'password'">
+        <IconEyeClosed v-if="input.type == 'password'" type="button" @click="input.type = 'text'" />
+        <IconEye v-if="input.type == 'text'" type="button" @click="input.type = 'password'" />
+      </template>
+    </component>
   </div>
   <div class="submit-login-button">
     <CustomButton type="primary" text="ورود" size="lg-button" @click="submitLogin" />
@@ -104,6 +103,7 @@ const closeToast = (value) => {
 .form-group {
   width: 20rem;
   padding-bottom: 1rem;
+  position: relative;
 }
 
 .submit-login-button {

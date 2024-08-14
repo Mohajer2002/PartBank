@@ -8,7 +8,7 @@ import { useFetch } from '@/services/api'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
 
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 
 const router = useRouter()

@@ -20,6 +20,11 @@ const props = defineProps({
     type: String,
     required: false,
     defualt: 'input'
+  },
+  componentType: {
+    type: String,
+    required: false,
+    defualt: 'text'
   }
 })
 
@@ -29,16 +34,26 @@ const modelValue = defineModel()
   <div class="custom-input-component">
     <label class="custom-input-component__labels">{{ props.label }}</label>
 
-    <div class="custom-input-component__content" v-if="props.type == 'input'">
+    <div class="custom-input-component__content" v-if="props.componentType == 'input'">
       <input
+        :type="props.type"
         class="custom-input-component__inputs custom-input-component__inputs--focus"
         :id="props.name"
         :placeholder="props.placeholder"
         :class="[props.class]"
         v-model="modelValue"
       />
+
+  
+      <div class="custom-input-component__icon">
+      <slot name="prepend-icon"></slot>
+
+      </div>
     </div>
-    <div class="custom-input-component__content custom-input-component__content--address" v-else-if="props.type == 'textarea'">
+    <div
+      class="custom-input-component__content custom-input-component__content--address"
+      v-else-if="props.componentType == 'textarea'"
+    >
       <textarea
         class="custom-input-component__inputs custom-input-component__inputs--focus custom-input-component__inputs--address"
         :id="props.name"
@@ -54,13 +69,12 @@ const modelValue = defineModel()
 .custom-input-component {
   @include global.customFlex(column, $gap: 0.25rem);
   color: var(--black-500);
-  
 
   &__content {
     display: flex;
     flex-direction: column;
     row-gap: 0.25rem;
-  
+
     &--address {
       flex-basis: 100%;
     }
@@ -85,8 +99,13 @@ const modelValue = defineModel()
       resize: none;
       height: 7.5rem;
       padding-top: 1rem;
-      
     }
+  }
+  &__icon {
+    position: absolute;
+    left: 0.5rem;
+    bottom: 1.3rem;
+    cursor: pointer;
   }
 
   &__labels {
@@ -97,5 +116,4 @@ const modelValue = defineModel()
     }
   }
 }
-
 </style>
