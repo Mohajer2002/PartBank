@@ -19,13 +19,13 @@ const router = createRouter({
       component: () => import('@/views/CreateAccountView.vue'),
       children: [
         {
-          path: 'personl-information',
-          name: 'personl-information',
+          path: 'personal-information',
+          name: 'personal-information',
           component: () => import('@/components/views/CreateAccount/PersonalInformation.vue'),
           meta: {
             headerTitle: 'اطلاعات فردی',
             nextStep: 'upload-card',
-            previousStep: 'personl-information'
+            previousStep: 'personal-information'
           }
         },
 
@@ -36,7 +36,7 @@ const router = createRouter({
           meta: {
             headerTitle: 'تصویر کارت ملی',
             nextStep: 'confirm-information',
-            previousStep: 'personl-information'
+            previousStep: 'personal-information'
           }
         },
         {

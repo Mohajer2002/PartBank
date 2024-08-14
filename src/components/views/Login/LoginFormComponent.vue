@@ -77,7 +77,7 @@ const closeToast = (value) => {
 
 <template>
   <CustomToast :config="toastOptions" @toasterTimeOut="closeToast">
-    <template v-slot:append-icon>
+    <template v-slot:append-icon-error>
       <IconCheck />
     </template>
   </CustomToast>

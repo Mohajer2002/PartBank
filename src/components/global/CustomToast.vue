@@ -41,7 +41,8 @@ watch(
     :class="[`toast-container toast-container__${props.config.position}`]"
   >
     <div class="toast" :class="setToastColor(props.config.type)">
-      <slot name="append-icon"></slot>
+      <slot name="append-icon-error"></slot>
+      <slot name="append-icon-success"></slot>
 
       {{ props.config.text }}
     </div>

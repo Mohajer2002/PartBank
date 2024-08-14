@@ -2,12 +2,16 @@
 import { ref } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
+import CustomButton from '@/components/common/CustomButton.vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useDataStore } from '@/stores/dataStore'
+
+const router = useRouter()
 const dataStore = useDataStore()
 
 const personalInformationInputs = ref([
   {
-    name: 'firstname',
+    name: 'firstName',
     label: 'نام',
     placeholder: 'نام فارسی',
     class: 'md-width',
@@ -15,7 +19,7 @@ const personalInformationInputs = ref([
     value: null
   },
   {
-    name: 'lastname',
+    name: 'lastName',
     label: 'نام خانوادگی',
     placeholder: 'نام خانوادگی به صورت کامل',
     class: 'md-width',
@@ -25,7 +29,7 @@ const personalInformationInputs = ref([
   },
 
   {
-    name: 'code',
+    name: 'postalCode',
     label: 'کدپستی',
     placeholder: 'کدپستی',
     class: 'md-width',
@@ -52,6 +56,7 @@ const saveData = (name, value) => {
 </script>
 <template>
   {{ dataStore.userInfo }}
+  <!-- {{localStorage.getItem("userInfo")}} -->
   <div class="form-group">
     <div
       class="form-group__inputs"
@@ -70,6 +75,14 @@ const saveData = (name, value) => {
       ></component>
     </div>
   </div>
+  <div class="button-group">
+    <div class="button-group__button">
+      <CustomButton type="secondary" text="قبلی" disabled />
+    </div>
+    <div class="button-group__button">
+      <CustomButton type="primary" text="ثبت و ادامه" @click="router.push('upload-card')" />
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -78,6 +91,15 @@ const saveData = (name, value) => {
   flex-wrap: wrap;
   &__inputs {
     width: 26rem;
+  }
+}
+.button-group {
+  @include global.customFlex(row, flex-end, center, 1rem);
+  width: 100%;
+  padding-top: 2.5rem;
+
+  &__button {
+    width: 11rem;
   }
 }
 </style>
