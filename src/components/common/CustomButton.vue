@@ -22,7 +22,7 @@ const props = defineProps({
 </script>
 <template>
   <div class="button-container">
-    <button class="base-button" :class="[props.type, props.size]">
+    <button class="base-button" type="button" :class="[props.type, props.size]">
       <!-- <Icon Slot/> -->
       <span>
         {{ props.text }}

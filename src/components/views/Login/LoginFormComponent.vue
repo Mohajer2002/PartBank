@@ -4,6 +4,9 @@ import { ref } from 'vue'
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import IconCheck from '@/components/icons/IconCheck.vue'
+import { useDataStore } from '@/stores/dataStore'
+
+const dataStore = useDataStore()
 
 const loginInputs = ref([
   {
@@ -17,13 +20,11 @@ const loginInputs = ref([
   },
   {
     id: '2',
-
     name: 'password',
     label: 'رمز عبور',
     placeholder: 'رمز عبور',
     class: 'md-width',
     type: 'input',
-
     value: null
   }
 ])
@@ -34,6 +35,10 @@ const toastOptions = ref({
   position: 'top-right',
   show: false
 })
+
+const submitLogin = () => {
+
+}
 </script>
 
 <template>
@@ -55,7 +60,7 @@ const toastOptions = ref({
     ></component>
   </div>
   <div class="submit-login-button">
-    <CustomButton type="primary" text="ورود" size="lg-button" />
+    <CustomButton type="primary" text="ورود" size="lg-button" @click="submitLogin" />
   </div>
 </template>
 
