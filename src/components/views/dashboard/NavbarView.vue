@@ -7,14 +7,13 @@ import IconCards from '@/components/icons/IconCards.vue'
 import IconRecipt from '@/components/icons/IconRecipt.vue'
 import IconCardPos from '@/components/icons/IconCardPos.vue'
 import IconLogout from '@/components/icons/IconLogout.vue'
-import DashboardView from '@/views/DashboardView.vue'
 
 const sideMenuItems = shallowRef([
   {
     id: 1,
     name: 'داشبورد',
     action: () => {
-      return DashboardView
+      return 'clickedDashboard'
     },
     icon: IconDashboard,
     activeStyle: 'navbar-button--active',
@@ -81,11 +80,13 @@ const sideMenuItems = shallowRef([
     baseStyle: 'navbar__navbar-button navbar-button navbar-button--exit'
   }
 ])
+const emit = defineEmits('')
 
 const activeMenuItem = ref(1)
 
-const handleClick = (itemId) => {
-  activeMenuItem.value = itemId
+const handleClick = (item) => {
+  activeMenuItem.value = item.id
+  emit(item.action)
 }
 </script>
 <template>
@@ -94,7 +95,7 @@ const handleClick = (itemId) => {
       v-for="item in sideMenuItems"
       :key="item.id"
       :class="[item.baseStyle, activeMenuItem == item.id ? item.activeStyle : '']"
-      @click="handleClick(item.id)"
+      @click="handleClick(item)"
     >
       <component :is="item.icon" svgColor="currentColor" />
 
