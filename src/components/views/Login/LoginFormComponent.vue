@@ -91,7 +91,6 @@ watch(
       <IconInfoCircle svgColor="#fff" />
     </template>
   </CustomToast>
-  {{ form }}
 
   <div v-for="input in loginInputs" :key="input.id" class="form-group">
     <component
