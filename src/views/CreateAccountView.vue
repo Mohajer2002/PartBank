@@ -4,8 +4,7 @@ import CreateAccountLayot from '@/layouts/CreateAccountLayout.vue'
 <template>
   <div class="create-account-body">
     <CreateAccountLayot>
-      <!-- CreateAccountView
-      <router-view /> -->
+    <!-- content -->
     </CreateAccountLayot>
   </div>
 </template>
@@ -14,6 +13,5 @@ import CreateAccountLayot from '@/layouts/CreateAccountLayout.vue'
 .create-account-body {
   background-color: var(--basic-background);
   height: 100vh;
-  padding-top: 2.6rem;
 }
 </style>

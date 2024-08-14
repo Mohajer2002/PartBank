@@ -1,6 +1,7 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { ref, watch } from 'vue'
+import TheHeader from '@/components/common/TheHeader.vue'
 
 const route = useRoute()
 
@@ -14,6 +15,9 @@ watch(
 )
 </script>
 <template>
+  <header>
+    <TheHeader />
+  </header>
   <main class="information-box-container">
     <div class="information-box">
       <h4 class="information-box__header">{{ layoutHeaderTitle }}</h4>
@@ -25,7 +29,9 @@ watch(
 
 <style lang="scss" scoped>
 .information-box-container {
-  @include global.customFlex(row, center, center);
+  @include global.customFlex(column, center, center);
+  padding-top: 2.6rem;
+
 }
 
 .information-box {
