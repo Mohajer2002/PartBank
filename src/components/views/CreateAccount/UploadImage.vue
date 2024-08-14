@@ -17,7 +17,7 @@ const menuItems = shallowRef([
     baseStyle: 'tools-menu__item-button'
   },
   {
-    itemId: 1,
+    itemId: 2,
     itemName: 'حذف',
     itemAction: 'clickDelete',
     itemIcon: IconTrash,
@@ -31,6 +31,11 @@ defineProps({
     type: String,
     required: true,
     default: 'file-1'
+  },
+  fileDescription: {
+    type: String,
+    required: true,
+    text: ''
   }
 })
 
@@ -90,7 +95,7 @@ const handleDelete = () => {
       />
     </label>
     <div class="file-section__detail">
-      <p class="file-section__description">تصویر روی کارت ملی</p>
+      <p class="file-section__description">{{ fileDescription }}</p>
       <button type="button" class="file-section__option file-section__option--active">
         <IconMoreOption />
         <CustomMenu :menu-items="menuItems" @clickEdit="handleEdit" @clickDelete="handleDelete" />
