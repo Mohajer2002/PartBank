@@ -15,3 +15,9 @@ export const dashboardConfig = {
   method: 'get',
   url: 'deposit-account'
 }
+
+
+export const createAccountConfig = {
+  method: 'post',
+  url: 'deposit-account'
+}
