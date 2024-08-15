@@ -20,3 +20,7 @@ export const createAccountConfig = {
   method: 'post',
   url: 'deposit-account'
 }
+export const transactionListConfig = {
+  method: 'get',
+  url: 'transactions'
+}
