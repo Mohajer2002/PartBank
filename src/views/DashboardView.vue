@@ -6,12 +6,17 @@ import DashboardLayout from '@/layouts/DashboardLayout.vue'
 import { useFetch } from '@/services/api'
 import { dashboardConfig } from '@/services/apiConfigs'
 import { useDataStore } from '@/stores/dataStore'
-import { toRaw, watch } from 'vue'
+import { onMounted, toRaw } from 'vue'
 
 const dataStore = useDataStore()
-const { responseData } = useFetch(dashboardConfig)
-watch(responseData, () => {
-  dataStore.setUserInfo(toRaw(responseData.value).data.result)
+
+const setDataPinia = async () => {
+  const { responseData } = await useFetch(dashboardConfig)
+  dataStore.setDashboardUserInfo(responseData.value)
+  dataStore.setDashboardUserInfo(toRaw(responseData.value.data.result))
+}
+onMounted(() => {
+  setDataPinia()
 })
 </script>
 <template>
