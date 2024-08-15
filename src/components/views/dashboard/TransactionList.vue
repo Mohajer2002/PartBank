@@ -6,6 +6,7 @@ import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
 import IconArrowSuccess from '@/components/icons/IconArrowSuccess.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconSort from '@/components/icons/IconSort.vue'
+import toFormatBalance from '@/helper/toFormatBalance'
 
 import { ref } from 'vue'
 
@@ -25,21 +26,20 @@ const props = defineProps({
     default: () => {
       return [
         {
-          transactionId: 1,
-          transactionType: 'واریز',
-          transactionDate: '۱۴۰۱/۰۸/۰۱، ۱۲:۴۴',
-          transactionAmount: '۲۱٬۲۰۰٬۰۰۰'
+          type: 'واریز',
+          date: '۱۴۰۱/۰۸/۰۱، ۱۲:۴۴',
+          amount: '۲۱٬۲۰۰٬۰۰۰'
         },
         {
-          transactionId: 2,
-          transactionType: 'برداشت',
-          transactionDate: '۱۴۰۱/۰۸/۰۱، ۱۲:۵۵',
-          transactionAmount: '۴۱٬۲۰۰٬۰۰۰'
+          type: 'برداشت',
+          date: '۱۴۰۱/۰۸/۰۱، ۱۲:۵۵',
+          amount: '۴۱٬۲۰۰٬۰۰۰'
         }
       ]
     }
   }
 })
+console.log(props.transactionData)
 
 const sortValue = ref([
   {
@@ -92,30 +92,30 @@ const sortValue = ref([
         </tr>
       </thead>
       <tbody class="transaction-list__body">
-        <template v-for="item in transactionData" :key="item.transactionId">
+        <template v-for="(item, index) in transactionData" :key="index">
           <tr
             class="transaction-list__transaction-information transaction-list__transaction-information-even"
           >
             <td class="transaction-list__transaction-information-data">
               <IconArrowSuccess
-                v-if="item.transactionType === 'واریز' ? true : false"
+                v-if="item.type === 'withdraw' ? true : false"
                 class="transaction-list__transaction-information-label"
               />
               <IconArrowFail
-                v-else-if="item.transactionType === 'برداشت' ? true : false"
+                v-else-if="item.type === 'deposit' ? true : false"
                 :class="[
-                  item.transactionType === 'برداشت'
+                  item.type === 'deposit'
                     ? 'transaction-list__transaction-information-label--fail'
                     : ''
                 ]"
               />
-              <p>{{ item.transactionType }}</p>
+              <p>{{ item.type == 'withdraw' ? 'واریز' : 'برداشت' }}</p>
             </td>
             <td class="transaction-list__transaction-information-data">
-              <p>{{ item.transactionDate }}</p>
+              <p>{{ item.date }}</p>
             </td>
             <td class="transaction-list__transaction-information-data">
-              <p>{{ item.transactionAmount }}</p>
+              <p>{{ toFormatBalance(item.amount) }}</p>
             </td>
           </tr>
         </template>
