@@ -98,7 +98,12 @@ const handleDelete = () => {
       <p class="file-section__description">{{ fileDescription }}</p>
       <button type="button" class="file-section__option file-section__option--active">
         <IconMoreOption />
-        <CustomMenu :menu-items="menuItems" @clickEdit="handleEdit" @clickDelete="handleDelete" />
+        <CustomMenu
+          :menu-items="menuItems"
+          :class="['file-option-menu']"
+          @clickEdit="handleEdit"
+          @clickDelete="handleDelete"
+        />
       </button>
     </div>
   </div>
@@ -135,6 +140,11 @@ const handleDelete = () => {
       opacity: 1;
     }
   }
+}
+.file-option-menu {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 .upload-box {
   background: var(--background-input);
