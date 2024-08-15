@@ -5,7 +5,7 @@ import { toRaw } from 'vue'
 
 const dataStore = useDataStore()
 
-const { firstName, lastName, postalCode } = toRaw(dataStore.userInfo)
+const { firstName, lastName, postalCode } = toRaw(dataStore.dashboardUserInfo)
 const fullName = firstName + ' ' + lastName
 </script>
 <template>
