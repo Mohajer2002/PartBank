@@ -6,7 +6,7 @@ import DashboardLayout from '@/layouts/DashboardLayout.vue'
 import { useFetch } from '@/services/api'
 import { dashboardConfig } from '@/services/apiConfigs'
 import { useDataStore } from '@/stores/dataStore'
-import { onMounted, toRaw } from 'vue'
+import { toRaw } from 'vue'
 
 const dataStore = useDataStore()
 
@@ -15,9 +15,8 @@ const setDataPinia = async () => {
   dataStore.setDashboardUserInfo(responseData.value)
   dataStore.setDashboardUserInfo(toRaw(responseData.value.data.result))
 }
-onMounted(() => {
-  setDataPinia()
-})
+
+setDataPinia()
 </script>
 <template>
   <dashboard-layout>
