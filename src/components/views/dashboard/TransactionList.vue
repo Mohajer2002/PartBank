@@ -5,7 +5,7 @@ import IconArrowFail from '@/components/icons/IconArrowFail.vue'
 import IconArrowSuccess from '@/components/icons/IconArrowSuccess.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconSort from '@/components/icons/IconSort.vue'
-import toFormatBalance from '@/helper/toFormatBalance'
+import toFormatBalance from '@/helper/to-format-balance'
 import Pagination from './CustomPagination.vue'
 
 const props = defineProps({

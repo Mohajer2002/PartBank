@@ -76,7 +76,7 @@ const handleClick = (item) => {
 }
 </script>
 <template>
-  <nav class="side-menu__navbar navbar">
+  <nav class="navbar">
     <button
       v-for="item in sideMenuItems"
       :key="item.id"

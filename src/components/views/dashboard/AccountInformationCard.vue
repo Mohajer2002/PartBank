@@ -22,10 +22,6 @@ const props = defineProps({
         <div class="account-information__header-icon">
           <slot name="prepend-icon"></slot>
         </div>
-        <!-- <img
-          class="account-information__header-icon"
-          src="../../../public/assets/icons/info-circle.svg"
-        /> -->
       </div>
 
       <slot name="content"></slot>
