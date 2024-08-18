@@ -10,18 +10,15 @@ import { ref, shallowRef } from 'vue'
 const props = defineProps({
   cardNumber: {
     type: String,
-    required: true,
-    default: '۱۲۳۴۵۶۷۸۱۲۳۴۵۶۷۸'
+    required: true
   },
   cardBalance: {
     type: String,
-    required: true,
-    default: '۴۳۰۹۷۶۳۱۳۳'
+    required: true
   },
   userId: {
     type: String,
-    required: true,
-    default: ''
+    required: true
   }
 })
 const menuItems = shallowRef([
@@ -47,8 +44,9 @@ const menuButton = ref(false)
 const handleMenu = () => {
   menuButton.value = !menuButton.value
 }
-const handleDeleteAccount = () => {
-  useFetch((deleteDepositAccountConfig['params'] = { id: props.userId }))
+const handleDeleteAccount = async () => {
+  deleteDepositAccountConfig['params'] = { id: props.userId }
+  const { responseData, errorMessage } = await useFetch(deleteDepositAccountConfig)
 }
 </script>
 <template>
