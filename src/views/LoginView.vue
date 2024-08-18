@@ -94,9 +94,6 @@ import LoginFormComponent from '@/components/views/Login/LoginFormComponent.vue'
 .login-form {
   @include global.customFlex(column, start, center, 1rem);
 
-  // &__button {
-  //   margin-top: 2rem;
-  // }
 }
 
 .basic-image {
