@@ -1,12 +1,11 @@
 <script setup>
-// import CustomInput from '@/components/common/CustomInput.vue'
+import { computed, ref, toRaw, watch } from 'vue'
 import CustomSelectInput from '@/components/common/CustomSelectInput.vue'
 import IconArrowFail from '@/components/icons/IconArrowFail.vue'
 import IconArrowSuccess from '@/components/icons/IconArrowSuccess.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconSort from '@/components/icons/IconSort.vue'
 import toFormatBalance from '@/helper/toFormatBalance'
-import { ref, watch } from 'vue'
 import Pagination from './CustomPagination.vue'
 
 const props = defineProps({
@@ -40,19 +39,6 @@ const props = defineProps({
 const ITEM_PER_PAGE = 5
 const numberOfPage = ref(1)
 const currentPage = ref(1)
-
-watch(
-  () => props.transactionData,
-  () => {
-    numberOfPage.value = Math.floor(
-      props.transactionData.length % ITEM_PER_PAGE
-        ? props.transactionData.length / ITEM_PER_PAGE + 1
-        : props.transactionData.length / ITEM_PER_PAGE
-    )
-  },
-  { deep: true, immediate: true }
-)
-
 const sortValue = ref([
   {
     value: 'all',
@@ -70,6 +56,42 @@ const sortValue = ref([
     selected: false
   }
 ])
+const filterValue = ref(sortValue.value[0].value)
+
+const filteredData = computed(() => {
+  switch (filterValue.value) {
+    case 'all':
+      return props.transactionData
+    case 'ascending':
+      return [...toRaw(props.transactionData)].sort((a, b) => {
+        return Number(a.amount) - Number(b.amount)
+      })
+    case 'Descending':
+      return [...toRaw(props.transactionData)].sort((a, b) => {
+        return Number(b.amount) - Number(a.amount)
+      })
+  }
+  return props.transactionData
+})
+
+const showTransactionData = computed(() => {
+  return filteredData.value.slice(
+    (currentPage.value - 1) * ITEM_PER_PAGE,
+    currentPage.value * ITEM_PER_PAGE
+  )
+})
+
+watch(
+  () => props.transactionData,
+  () => {
+    numberOfPage.value = Math.floor(
+      props.transactionData.length % ITEM_PER_PAGE
+        ? props.transactionData.length / ITEM_PER_PAGE + 1
+        : props.transactionData.length / ITEM_PER_PAGE
+    )
+  },
+  { deep: true, immediate: true }
+)
 </script>
 <template>
   <div class="dashboard-content__transaction transaction">
@@ -80,16 +102,15 @@ const sortValue = ref([
       </div>
       <div class="transaction__group-options">
         <div class="transaction__sort">
-          <CustomSelectInput :options="sortValue">
+          <CustomSelectInput :options="sortValue" v-model="filterValue">
             <IconSort svgColor="currentColor" />
             مرتب سازی :
           </CustomSelectInput>
         </div>
         <div class="transaction__search">
-          <!-- <CustomInput /> //search -->
+          <!-- <CustomInput name="searchList" componentType="text" /> -->
           <input type="search" placeholder="جستجو" class="transaction__search-input" />
           <button class="transaction__search-button">
-            <!-- <img src="../../../public/assets/icons/search.svg" alt="search" /> -->
             <IconSearch />
           </button>
         </div>
@@ -104,13 +125,7 @@ const sortValue = ref([
         </tr>
       </thead>
       <tbody class="transaction-list__body">
-        <template
-          v-for="(item, index) in transactionData.slice(
-            (currentPage - 1) * ITEM_PER_PAGE,
-            currentPage * ITEM_PER_PAGE
-          )"
-          :key="index"
-        >
+        <template v-for="(item, index) in showTransactionData" :key="index">
           <tr
             class="transaction-list__transaction-information transaction-list__transaction-information-even"
           >
