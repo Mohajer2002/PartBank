@@ -83,7 +83,7 @@ const closeToast = (value) => {
 watch(
   () => apiStore.loginResponse,
   () => {
-    if (apiStore.loginResponse) {
+    if (apiStore.loginResponse.data) {
       toastOptions.value = {
         type: 'success',
         text: 'عملیات با موفقیت انجام شد',
@@ -91,9 +91,9 @@ watch(
         show: true
       }
     } else {
-       toastOptions.value = {
+      toastOptions.value = {
         type: 'error',
-        text: apiStore.loginError,
+        text: apiStore.loginResponse,
         position: 'top-right',
         show: true
       }

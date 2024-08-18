@@ -6,11 +6,12 @@ export const connectToLoginApi = async (loginForm) => {
   const apiStore = useApiStore()
 
   loginConfig['data'] = JSON.stringify(loginForm)
-  const { responseData, errorMessage } = await fetchData(loginConfig)
-  apiStore.getLoginData(responseData)
-  if (responseData.value) {
-    apiStore.getLoginData(responseData)
+  const { data, errorMessage } = await fetchData(loginConfig)
+
+
+  if (data) {
+    apiStore.getLoginData(data)
   } else {
-    apiStore.getLoginError(errorMessage)
+    apiStore.getLoginData(errorMessage)
   }
 }

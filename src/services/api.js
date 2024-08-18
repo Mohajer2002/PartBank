@@ -22,21 +22,18 @@ import { axiosInstance } from './apiSetting'
 //   return { responseData, errorMessage, isLoading }
 // }
 
-const responseData = ref(null)
-const errorMessage = ref(null)
-const isLoading = ref(false)
+
 
 export async function fetchData(config) {
+  let data;
+  let errorMessage;
+
   try {
     const response = await axiosInstance(config)
-    responseData.value = response.data
-    console.log('show me responseData', responseData)
+    data = response.data
   } catch (error) {
-    errorMessage.value = error?.response ? error.response.data.data.message.fa : 'خطای سرور'
-    console.log('show me error', error)
-  } finally {
-    isLoading.value = false
+    errorMessage = error?.response ? error.response.data.data.message.fa : 'خطای سرور'
   }
 
-  return { responseData, errorMessage }
+  return { data, errorMessage }
 }
