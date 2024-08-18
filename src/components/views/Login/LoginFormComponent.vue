@@ -5,7 +5,7 @@ import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
 import { useLoginDataStore } from '@/stores/login-information-store'
-import { useApiStore } from '@/stores/api-store'
+import { useLoginApiStore } from '@/stores/api-stores/login-api-store'
 
 import { loginConfig } from '@/services/apiConfigs'
 // import { useFetch } from '@/services/api'
@@ -17,7 +17,7 @@ import Hash from '@/helper/Storages'
 
 const loginDataStore = useLoginDataStore()
 
-const apiStore = useApiStore()
+const loginApiStore = useLoginApiStore()
 const router = useRouter()
 
 const disabledSubmitButton = ref(true)
@@ -57,7 +57,7 @@ const form = computed(() => {
 })
 
 const submitLogin = async () => {
-  apiStore.postLoginData(form.value)
+  loginApiStore.postLoginData(form.value)
 
   // loginConfig['data'] = JSON.stringify(form.value)
 
@@ -81,9 +81,9 @@ const closeToast = (value) => {
 }
 
 watch(
-  () => apiStore.loginResponse,
+  () => loginApiStore.loginResponse,
   () => {
-    if (apiStore.loginResponse.data) {
+    if (loginApiStore.loginResponse.data) {
       toastOptions.value = {
         type: 'success',
         text: 'عملیات با موفقیت انجام شد',
@@ -93,7 +93,7 @@ watch(
     } else {
       toastOptions.value = {
         type: 'error',
-        text: apiStore.loginResponse,
+        text: loginApiStore.loginResponse,
         position: 'top-right',
         show: true
       }

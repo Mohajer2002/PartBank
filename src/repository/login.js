@@ -1,17 +1,17 @@
 import { fetchData } from '@/services/api'
 import { loginConfig } from '@/services/apiConfigs'
-import { useApiStore } from '@/stores/api-store'
+import { useLoginApiStore } from '@/stores/api-stores/login-api-store'
 
 export const connectToLoginApi = async (loginForm) => {
-  const apiStore = useApiStore()
+  const loginApiStore = useLoginApiStore()
 
   loginConfig['data'] = JSON.stringify(loginForm)
   const { data, errorMessage } = await fetchData(loginConfig)
 
 
   if (data) {
-    apiStore.getLoginData(data)
+    loginApiStore.getLoginData(data)
   } else {
-    apiStore.getLoginData(errorMessage)
+    loginApiStore.getLoginData(errorMessage)
   }
 }

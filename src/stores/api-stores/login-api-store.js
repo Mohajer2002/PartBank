@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { connectToLoginApi } from '@/repository/login.js'
 
-export const useApiStore = defineStore('apiStore', {
+export const useLoginApiStore = defineStore('loginApiStore', {
   state: () => {
     return {
       loginResponse: null,
