@@ -1,44 +1,46 @@
 <script setup>
-import { ref } from 'vue'
-import { useAccountDataStore } from '@/stores/create-account-store'
+import { ref,watch } from 'vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import { createAccountConfig } from '@/services/apiConfigs'
 // import { useFetch } from '@/services/api'
 
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
-
+import { useCreateAccountStore } from '@/stores/api-stores/account-store'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const accountDataStore = useAccountDataStore()
-const informationForm = ref(accountDataStore.accountData)
-
+const createAccountStore = useCreateAccountStore()
+// const informationForm = ref(accountDataStore.accountData)
+// const createAccountStore = useCreateAccountStore()
 const toastOptions = ref({})
 
-const registerAccount = async () => {
-  createAccountConfig['data'] = JSON.stringify(accountDataStore.userInfo)
-  // const { responseData } = await useFetch(createAccountConfig)
-  const status = responseData.value.data
-  if (status.result == 'success') {
-    toastOptions.value = {
-      type: 'success',
-      text: 'عملیات با موفقیت انجام شد',
-      position: 'top-center',
-      show: true
-    }
-    accountDataStore.$reset()
-    router.push('/dashboard')
-    // dataStore.userInfo.$reset()
-  } else {
-    toastOptions.value = {
-      type: 'error',
-      text: 'عملیات با شکست مواجه شد',
-      position: 'top-center',
-      show: true
-    }
-  }
+const registerAccount = () => {
+  createAccountStore.createAccount()
 }
+
+watch(
+  () => createAccountStore.accountResponse,
+  () => {
+    if (createAccountStore.accountResponse.result) {
+      toastOptions.value = {
+        type: 'success',
+        text: 'عملیات با موفقیت انجام شد',
+        position: 'top-center',
+        show: true
+      }
+    } else {
+      toastOptions.value = {
+        type: 'error',
+        text: 'عملیات با شکست مواجه شد',
+        position: 'top-center',
+        show: true
+      }
+    }
+  },
+  { deep: true }
+)
+
 const closeToast = (value) => {
   toastOptions.value.show = value
 }
@@ -52,25 +54,31 @@ const closeToast = (value) => {
       <IconInfoCircle svgColor="#fff" />
     </template>
   </CustomToast>
-
+  {{ createAccountStore.accountResponse }}
   <section class="confirm-information">
     <div class="information-form">
       <div class="information-form__form-content">
         <span class="information-form__title"> نام: </span>
-        <span class="information-form__value" id="firstname">{{ informationForm.firstName }}</span>
+        <span class="information-form__value" id="firstname">{{
+          createAccountStore.personalInformation.firstName
+        }}</span>
       </div>
       <div class="information-form__form-content">
         <span class="information-form__title"> نام خانوادگی: </span>
-        <span class="information-form__value" id="lastname"> {{ informationForm.lastName }} </span>
+        <span class="information-form__value" id="lastname">
+          {{ createAccountStore.personalInformation.lastName }}
+        </span>
       </div>
       <div class="information-form__form-content">
         <span class="information-form__title"> کدپستی: </span>
-        <span class="information-form__value" id="code"> {{ informationForm.postalCode }} </span>
+        <span class="information-form__value" id="code">
+          {{ createAccountStore.personalInformation.postalCode }}
+        </span>
       </div>
       <div class="information-form__form-content information-form__form-content--address">
         <span class="information-form__title"> محل سکونت: </span>
         <span class="information-form__value" id="address">
-          {{ informationForm.address }}
+          {{ createAccountStore.personalInformation.address }}
         </span>
       </div>
     </div>

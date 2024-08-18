@@ -1,14 +1,12 @@
-// import { fetchData } from '@/services/api'
-// import { createAccountConfig } from '@/services/apiConfigs'
-// import { useGettransactionstApiStore } from '@/stores/api-stores/get-transactions-list'
+import { fetchData } from '@/services/api'
+import { createAccountConfig } from '@/services/apiConfigs'
+import { useCreateAccountStore } from '@/stores/api-stores/account-store'
 
-// export const connectToGettransactionstApi = async () => {
-//   const getTransactionstApiStore = useGettransactionstApiStore()
+export const connectToCreateAccounttApi = async (personalInformationForm) => {
+  const accountDataStore = useCreateAccountStore()
 
-//   // loginConfig['data'] = JSON.stringify(loginForm)
-//   const { data, errorMessage } = await fetchData(createAccountConfig)
-  
-  
-//   getTransactionstApiStore.setTransactionsList(data.data.results)
+  createAccountConfig['data'] = JSON.stringify(personalInformationForm)
+  const { data, errorMessage } = await fetchData(createAccountConfig)
 
-// }
+  accountDataStore.getCreatedAccountData(data.data)
+}

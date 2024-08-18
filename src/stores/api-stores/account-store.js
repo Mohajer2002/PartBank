@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
-// import { connectToGettransactionstApi } from '@/repository/get-transactions-list'
+import { connectToCreateAccounttApi } from '@/repository/create-account'
 
 export const useCreateAccountStore = defineStore('createAccountStore', {
   state: () => {
     return {
-      personalInformation: {}
+      personalInformation: {},
+      accountResponse:{}
     }
   },
   persist: true,
@@ -13,8 +14,13 @@ export const useCreateAccountStore = defineStore('createAccountStore', {
     setPersonalInformation(data) {
         this.personalInformation=data
     },
-    // setTransactionsList(response) {
-    //   this.transactionsList = response
-    // }
+
+    createAccount(){
+      connectToCreateAccounttApi(this.personalInformation)
+    },
+
+    getCreatedAccountData(response){
+      this.accountResponse=response
+    }
   }
 })

@@ -73,7 +73,7 @@ watch(
 )
 </script>
 <template>
-{{createAccountStore.personalInformation}}
+
   <div class="form-group">
     <div
       :class="input.componentType == 'textarea' ? 'form-group__textarea' : 'form-group__inputs'"

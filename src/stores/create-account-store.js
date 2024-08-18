@@ -1,16 +1,21 @@
-import { defineStore } from 'pinia'
+// import { defineStore } from 'pinia'
 
-export const useAccountDataStore = defineStore('accountDataStore', {
-  state: () => {
-    return {
-      accountData: {}
-    }
-  },
-  persist: true,
+// import { connectToCreateAccounttApi } from '@/repository/create-account'
 
-  actions: {
-    setAccountData(accountInfoObject) {
-      this.accountData = accountInfoObject
-    }
-  }
-})
+// export const useAccountDataStore = defineStore('accountDataStore', {
+//   state: () => {
+//     return {
+//       accountData: {}
+//     }
+//   },
+//   persist: true,
+
+//   actions: {
+//     setAccountData(accountInfoObject) {
+//       this.accountData = accountInfoObject
+//     },
+//     createAccountConfig(){
+//       connectToCreateAccounttApi(this.accountData)
+//     }
+//   }
+// })
