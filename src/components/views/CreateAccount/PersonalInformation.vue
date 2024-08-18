@@ -4,12 +4,12 @@ import { ref, watch } from 'vue'
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import { useRouter } from 'vue-router'
-import { useAccountDataStore } from '@/stores/create-account-store'
+import { useCreateAccountStore } from '@/stores/account-store'
 
 import { checkObjectIsEmpty } from '@/composables/validation'
 
 const router = useRouter()
-const accountDataStore = useAccountDataStore()
+const createAccountStore = useCreateAccountStore()
 const disabledNextSteptButton = ref(true)
 
 const personalInformationInputs = ref([
@@ -54,16 +54,16 @@ const personalInformationInputs = ref([
 ])
 
 const saveData = (name, value) => {
-  accountDataStore.setAccountData({
-    ...accountDataStore.accountData,
+  createAccountStore.setPersonalInformation({
+    ...createAccountStore.personalInformation,
     [name]: value
   })
 }
 
 watch(
-  () => accountDataStore.accountData,
+  () => createAccountStore.personalInformation,
   () => {
-    if (checkObjectIsEmpty(accountDataStore.accountData)) {
+    if (checkObjectIsEmpty(createAccountStore.personalInformation)) {
       disabledNextSteptButton.value = false
     } else {
       disabledNextSteptButton.value = true
@@ -73,6 +73,7 @@ watch(
 )
 </script>
 <template>
+
   <div class="form-group">
     <div
       :class="input.componentType == 'textarea' ? 'form-group__textarea' : 'form-group__inputs'"

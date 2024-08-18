@@ -1,30 +1,25 @@
 <script setup>
-import { toRaw } from 'vue'
+import { onMounted, toRaw } from 'vue'
 
 import TheHeader from '@/components/common/TheHeader.vue'
 import DashboardContent from '@/components/views/dashboard/DashboardContent.vue'
 import SideMenu from '@/components/views/dashboard/SideMenu.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
-import { useFetch } from '@/services/api'
-import { dashboardConfig } from '@/services/apiConfigs'
-import { useDashboardDataStore } from '@/stores/dashboard-information-store'
 
+import {useGetDepositStore} from '../stores/get-deposit-store'
 
-const dashboardDataStore = useDashboardDataStore()
+const getDepositStore = useGetDepositStore()
 
-const setDataPinia = async () => {
-  const { responseData } = await useFetch(dashboardConfig)
-  // dataStore.setDashboardUserInfo(responseData.value)
-  dashboardDataStore.setDashboardData(toRaw(responseData.value.data.result))
-}
-
-setDataPinia()
+onMounted(()=>{
+getDepositStore.useGetDepositAccount()
+})
 </script>
 <template>
   <dashboard-layout>
     <template v-slot:header>
       <TheHeader />
     </template>
+  
 
     <template v-slot:main>
       <main class="main-dashboard">

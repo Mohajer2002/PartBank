@@ -1,36 +1,37 @@
 <script setup>
-import { onMounted, ref, toRaw } from 'vue'
+import { onMounted, ref, toRaw, watch } from 'vue'
 import DashboardNoContent from './DashboardNoContent.vue'
 import BankCard from './BankCard.vue'
 import AccountInformationCard from './AccountInformationCard.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
-import { useDashboardDataStore } from '@/stores/dashboard-information-store'
 import toShamsi from '@/helper/toShamsi'
 import toFormatBalance from '@/helper/toFormatBalance'
 import TransactionList from './TransactionList.vue'
-import { useFetch } from '@/services/api'
-import { transactionListConfig } from '@/services/apiConfigs'
 
-const dashboardDataStore = useDashboardDataStore()
-const createAccountWarring = ref(Object.keys(dashboardDataStore.dashboardUserInfo).length > 0 ? false : true)
+import { useGetDepositStore } from '@/stores/get-deposit-store'
+import { useGetTransactionstStore } from '@/stores/get-transactions-list'
 
-const {
-  cardNumber,
-  balance,
-  score,
-  upcomingInstalment,
-  id: userId
-} = toRaw(dashboardDataStore.dashboardUserInfo)
-const transactionListData = ref([])
 
-const getTransactionListData = async () => {
-  const { responseData } = await useFetch(transactionListConfig)
-  transactionListData.value = toRaw(responseData.value.data.results)
-}
+const getDepositStore = useGetDepositStore()
+const getTransactionstStore = useGetTransactionstStore()
+const createAccountWarring = ref()
+
+
+
+
 onMounted(() => {
-  getTransactionListData()
+  getTransactionstStore.useGetDepositAccount()
 })
+
+watch(
+  () => getDepositStore.loggedUserAccountData,
+  () => {
+    createAccountWarring.value =
+      Object.keys(getDepositStore.loggedUserAccountData).length > 0 ? false : true
+  },
+  { deep: true, immediate: true }
+)
 </script>
 <template>
   <section class="main-dashboard__dashboard-content dashboard-content">
@@ -40,9 +41,9 @@ onMounted(() => {
       <div class="dashboard-content__account-information-preview account-information-preview">
         <!-- account information preview -->
         <BankCard
-          :card-number="cardNumber"
-          :cardBalance="toFormatBalance(balance)"
-          :user-id="userId"
+          :card-number="getDepositStore?.loggedUserAccountData?.cardNumber"
+          :cardBalance="toFormatBalance(getDepositStore?.loggedUserAccountData?.balance)"
+          :user-id="getDepositStore?.loggedUserAccountData?.id"
         />
         <AccountInformationCard header-title="امتیاز حساب" button-title="محاسبه امتیاز">
           <template v-slot:prepend-icon>
@@ -53,11 +54,15 @@ onMounted(() => {
           <template v-slot:content>
             <div class="score-card__content">
               <span class="score-card__amount">
-                <span class="score-card__amount-number">{{ toFormatBalance(score?.amount) }}</span>
+                <span class="score-card__amount-number">{{
+                  toFormatBalance(getDepositStore?.loggedUserAccountData?.score?.amount)
+                }}</span>
                 <small class="score-card__content-unit">ریال</small>
               </span>
               <span class="score-card__month">
-                <span class="score-card__month-number">{{ score?.paymentPeriod }}</span>
+                <span class="score-card__month-number">{{
+                  getDepositStore?.loggedUserAccountData?.score?.paymentPeriod
+                }}</span>
                 <small class="score-card__content-unit">ماهه</small>
               </span>
             </div>
@@ -77,7 +82,11 @@ onMounted(() => {
                 <span class="installment-card__item-title">مبلغ قسط:</span>
                 <span class="installment-card__item-value">
                   <p class="installment-card__item-value-amount">
-                    {{ toFormatBalance(upcomingInstalment?.amount) }}
+                    {{
+                      toFormatBalance(
+                        getDepositStore?.loggedUserAccountData?.upcomingInstalment?.amount
+                      )
+                    }}
                   </p>
                   <span class="installment-card__item-value-unit">ریال</span>
                 </span>
@@ -85,14 +94,16 @@ onMounted(() => {
               <div class="installment-card__item">
                 <span class="installment-card__item-title">تاریخ سررسید:</span>
                 <span class="installment-card__item-value" id="installment-card-dueDate">{{
-                  toShamsi(upcomingInstalment?.dueDate)
+                  toShamsi(getDepositStore?.loggedUserAccountData?.upcomingInstalment?.dueDate)
                 }}</span>
               </div>
             </div>
           </template>
         </AccountInformationCard>
       </div>
-      <TransactionList :transaction-data="transactionListData" />
+      <TransactionList
+        :transaction-data="createAccountWarring ? [] : getTransactionstStore.transactionsList"
+      />
     </div>
   </section>
 </template>

@@ -4,16 +4,15 @@ import { ref, computed, watch, toRaw } from 'vue'
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
-import { useLoginDataStore } from '@/stores/login-information-store'
-import { loginConfig } from '@/services/apiConfigs'
-import { useFetch } from '@/services/api'
+import { useLoginStore } from '@/stores/login-store'
 import { useRouter } from 'vue-router'
 import IconEye from '@/components/icons/IconEye.vue'
 import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
 import { checkObjectIsEmpty } from '@/composables/validation'
 import Hash from '@/helper/custom-storage'
 
-const loginDataStore = useLoginDataStore()
+
+const loginStore = useLoginStore()
 const router = useRouter()
 
 const disabledSubmitButton = ref(true)
@@ -43,7 +42,7 @@ const loginInputs = ref([
 ])
 
 const toastOptions = ref({})
-const customStorage = new Hash('localStorage')
+
 
 const form = computed(() => {
   return {
@@ -53,26 +52,35 @@ const form = computed(() => {
 })
 
 const submitLogin = async () => {
-  loginConfig['data'] = JSON.stringify(form.value)
+  loginStore.postLoginData(form.value)
 
-  const { responseData, errorMessage } = await useFetch(loginConfig)
-  if (!responseData.value) {
-    toastOptions.value = {
-      type: 'error',
-      text: errorMessage,
-      position: 'top-right',
-      show: true
-    }
-  } else {
-    customStorage.setItem('token', toRaw(responseData.value.data.token))
-    loginDataStore.setLoginData(form.value.phoneNumber)
-    router.push('/dashboard')
-  }
 }
 
 const closeToast = (value) => {
   toastOptions.value.show = value
 }
+
+watch(
+  () => loginStore.loginResponse,
+  () => {
+    if (!loginStore.loginResponse.errorMessage) {
+      router.push('/dashboard')
+   
+     
+
+    } else {
+    
+
+      toastOptions.value = {
+        type: 'error',
+        text:loginStore.loginResponse.errorMessage,
+        position: 'top-right',
+        show: true
+      }
+    }
+  },
+  { deep: true }
+)
 
 watch(
   () => form.value,

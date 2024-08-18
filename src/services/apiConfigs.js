@@ -7,7 +7,7 @@ export const loginConfig = {
   }
 }
 
-export const dashboardConfig = {
+export const getDepositAccountConfig = {
   method: 'get',
   url: 'deposit-account'
 }

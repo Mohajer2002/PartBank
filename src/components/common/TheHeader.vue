@@ -1,9 +1,9 @@
 <script setup>
-import { useLoginDataStore } from '@/stores/login-information-store'
+import { useLoginStore } from '@/stores/login-store'
 import TheHeaderOptions from './TheHeaderOptions.vue'
 
+const loginStore=useLoginStore()
 
-const loginDataStore = useLoginDataStore()
 </script>
 <template>
   <header class="header">
@@ -11,7 +11,7 @@ const loginDataStore = useLoginDataStore()
       <img src="/src/assets//images/favicon.svg" alt="Logo" class="header__logo-img" />
       <h6 class="header__logo-title">پارت بانک</h6>
     </div>
-    <TheHeaderOptions :phone-number="loginDataStore.phoneNumber" />
+    <TheHeaderOptions :phone-number="loginStore.loginResponse.loggedUserData.phoneNumber" />
   </header>
 </template>
 
