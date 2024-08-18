@@ -7,20 +7,14 @@ export const useGetDepositStore = defineStore('getDepositStore', {
       loggedUserAccountData: {}
     }
   },
- persist: true,
+  persist: true,
 
   actions: {
     useGetDepositAccount() {
       connectToGetDepositApi()
     },
     setLoggedUserAccountData(response) {
-      console.log("show res ",response);
-      
-      // this.loggedUserAccountData = {}
-
       this.loggedUserAccountData = response
-      
-      
     }
   }
 })
