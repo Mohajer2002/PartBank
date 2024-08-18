@@ -1,19 +1,21 @@
 <script setup>
+import { toRaw } from 'vue'
+
 import TheHeader from '@/components/common/TheHeader.vue'
 import DashboardContent from '@/components/views/dashboard/DashboardContent.vue'
 import SideMenu from '@/components/views/dashboard/SideMenu.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 import { useFetch } from '@/services/api'
 import { dashboardConfig } from '@/services/apiConfigs'
-import { useDataStore } from '@/stores/dataStore'
-import { toRaw } from 'vue'
+import { useDashboardDataStore } from '@/stores/dashboard-information-store'
 
-const dataStore = useDataStore()
+
+const dashboardDataStore = useDashboardDataStore()
 
 const setDataPinia = async () => {
   const { responseData } = await useFetch(dashboardConfig)
-  dataStore.setDashboardUserInfo(responseData.value)
-  dataStore.setDashboardUserInfo(toRaw(responseData.value.data.result))
+  // dataStore.setDashboardUserInfo(responseData.value)
+  dashboardDataStore.setDashboardData(toRaw(responseData.value.data.result))
 }
 
 setDataPinia()

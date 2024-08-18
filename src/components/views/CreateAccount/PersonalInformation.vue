@@ -4,12 +4,12 @@ import { ref, watch } from 'vue'
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import { useRouter } from 'vue-router'
-import { useDataStore } from '@/stores/dataStore'
+import { useAccountDataStore } from '@/stores/create-account-store'
 
 import { checkObjectIsEmpty } from '@/composables/validation'
 
 const router = useRouter()
-const dataStore = useDataStore()
+const accountDataStore = useAccountDataStore()
 const disabledNextSteptButton = ref(true)
 
 const personalInformationInputs = ref([
@@ -54,16 +54,16 @@ const personalInformationInputs = ref([
 ])
 
 const saveData = (name, value) => {
-  dataStore.setUserInfo({
-    ...dataStore.userInfo,
+  accountDataStore.setAccountData({
+    ...accountDataStore.accountData,
     [name]: value
   })
 }
 
 watch(
-  () => dataStore.userInfo,
+  () => accountDataStore.accountData,
   () => {
-    if (checkObjectIsEmpty(dataStore.userInfo)) {
+    if (checkObjectIsEmpty(accountDataStore.accountData)) {
       disabledNextSteptButton.value = false
     } else {
       disabledNextSteptButton.value = true

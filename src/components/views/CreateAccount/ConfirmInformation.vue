@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useDataStore } from '@/stores/dataStore'
+import { useAccountDataStore } from '@/stores/create-account-store'
 import CustomButton from '@/components/common/CustomButton.vue'
 import { createAccountConfig } from '@/services/apiConfigs'
 import { useFetch } from '@/services/api'
@@ -11,13 +11,13 @@ import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const dataStore = useDataStore()
-const informationForm = ref(dataStore.userInfo)
+const accountDataStore = useAccountDataStore()
+const informationForm = ref(accountDataStore.accountData)
 
 const toastOptions = ref({})
 
 const registerAccount = async () => {
-  createAccountConfig['data'] = JSON.stringify(dataStore.userInfo)
+  createAccountConfig['data'] = JSON.stringify(accountDataStore.userInfo)
   const { responseData } = await useFetch(createAccountConfig)
   const status = responseData.value.data
   if (status.result == 'success') {
@@ -27,7 +27,7 @@ const registerAccount = async () => {
       position: 'top-center',
       show: true
     }
-    dataStore.$reset()
+    accountDataStore.$reset()
     router.push('/dashboard')
     // dataStore.userInfo.$reset()
   } else {

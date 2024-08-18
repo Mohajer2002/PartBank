@@ -5,15 +5,15 @@ import BankCard from './BankCard.vue'
 import AccountInformationCard from './AccountInformationCard.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
-import { useDataStore } from '@/stores/dataStore'
+import { useDashboardDataStore } from '@/stores/dashboard-information-store'
 import toShamsi from '@/helper/toShamsi'
 import toFormatBalance from '@/helper/toFormatBalance'
 import TransactionList from './TransactionList.vue'
 import { useFetch } from '@/services/api'
 import { transactionListConfig } from '@/services/apiConfigs'
 
-const dataStore = useDataStore()
-const createAccountWarring = ref(Object.keys(dataStore.dashboardUserInfo).length > 0 ? false : true)
+const dashboardDataStore = useDashboardDataStore()
+const createAccountWarring = ref(Object.keys(dashboardDataStore.dashboardUserInfo).length > 0 ? false : true)
 
 const {
   cardNumber,
@@ -21,7 +21,7 @@ const {
   score,
   upcomingInstalment,
   id: userId
-} = toRaw(dataStore.dashboardUserInfo)
+} = toRaw(dashboardDataStore.dashboardUserInfo)
 const transactionListData = ref([])
 
 const getTransactionListData = async () => {
