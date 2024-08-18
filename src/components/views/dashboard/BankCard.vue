@@ -1,17 +1,18 @@
 <script setup>
-import { ref, shallowRef,watch } from 'vue'
-import {useRouter} from 'vue-router'
+import { ref, shallowRef, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 import CustomMenu from '@/components/common/CustomMenu.vue'
 import IconConvertCard from '@/components/icons/IconConvertCard.vue'
 import IconLogout from '@/components/icons/IconLogout.vue'
 import IconMore from '@/components/icons/IconMore.vue'
 import { useCreateAccountStore } from '../../../stores/account-store'
+import { useGetDepositStore } from '../../../stores/get-deposit-store'
 
-
-const router=useRouter()
+const router = useRouter()
 
 const createAccountStore = useCreateAccountStore()
+const getDepositStore = useGetDepositStore()
 const props = defineProps({
   cardNumber: {
     type: String,
@@ -56,16 +57,12 @@ const handleDeleteAccount = () => {
 watch(
   () => createAccountStore.deleteAccountResualt,
   () => {
-    if (createAccountStore.deleteAccountResualt.status=='success') {
-      router.push('/')
-     
-    } 
-  
+    if (createAccountStore.deleteAccountResualt.status == 'success') {
+      getDepositStore.getDepositAccount()
+    }
   },
   { deep: true }
 )
-
-
 </script>
 <template>
   <div class="account-information-preview__account-card account-card">
@@ -79,7 +76,7 @@ watch(
       <button class="account-card__more" @click="handleMenu">
         <!-- <img src="../../../public/assets/icons/more.svg" /> -->
         <IconMore />
-       
+
         <CustomMenu
           :menu-items="menuItems"
           v-if="menuButton"

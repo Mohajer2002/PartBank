@@ -21,7 +21,7 @@ const createAccountWarring = ref()
 
 
 onMounted(() => {
-  getTransactionstStore.useGetDepositAccount()
+  getTransactionstStore.getDepositAccount()
 })
 
 watch(
