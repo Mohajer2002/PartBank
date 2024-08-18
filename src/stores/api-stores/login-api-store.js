@@ -6,7 +6,7 @@ export const useLoginApiStore = defineStore('loginApiStore', {
     return {
       loginResponse: {
         loggedUserData: {
-          phoneNumber: null
+        
         },
         errorMessage: null
 
@@ -16,7 +16,7 @@ export const useLoginApiStore = defineStore('loginApiStore', {
     //   loginResponse: null
     // }
   },
-  // persist: true,
+   persist: true,
 
   actions: {
     postLoginData(form) {
@@ -28,11 +28,11 @@ export const useLoginApiStore = defineStore('loginApiStore', {
     getLoginData(response) {
       // this.loginResponse = null
       this.loginResponse.errorMessage = null
-      this.loginResponse.loggedUserData.phoneNumber = null
+      this.loginResponse.loggedUserData = null
 
 
       if (response.type == 'success') {
-        this.loginResponse.loggedUserData.phoneNumber = response.resualt
+        this.loginResponse.loggedUserData= response.resualt
       } else {
         this.loginResponse.errorMessage = response.resualt
       }

@@ -3,10 +3,12 @@ import { toRaw } from 'vue'
 
 import { useDashboardDataStore } from '@/stores/dashboard-information-store'
 import NavbarView from './NavbarView.vue'
+import { useLoginApiStore } from '@/stores/api-stores/login-api-store'
 
 const dashboardDataStore = useDashboardDataStore()
+const loginApiStore=useLoginApiStore()
 
-const { firstName, lastName, postalCode } = dashboardDataStore.dashboardUserInfo
+const { firstName, lastName, idNumber } = loginApiStore.loginResponse.loggedUserData
 </script>
 <template>
   <section class="main-dashboard__side-menu side-menu">
@@ -17,7 +19,7 @@ const { firstName, lastName, postalCode } = dashboardDataStore.dashboardUserInfo
       </h3>
       <div class="side-menu__national-code">
         <span class="side-menu__national-code-label"> کدملی </span>
-        <span class="side-menu__national-code-value"> {{ postalCode ?? '********' }} </span>
+        <span class="side-menu__national-code-value"> {{ idNumber ?? '********' }} </span>
       </div>
     </div>
     <hr class="side-menu__hr" />

@@ -1,5 +1,5 @@
 <script setup>
-import { toRaw } from 'vue'
+import { onMounted, toRaw } from 'vue'
 
 import TheHeader from '@/components/common/TheHeader.vue'
 import DashboardContent from '@/components/views/dashboard/DashboardContent.vue'
@@ -8,9 +8,11 @@ import DashboardLayout from '@/layouts/DashboardLayout.vue'
 // import { useFetch } from '@/services/api'
 // import { dashboardConfig } from '@/services/apiConfigs'
 import { useDashboardDataStore } from '@/stores/dashboard-information-store'
+import {useGetDepositApiStore} from '../stores/api-stores/get-deposit-api-store'
 
 
 const dashboardDataStore = useDashboardDataStore()
+const getDepositApiStore = useGetDepositApiStore()
 
 // const setDataPinia = async () => {
 //   // const { responseData } = await useFetch(dashboardConfig)
@@ -19,12 +21,16 @@ const dashboardDataStore = useDashboardDataStore()
 // }
 
 // setDataPinia()
+onMounted(()=>{
+getDepositApiStore.useGetDepositAccount()
+})
 </script>
 <template>
   <dashboard-layout>
     <template v-slot:header>
       <TheHeader />
     </template>
+    {{getDepositApiStore.loggedUserData}}
 
     <template v-slot:main>
       <main class="main-dashboard">

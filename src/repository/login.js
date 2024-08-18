@@ -14,7 +14,12 @@ export const connectToLoginApi = async (loginForm) => {
     customStorage.setItem('token', data.data.token)
     loginApiStore.getLoginData({
       type: 'success',
-      resualt: loginForm.phoneNumber
+      resualt:{
+        phoneNumber:loginForm.phoneNumber,
+        firstName:data.data.firstName,
+        lastName:data.data.lastName,
+        idNumber:data.data.idNumber,
+      }
     })
   } else {
     loginApiStore.getLoginData({
