@@ -27,28 +27,30 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="button-container">
+
     <button
       class="base-button"
       type="button"
       :class="[props.type, props.size]"
       :disabled="props.disabledButton"
     >
-      <!-- <Icon Slot/> -->
       <span>
         {{ props.text }}
       </span>
+      <slot name="prepend-icon"></slot>
+
     </button>
-  </div>
+
 </template>
 
 <style lang="scss" scoped>
 .button-container {
   // padding: 1rem 0;
-  @include global.customFlex(column, center);
-  width: 100%;
+ 
 }
 .base-button {
+   @include global.customFlex(row, center,center,00.75rem);
+  width: 100%;
   border: none;
   height: 3rem;
   padding: 0.5rem 1rem;
