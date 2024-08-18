@@ -1,7 +1,7 @@
 import { fetchData } from '@/services/api'
 import { loginConfig } from '@/services/apiConfigs'
 import { useLoginStore } from '@/stores/login-store'
-import Hash from '@/helper/Storages'
+import Hash from '@/helper/custom-storage'
 
 export const connectToLoginApi = async (loginForm) => {
   const loginStore = useLoginStore()

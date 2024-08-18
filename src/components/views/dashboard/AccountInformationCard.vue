@@ -1,6 +1,7 @@
 <script setup>
 import CustomButton from '../../common/CustomButton.vue'
 
+
 const props = defineProps({
   headerTitle: {
     type: String,
@@ -22,15 +23,18 @@ const props = defineProps({
         <div class="account-information__header-icon">
           <slot name="prepend-icon"></slot>
         </div>
-        <!-- <img
-          class="account-information__header-icon"
-          src="../../../public/assets/icons/info-circle.svg"
-        /> -->
+    
       </div>
 
       <slot name="content"></slot>
       <div class="card-action">
-        <CustomButton type="secondary" :text="props.buttonTitle" />
+        <CustomButton type="secondary" :text="props.buttonTitle" >
+          
+           <template v-slot:prepend-icon>
+          
+          <slot name="button-icon"></slot>
+          </template>
+        </CustomButton>
       </div>
     </div>
   </div>
