@@ -5,6 +5,8 @@ import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
 import { useLoginDataStore } from '@/stores/login-information-store'
+import { useApiStore } from '@/stores/api-store'
+
 import { loginConfig } from '@/services/apiConfigs'
 import { useFetch } from '@/services/api'
 import { useRouter } from 'vue-router'
@@ -14,6 +16,8 @@ import { checkObjectIsEmpty } from '@/composables/validation'
 import Hash from '@/helper/Storages'
 
 const loginDataStore = useLoginDataStore()
+
+const apiStore = useApiStore()
 const router = useRouter()
 
 const disabledSubmitButton = ref(true)
@@ -53,21 +57,22 @@ const form = computed(() => {
 })
 
 const submitLogin = async () => {
-  loginConfig['data'] = JSON.stringify(form.value)
+  apiStore.login(form.value)
+  // loginConfig['data'] = JSON.stringify(form.value)
 
-  const { responseData, errorMessage } = await useFetch(loginConfig)
-  if (!responseData.value) {
-    toastOptions.value = {
-      type: 'error',
-      text: errorMessage,
-      position: 'top-right',
-      show: true
-    }
-  } else {
-    customStorage.setItem('token', toRaw(responseData.value.data.token))
-    loginDataStore.setLoginData(form.value.phoneNumber)
-    router.push('/dashboard')
-  }
+  // const { responseData, errorMessage } = await useFetch(loginConfig)
+  // if (!responseData.value) {
+  //   toastOptions.value = {
+  //     type: 'error',
+  //     text: errorMessage,
+  //     position: 'top-right',
+  //     show: true
+  //   }
+  // } else {
+  //   customStorage.setItem('token', toRaw(responseData.value.data.token))
+  //   loginDataStore.setLoginData(form.value.phoneNumber)
+  //   router.push('/dashboard')
+  // }
 }
 
 const closeToast = (value) => {

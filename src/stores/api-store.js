@@ -9,6 +9,8 @@ export const useApiStore = defineStore('apiStore', {
 
   actions: {
     login(form) {
+      console.log("show me form",form);
+      
       // connectToLoginApi(form)
     }
   }
