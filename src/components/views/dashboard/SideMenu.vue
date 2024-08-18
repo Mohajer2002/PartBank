@@ -1,18 +1,12 @@
 <script setup>
-import { useDataStore } from '@/stores/dataStore'
-import NavbarView from './NavbarView.vue'
 import { toRaw } from 'vue'
-// import { useFetch } from '@/services/api'
-// import { logoutConfig } from '@/services/apiConfigs'
 
-const dataStore = useDataStore()
+import { useDashboardDataStore } from '@/stores/dashboard-information-store'
+import NavbarView from './NavbarView.vue'
 
-// const handleLogout = async () => {
-//   const { responseData } = await useFetch(logoutConfig)
-//   // if()
-// }
+const dashboardDataStore = useDashboardDataStore()
 
-const { firstName, lastName, postalCode } = toRaw(dataStore.dashboardUserInfo)
+const { firstName, lastName, postalCode } = dashboardDataStore.dashboardUserInfo
 </script>
 <template>
   <section class="main-dashboard__side-menu side-menu">

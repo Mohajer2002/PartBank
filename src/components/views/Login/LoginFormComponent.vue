@@ -4,7 +4,7 @@ import { ref, computed, watch, toRaw } from 'vue'
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
-import { useDataStore } from '@/stores/dataStore'
+import { useLoginDataStore } from '@/stores/login-information-store'
 import { loginConfig } from '@/services/apiConfigs'
 import { useFetch } from '@/services/api'
 import { useRouter } from 'vue-router'
@@ -13,7 +13,7 @@ import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
 import { checkObjectIsEmpty } from '@/composables/validation'
 import Hash from '@/helper/Storages'
 
-const dataStore = useDataStore()
+const loginDataStore = useLoginDataStore()
 const router = useRouter()
 
 const disabledSubmitButton = ref(true)
@@ -65,7 +65,7 @@ const submitLogin = async () => {
     }
   } else {
     customStorage.setItem('token', toRaw(responseData.value.data.token))
-    dataStore.setPhoneNumber(form.value.phoneNumber)
+    loginDataStore.setLoginData(form.value.phoneNumber)
     router.push('/dashboard')
   }
 }

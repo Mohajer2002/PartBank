@@ -13,7 +13,9 @@ export async function useFetch(config) {
       const response = await axiosInstance(config)
       responseData.value = response.data
     } catch (error) {
-      errorMessage.value = error.response.data.data.message.fa
+      errorMessage.value = error?.response?.data?.data?.message?.fa
+      console.log("show me error",error);
+      
     } finally {
       isLoading.value = false
     }
