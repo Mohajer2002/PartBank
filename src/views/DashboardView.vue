@@ -30,7 +30,7 @@ getDepositApiStore.useGetDepositAccount()
     <template v-slot:header>
       <TheHeader />
     </template>
-    {{getDepositApiStore.loggedUserData}}
+  
 
     <template v-slot:main>
       <main class="main-dashboard">

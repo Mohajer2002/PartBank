@@ -7,8 +7,9 @@ export const connectToGetDepositApi = async () => {
 
   // loginConfig['data'] = JSON.stringify(loginForm)
   const { data, errorMessage } = await fetchData(getDepositAccountConfig)
-  console.log('datadatadatadata', data)
-  getDepositApiStore.setLoggedUserData(data.data.result)
+  
+  
+  getDepositApiStore.setLoggedUserAccountData(data.data.result)
 
   // if (data) {
   //   apiStore.getLoginData(data)

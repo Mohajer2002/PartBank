@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, toRaw } from 'vue'
+import { onMounted, ref, toRaw, watch } from 'vue'
 import DashboardNoContent from './DashboardNoContent.vue'
 import BankCard from './BankCard.vue'
 import AccountInformationCard from './AccountInformationCard.vue'
@@ -11,17 +11,12 @@ import toFormatBalance from '@/helper/toFormatBalance'
 import TransactionList from './TransactionList.vue'
 // import { useFetch } from '@/services/api'
 import { transactionListConfig } from '@/services/apiConfigs'
+import { useGetDepositApiStore } from '@/stores/api-stores/get-deposit-api-store'
 
 const dashboardDataStore = useDashboardDataStore()
-const createAccountWarring = ref(Object.keys(dashboardDataStore.dashboardUserInfo).length > 0 ? false : true)
+const getDepositApiStore = useGetDepositApiStore()
+const createAccountWarring = ref()
 
-const {
-  cardNumber,
-  balance,
-  score,
-  upcomingInstalment,
-  id: userId
-} = toRaw(dashboardDataStore.dashboardUserInfo)
 const transactionListData = ref([])
 
 const getTransactionListData = async () => {
@@ -31,8 +26,18 @@ const getTransactionListData = async () => {
 onMounted(() => {
   getTransactionListData()
 })
+
+watch(
+  () => getDepositApiStore.loggedUserAccountData,
+  () => {
+    createAccountWarring.value =
+      Object.keys(getDepositApiStore.loggedUserAccountData).length > 0 ? false : true
+  },
+  { deep: true, immediate: true }
+)
 </script>
 <template>
+
   <section class="main-dashboard__dashboard-content dashboard-content">
     <DashboardNoContent v-if="createAccountWarring" />
     <!-- dashboard content section -->
@@ -40,9 +45,9 @@ onMounted(() => {
       <div class="dashboard-content__account-information-preview account-information-preview">
         <!-- account information preview -->
         <BankCard
-          :card-number="cardNumber"
-          :cardBalance="toFormatBalance(balance)"
-          :user-id="userId"
+          :card-number="getDepositApiStore?.loggedUserAccountData?.cardNumber"
+          :cardBalance="toFormatBalance(getDepositApiStore?.loggedUserAccountData?.balance)"
+          :user-id="getDepositApiStore?.loggedUserAccountData?.id"
         />
         <AccountInformationCard header-title="امتیاز حساب" button-title="محاسبه امتیاز">
           <template v-slot:prepend-icon>
@@ -53,11 +58,15 @@ onMounted(() => {
           <template v-slot:content>
             <div class="score-card__content">
               <span class="score-card__amount">
-                <span class="score-card__amount-number">{{ toFormatBalance(score?.amount) }}</span>
+                <span class="score-card__amount-number">{{
+                  toFormatBalance(getDepositApiStore?.loggedUserAccountData?.score?.amount)
+                }}</span>
                 <small class="score-card__content-unit">ریال</small>
               </span>
               <span class="score-card__month">
-                <span class="score-card__month-number">{{ score?.paymentPeriod }}</span>
+                <span class="score-card__month-number">{{
+                  getDepositApiStore?.loggedUserAccountData?.score?.paymentPeriod
+                }}</span>
                 <small class="score-card__content-unit">ماهه</small>
               </span>
             </div>
@@ -77,7 +86,11 @@ onMounted(() => {
                 <span class="installment-card__item-title">مبلغ قسط:</span>
                 <span class="installment-card__item-value">
                   <p class="installment-card__item-value-amount">
-                    {{ toFormatBalance(upcomingInstalment?.amount) }}
+                    {{
+                      toFormatBalance(
+                        getDepositApiStore?.loggedUserAccountData?.upcomingInstalment?.amount
+                      )
+                    }}
                   </p>
                   <span class="installment-card__item-value-unit">ریال</span>
                 </span>
@@ -85,7 +98,7 @@ onMounted(() => {
               <div class="installment-card__item">
                 <span class="installment-card__item-title">تاریخ سررسید:</span>
                 <span class="installment-card__item-value" id="installment-card-dueDate">{{
-                  toShamsi(upcomingInstalment?.dueDate)
+                  toShamsi(getDepositApiStore?.loggedUserAccountData?.upcomingInstalment?.dueDate)
                 }}</span>
               </div>
             </div>

@@ -4,17 +4,22 @@ import { connectToGetDepositApi } from '@/repository/get-deposit-account'
 export const useGetDepositApiStore = defineStore('getDepositApiStore', {
   state: () => {
     return {
-      loggedUserData: {}
+      loggedUserAccountData: {}
     }
   },
-  // persist: true,
+ persist: true,
 
   actions: {
     useGetDepositAccount() {
       connectToGetDepositApi()
     },
-    setLoggedUserData(response) {
-      this.loggedUserData = response
+    setLoggedUserAccountData(response) {
+      console.log("show res ",response);
+      
+      // this.loggedUserAccountData = {}
+
+      this.loggedUserAccountData = response
+      
       
     }
   }
