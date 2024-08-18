@@ -11,7 +11,7 @@ import { useRouter } from 'vue-router'
 import IconEye from '@/components/icons/IconEye.vue'
 import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
 import { checkObjectIsEmpty } from '@/composables/validation'
-import Hash from '@/helper/Storages'
+import Hash from '@/helper/custom-storage'
 
 const loginDataStore = useLoginDataStore()
 const router = useRouter()

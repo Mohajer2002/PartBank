@@ -1,4 +1,4 @@
-// import Hash from '@/helper/Storages'
+import Hash from '@/helper/custom-storage'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -68,9 +68,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const token = true // get token
+  const token = new Hash('localStorage').getItem('token')
   const requiresAuth = to.meta.requiresAuth
-
   if (requiresAuth && !token) {
     return next('/')
   }
