@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-// import { connectToLoginApi } from '@/repository/index.js'
+ import { connectToLoginApi } from '@/repository/login.js'
 
 export const useApiStore = defineStore('apiStore', {
   state: () => {
@@ -9,9 +9,8 @@ export const useApiStore = defineStore('apiStore', {
 
   actions: {
     login(form) {
-      console.log("show me form",form);
-      
-      // connectToLoginApi(form)
+     
+     connectToLoginApi(form)
     }
   }
 })
