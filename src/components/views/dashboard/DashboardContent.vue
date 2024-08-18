@@ -8,6 +8,7 @@ import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
 import toShamsi from '@/helper/to-shamsi'
 import toFormatBalance from '@/helper/to-format-balance'
 import TransactionList from './TransactionList.vue'
+import IconArrowLeftCard from '@/components/icons/IconArrowLeftCard.vue'
 import { useGetDepositStore } from '@/stores/get-deposit-store'
 import { useGetTransactionstStore } from '@/stores/get-transactions-list'
 
@@ -16,7 +17,7 @@ const getTransactionstStore = useGetTransactionstStore()
 const createAccountWarring = ref()
 
 onMounted(() => {
-  getTransactionstStore.useGetDepositAccount()
+  getTransactionstStore.getDepositAccount()
 })
 
 watch(
@@ -62,6 +63,7 @@ watch(
               </span>
             </div>
           </template>
+      
         </AccountInformationCard>
 
         <AccountInformationCard header-title="قسط پیش رو" button-title="پرداخت">
@@ -93,6 +95,9 @@ watch(
                 }}</span>
               </div>
             </div>
+          </template>
+               <template v-slot:button-icon>
+           <IconArrowLeftCard/>
           </template>
         </AccountInformationCard>
       </div>
