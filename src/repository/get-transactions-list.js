@@ -11,9 +11,4 @@ export const connectToGettransactionstApi = async () => {
   
   getTransactionstApiStore.setTransactionsList(data.data.results)
 
-  // if (data) {
-  //   apiStore.getLoginData(data)
-  // } else {
-  //   apiStore.getLoginData(errorMessage)
-  // }
 }
