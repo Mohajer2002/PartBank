@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch, toRaw } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
@@ -9,8 +9,6 @@ import { useRouter } from 'vue-router'
 import IconEye from '@/components/icons/IconEye.vue'
 import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
 import { checkObjectIsEmpty } from '@/composables/validation'
-import Hash from '@/helper/custom-storage'
-
 
 const loginStore = useLoginStore()
 const router = useRouter()
@@ -43,7 +41,6 @@ const loginInputs = ref([
 
 const toastOptions = ref({})
 
-
 const form = computed(() => {
   return {
     phoneNumber: loginInputs.value[0].value,
@@ -53,7 +50,6 @@ const form = computed(() => {
 
 const submitLogin = async () => {
   loginStore.postLoginData(form.value)
-
 }
 
 const closeToast = (value) => {
@@ -65,15 +61,10 @@ watch(
   () => {
     if (!loginStore.loginResponse.errorMessage) {
       router.push('/dashboard')
-   
-     
-
     } else {
-    
-
       toastOptions.value = {
         type: 'error',
-        text:loginStore.loginResponse.errorMessage,
+        text: loginStore.loginResponse.errorMessage,
         position: 'top-right',
         show: true
       }

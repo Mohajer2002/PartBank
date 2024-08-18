@@ -22,7 +22,6 @@ const setToastColor = (type) => {
   }
 }
 
-
 watch(
   () => props.config.show,
   (value) => {
@@ -31,8 +30,7 @@ watch(
         emit('toasterTimeOut', false)
       }, 3000)
     }
-  },
-
+  }
 )
 </script>
 <template>
@@ -109,10 +107,7 @@ watch(
   border-radius: 0.5rem;
   animation: slideInDown 0.5s;
 }
-// .toat-icon {
-//   width: 24px;
-//   height: 24px;
-// }
+
 .toast-success {
   background-color: var(--success-500);
 }

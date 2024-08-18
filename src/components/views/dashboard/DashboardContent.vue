@@ -1,24 +1,20 @@
 <script setup>
-import { onMounted, ref, toRaw, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import DashboardNoContent from './DashboardNoContent.vue'
 import BankCard from './BankCard.vue'
 import AccountInformationCard from './AccountInformationCard.vue'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
-import toShamsi from '@/helper/toShamsi'
-import toFormatBalance from '@/helper/toFormatBalance'
+import toShamsi from '@/helper/to-shamsi'
+import toFormatBalance from '@/helper/to-format-balance'
 import TransactionList from './TransactionList.vue'
 import IconArrowLeftCard from '@/components/icons/IconArrowLeftCard.vue'
 import { useGetDepositStore } from '@/stores/get-deposit-store'
 import { useGetTransactionstStore } from '@/stores/get-transactions-list'
 
-
 const getDepositStore = useGetDepositStore()
 const getTransactionstStore = useGetTransactionstStore()
 const createAccountWarring = ref()
-
-
-
 
 onMounted(() => {
   getTransactionstStore.getDepositAccount()
@@ -166,9 +162,8 @@ watch(
 }
 .installment-card {
   &__content {
-    @include global.customFlex(column) {
-      row-gap: 0.75rem;
-    }
+    @include global.customFlex(column);
+    row-gap: 0.75rem;
     padding-top: 2.5rem;
   }
   &__item {

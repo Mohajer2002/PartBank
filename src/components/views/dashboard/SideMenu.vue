@@ -1,11 +1,27 @@
 <script setup>
-
+import { fetchData } from '@/services/api'
 import NavbarView from './NavbarView.vue'
 import { useLoginStore } from '@/stores/login-store'
+import { logoutConfig } from '@/services/apiConfigs'
+import Hash from '@/helper/custom-storage'
+import { useRouter } from 'vue-router'
 
-const loginStore=useLoginStore()
+const router = useRouter()
+const loginStore = useLoginStore()
 
 const { firstName, lastName, idNumber } = loginStore.loginResponse.loggedUserData
+
+const handleMenuAction = async (value) => {
+  if (value == 'logout') {
+    try {
+      const { data } = await fetchData(logoutConfig)
+    } catch (error) {
+      throw new Error('logout error')
+    }
+    new Hash('localStorage').clear()
+    router.push('/')
+  }
+}
 </script>
 <template>
   <section class="main-dashboard__side-menu side-menu">
@@ -20,7 +36,7 @@ const { firstName, lastName, idNumber } = loginStore.loginResponse.loggedUserDat
       </div>
     </div>
     <hr class="side-menu__hr" />
-    <NavbarView />
+    <NavbarView @menuAction="handleMenuAction" />
   </section>
 </template>
 

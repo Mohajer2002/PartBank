@@ -5,8 +5,9 @@ import IconArrowFail from '@/components/icons/IconArrowFail.vue'
 import IconArrowSuccess from '@/components/icons/IconArrowSuccess.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconSort from '@/components/icons/IconSort.vue'
-import toFormatBalance from '@/helper/toFormatBalance'
+import toFormatBalance from '@/helper/to-format-balance'
 import Pagination from './CustomPagination.vue'
+import toShamsi from '@/helper/to-shamsi'
 
 const props = defineProps({
   titleName: {
@@ -164,7 +165,12 @@ const searchInList = () => {
               <p>{{ item.type == 'withdraw' ? 'واریز' : 'برداشت' }}</p>
             </td>
             <td class="transaction-list__transaction-information-data">
-              <p>{{ item.date }}</p>
+              <p>
+                {{
+                  toShamsi(item.date.slice(0, 4) + item.date.slice(5, 7) + item.date.slice(8, 10))
+                }}
+                {{ item.date.slice(10) }}
+              </p>
             </td>
             <td class="transaction-list__transaction-information-data">
               <p>{{ toFormatBalance(item.amount) }}</p>

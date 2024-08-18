@@ -7,7 +7,7 @@ export const useGetDepositStore = defineStore('getDepositStore', {
       loggedUserAccountData: {}
     }
   },
- persist: true,
+  persist: true,
 
   actions: {
     getDepositAccount() {
@@ -17,8 +17,6 @@ export const useGetDepositStore = defineStore('getDepositStore', {
      
 
       this.loggedUserAccountData = response
-      
-      
     }
   }
 })

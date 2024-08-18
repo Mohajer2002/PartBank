@@ -1,7 +1,7 @@
 <script setup>
-import { ref,watch } from 'vue'
+import { ref, watch } from 'vue'
 import CustomButton from '@/components/common/CustomButton.vue'
-import { createAccountConfig } from '@/services/apiConfigs'
+// import { createAccountConfig } from '@/services/apiConfigs'
 // import { useFetch } from '@/services/api'
 
 import IconCheck from '@/components/icons/IconCheck.vue'
@@ -29,6 +29,9 @@ watch(
         position: 'top-center',
         show: true
       }
+      setTimeout(() => {
+        router.push('/dashboard')
+      }, 1000)
     } else {
       toastOptions.value = {
         type: 'error',
