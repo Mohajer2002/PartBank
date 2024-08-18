@@ -10,7 +10,7 @@ export const useGetTransactionstStore = defineStore('getTransactionstStore', {
   persist: true,
 
   actions: {
-    useGetDepositAccount() {
+    getDepositAccount() {
       connectToGettransactionstApi()
     },
     setTransactionsList(response) {
