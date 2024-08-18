@@ -12,19 +12,21 @@ import TransactionList from './TransactionList.vue'
 // import { useFetch } from '@/services/api'
 import { transactionListConfig } from '@/services/apiConfigs'
 import { useGetDepositApiStore } from '@/stores/api-stores/get-deposit-api-store'
+import { useGettransactionstApiStore } from '@/stores/api-stores/get-transactions-list'
 
 const dashboardDataStore = useDashboardDataStore()
 const getDepositApiStore = useGetDepositApiStore()
+const gettransactionstApiStore = useGettransactionstApiStore()
 const createAccountWarring = ref()
 
 const transactionListData = ref([])
 
 const getTransactionListData = async () => {
   // const { responseData } = await useFetch(transactionListConfig)
-  transactionListData.value = toRaw(responseData.value.data.results)
+  // transactionListData.value = toRaw(responseData.value.data.results)
 }
 onMounted(() => {
-  getTransactionListData()
+  gettransactionstApiStore.useGetDepositAccount()
 })
 
 watch(
@@ -37,7 +39,6 @@ watch(
 )
 </script>
 <template>
-
   <section class="main-dashboard__dashboard-content dashboard-content">
     <DashboardNoContent v-if="createAccountWarring" />
     <!-- dashboard content section -->
@@ -105,7 +106,9 @@ watch(
           </template>
         </AccountInformationCard>
       </div>
-      <TransactionList :transaction-data="transactionListData" />
+      <TransactionList
+        :transaction-data="createAccountWarring ? [] : gettransactionstApiStore.transactionsList"
+      />
     </div>
   </section>
 </template>
