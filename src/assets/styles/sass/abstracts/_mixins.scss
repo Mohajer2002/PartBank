@@ -1,9 +1,4 @@
-@mixin customFlex(
-  $direction: row,
-  $justifyContent: flex-start,
-  $alignItem: normal,
-  $gap: 0
-) {
+@mixin customFlex($direction: row, $justifyContent: flex-start, $alignItem: normal, $gap: 0) {
   display: flex;
   flex-direction: $direction;
   justify-content: $justifyContent;
@@ -19,32 +14,4 @@
     style: $style;
   }
   line-height: $height;
-}
-
-@mixin wiggleAnimation($key-frame-name) {
-  @keyframes #{$key-frame-name} {
-    0%,
-    7% {
-      transform: rotateZ(0);
-    }
-    15% {
-      transform: rotateZ(-15deg);
-    }
-    20% {
-      transform: rotateZ(10deg);
-    }
-    25% {
-      transform: rotateZ(-10deg);
-    }
-    30% {
-      transform: rotateZ(6deg);
-    }
-    35% {
-      transform: rotateZ(-4deg);
-    }
-    40%,
-    100% {
-      transform: rotateZ(0);
-    }
-  }
 }
