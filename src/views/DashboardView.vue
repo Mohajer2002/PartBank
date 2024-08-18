@@ -11,7 +11,7 @@ import {useGetDepositStore} from '../stores/get-deposit-store'
 const getDepositStore = useGetDepositStore()
 
 onMounted(()=>{
-getDepositStore.useGetDepositAccount()
+getDepositStore.getDepositAccount()
 })
 </script>
 <template>

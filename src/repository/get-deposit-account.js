@@ -11,9 +11,4 @@ export const connectToGetDepositApi = async () => {
   
   getDepositStore.setLoggedUserAccountData(data.data.result)
 
-  // if (data) {
-  //   apiStore.getLoginData(data)
-  // } else {
-  //   apiStore.getLoginData(errorMessage)
-  // }
 }
