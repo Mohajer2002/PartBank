@@ -1,14 +1,11 @@
 <script setup>
-import { toRaw } from 'vue'
 
-import { useDashboardDataStore } from '@/stores/dashboard-information-store'
 import NavbarView from './NavbarView.vue'
-import { useLoginApiStore } from '@/stores/api-stores/login-api-store'
+import { useLoginStore } from '@/stores/login-store'
 
-const dashboardDataStore = useDashboardDataStore()
-const loginApiStore=useLoginApiStore()
+const loginStore=useLoginStore()
 
-const { firstName, lastName, idNumber } = loginApiStore.loginResponse.loggedUserData
+const { firstName, lastName, idNumber } = loginStore.loginResponse.loggedUserData
 </script>
 <template>
   <section class="main-dashboard__side-menu side-menu">

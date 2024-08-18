@@ -4,20 +4,15 @@ import { ref, computed, watch, toRaw } from 'vue'
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
-import { useLoginDataStore } from '@/stores/login-information-store'
-import { useLoginApiStore } from '@/stores/api-stores/login-api-store'
-
-import { loginConfig } from '@/services/apiConfigs'
-// import { useFetch } from '@/services/api'
+import { useLoginStore } from '@/stores/login-store'
 import { useRouter } from 'vue-router'
 import IconEye from '@/components/icons/IconEye.vue'
 import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
 import { checkObjectIsEmpty } from '@/composables/validation'
 import Hash from '@/helper/Storages'
 
-const loginDataStore = useLoginDataStore()
 
-const loginApiStore = useLoginApiStore()
+const loginStore = useLoginStore()
 const router = useRouter()
 
 const disabledSubmitButton = ref(true)
@@ -57,7 +52,7 @@ const form = computed(() => {
 })
 
 const submitLogin = async () => {
-  loginApiStore.postLoginData(form.value)
+  loginStore.postLoginData(form.value)
 
   // loginConfig['data'] = JSON.stringify(form.value)
 
@@ -81,9 +76,9 @@ const closeToast = (value) => {
 }
 
 watch(
-  () => loginApiStore.loginResponse,
+  () => loginStore.loginResponse,
   () => {
-    if (!loginApiStore.loginResponse.errorMessage) {
+    if (!loginStore.loginResponse.errorMessage) {
       router.push('/dashboard')
    
      
@@ -93,7 +88,7 @@ watch(
 
       toastOptions.value = {
         type: 'error',
-        text:loginApiStore.loginResponse.errorMessage,
+        text:loginStore.loginResponse.errorMessage,
         position: 'top-right',
         show: true
       }
@@ -121,7 +116,7 @@ watch(
       <IconInfoCircle svgColor="#fff" />
     </template>
   </CustomToast>
-{{loginApiStore.loginResponse}}
+{{loginStore.loginResponse}}
   <div v-for="input in loginInputs" :key="input.id" class="form-group">
     <component
       v-model="input.value"

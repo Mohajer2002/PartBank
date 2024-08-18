@@ -1,10 +1,10 @@
 import { fetchData } from '@/services/api'
 import { loginConfig } from '@/services/apiConfigs'
-import { useLoginApiStore } from '@/stores/api-stores/login-api-store'
+import { useLoginStore } from '@/stores/login-store'
 import Hash from '@/helper/Storages'
 
 export const connectToLoginApi = async (loginForm) => {
-  const loginApiStore = useLoginApiStore()
+  const loginStore = useLoginStore()
   const customStorage = new Hash('localStorage')
 
   loginConfig['data'] = JSON.stringify(loginForm)
@@ -12,7 +12,7 @@ export const connectToLoginApi = async (loginForm) => {
 
   if (data) {
     customStorage.setItem('token', data.data.token)
-    loginApiStore.getLoginData({
+    loginStore.getLoginData({
       type: 'success',
       resualt:{
         phoneNumber:loginForm.phoneNumber,
@@ -22,7 +22,7 @@ export const connectToLoginApi = async (loginForm) => {
       }
     })
   } else {
-    loginApiStore.getLoginData({
+    loginStore.getLoginData({
       type: 'error',
       resualt: errorMessage
     })
