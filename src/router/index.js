@@ -1,3 +1,4 @@
+// import Hash from '@/helper/Storages'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -6,17 +7,26 @@ const router = createRouter({
     {
       path: '/',
       name: 'login',
-      component: () => import('@/views/LoginView.vue')
+      component: () => import('@/views/LoginView.vue'),
+      meta: {
+        requiresAuth: false
+      }
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import('@/views/DashboardView.vue')
+      component: () => import('@/views/DashboardView.vue'),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/create-account',
       name: 'create-account',
       component: () => import('@/views/CreateAccountView.vue'),
+      meta: {
+        requiresAuth: true
+      },
       children: [
         {
           path: 'personal-information',
@@ -25,7 +35,8 @@ const router = createRouter({
           meta: {
             headerTitle: 'اطلاعات فردی',
             nextStep: 'upload-card',
-            previousStep: 'personal-information'
+            previousStep: 'personal-information',
+            requiresAuth: true
           }
         },
 
@@ -36,7 +47,8 @@ const router = createRouter({
           meta: {
             headerTitle: 'تصویر کارت ملی',
             nextStep: 'confirm-information',
-            previousStep: 'personal-information'
+            previousStep: 'personal-information',
+            requiresAuth: true
           }
         },
         {
@@ -46,12 +58,23 @@ const router = createRouter({
           meta: {
             headerTitle: 'تایید اطلاعات',
             nextStep: 'confirm-information',
-            previousStep: 'upload-card'
+            previousStep: 'upload-card',
+            requiresAuth: true
           }
         }
       ]
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const token = true // get token
+  const requiresAuth = to.meta.requiresAuth
+
+  if (requiresAuth && !token) {
+    return next('/')
+  }
+  next()
 })
 
 export default router
