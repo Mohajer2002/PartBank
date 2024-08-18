@@ -83,17 +83,17 @@ const closeToast = (value) => {
 watch(
   () => loginApiStore.loginResponse,
   () => {
-    if (loginApiStore.loginResponse.data) {
-      toastOptions.value = {
-        type: 'success',
-        text: 'عملیات با موفقیت انجام شد',
-        position: 'top-right',
-        show: true
-      }
+    if (!loginApiStore.loginResponse.errorMessage) {
+      router.push('/dashboard')
+   
+     
+
     } else {
+    
+
       toastOptions.value = {
         type: 'error',
-        text: loginApiStore.loginResponse,
+        text:loginApiStore.loginResponse.errorMessage,
         position: 'top-right',
         show: true
       }
@@ -121,7 +121,7 @@ watch(
       <IconInfoCircle svgColor="#fff" />
     </template>
   </CustomToast>
-
+{{loginApiStore.loginResponse}}
   <div v-for="input in loginInputs" :key="input.id" class="form-group">
     <component
       v-model="input.value"

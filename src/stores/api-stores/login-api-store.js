@@ -4,21 +4,39 @@ import { connectToLoginApi } from '@/repository/login.js'
 export const useLoginApiStore = defineStore('loginApiStore', {
   state: () => {
     return {
-      loginResponse: null,
-      // loginError: null
+      loginResponse: {
+        loggedUserData: {
+          phoneNumber: null
+        },
+        errorMessage: null
+
+      },
     }
+    // return {
+    //   loginResponse: null
+    // }
   },
   // persist: true,
 
   actions: {
     postLoginData(form) {
-     
       connectToLoginApi(form)
     },
-    getLoginData(response) {
-      this.loginResponse = null
-      this.loginResponse = response
+    savePhoneNumber(phoneNumber) {
+      this.loginResponse.loggedUserData.phoneNumber = phoneNumber
     },
+    getLoginData(response) {
+      // this.loginResponse = null
+      this.loginResponse.errorMessage = null
+      this.loginResponse.loggedUserData.phoneNumber = null
+
+
+      if (response.type == 'success') {
+        this.loginResponse.loggedUserData.phoneNumber = response.resualt
+      } else {
+        this.loginResponse.errorMessage = response.resualt
+      }
+    }
     // getLoginError(error) {
     //   this.loginError = error
     // }
