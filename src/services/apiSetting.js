@@ -1,4 +1,4 @@
-import Hash from '@/helper/Storages'
+import Hash from '@/helper/custom-storage'
 import axios from 'axios'
 
 const BASE_URL = 'https://college.apipart.ir/'
