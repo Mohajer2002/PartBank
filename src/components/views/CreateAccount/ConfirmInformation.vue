@@ -6,7 +6,7 @@ import { createAccountConfig } from '@/services/apiConfigs'
 
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
-import { useCreateAccountStore } from '@/stores/api-stores/account-store'
+import { useCreateAccountStore } from '@/stores/account-store'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

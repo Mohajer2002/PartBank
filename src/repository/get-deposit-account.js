@@ -1,15 +1,15 @@
 import { fetchData } from '@/services/api'
 import { getDepositAccountConfig } from '@/services/apiConfigs'
-import { useGetDepositApiStore } from '@/stores/api-stores/get-deposit-api-store'
+import { useGetDepositStore } from '@/stores/get-deposit-store'
 
 export const connectToGetDepositApi = async () => {
-  const getDepositApiStore = useGetDepositApiStore()
+  const getDepositStore = useGetDepositStore()
 
   // loginConfig['data'] = JSON.stringify(loginForm)
   const { data, errorMessage } = await fetchData(getDepositAccountConfig)
   
   
-  getDepositApiStore.setLoggedUserAccountData(data.data.result)
+  getDepositStore.setLoggedUserAccountData(data.data.result)
 
   // if (data) {
   //   apiStore.getLoginData(data)

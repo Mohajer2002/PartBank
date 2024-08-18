@@ -4,7 +4,7 @@ import { ref, watch } from 'vue'
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
 import { useRouter } from 'vue-router'
-import { useCreateAccountStore } from '@/stores/api-stores/account-store'
+import { useCreateAccountStore } from '@/stores/account-store'
 
 import { checkObjectIsEmpty } from '@/composables/validation'
 

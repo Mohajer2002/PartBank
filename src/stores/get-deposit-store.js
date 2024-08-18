@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { connectToGetDepositApi } from '@/repository/get-deposit-account'
 
-export const useGetDepositApiStore = defineStore('getDepositApiStore', {
+export const useGetDepositStore = defineStore('getDepositStore', {
   state: () => {
     return {
       loggedUserAccountData: {}

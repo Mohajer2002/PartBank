@@ -42,7 +42,7 @@ const loginInputs = ref([
 ])
 
 const toastOptions = ref({})
-const customStorage = new Hash('localStorage')
+
 
 const form = computed(() => {
   return {
@@ -54,21 +54,6 @@ const form = computed(() => {
 const submitLogin = async () => {
   loginStore.postLoginData(form.value)
 
-  // loginConfig['data'] = JSON.stringify(form.value)
-
-  // const { responseData, errorMessage } = await useFetch(loginConfig)
-  // if (!responseData.value) {
-  //   toastOptions.value = {
-  //     type: 'error',
-  //     text: errorMessage,
-  //     position: 'top-right',
-  //     show: true
-  //   }
-  // } else {
-  //   customStorage.setItem('token', toRaw(responseData.value.data.token))
-  //   loginDataStore.setLoginData(form.value.phoneNumber)
-  //   router.push('/dashboard')
-  // }
 }
 
 const closeToast = (value) => {
@@ -116,7 +101,7 @@ watch(
       <IconInfoCircle svgColor="#fff" />
     </template>
   </CustomToast>
-{{loginStore.loginResponse}}
+
   <div v-for="input in loginInputs" :key="input.id" class="form-group">
     <component
       v-model="input.value"

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { connectToGettransactionstApi } from '@/repository/get-transactions-list'
 
-export const useGettransactionstApiStore = defineStore('getTransactionstApiStore', {
+export const useGetTransactionstStore = defineStore('getTransactionstStore', {
   state: () => {
     return {
       transactionsList: []

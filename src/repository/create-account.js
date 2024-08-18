@@ -1,6 +1,6 @@
 import { fetchData } from '@/services/api'
 import { createAccountConfig } from '@/services/apiConfigs'
-import { useCreateAccountStore } from '@/stores/api-stores/account-store'
+import { useCreateAccountStore } from '@/stores/account-store'
 
 export const connectToCreateAccounttApi = async (personalInformationForm) => {
   const accountDataStore = useCreateAccountStore()
