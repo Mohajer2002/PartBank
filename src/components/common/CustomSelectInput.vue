@@ -1,7 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
-
-const props = defineProps({
+defineProps({
   options: {
     type: Array,
     default: () => [
@@ -13,28 +11,14 @@ const props = defineProps({
     ]
   }
 })
-const selectedOption = ref('all')
 const labelSlot = defineSlots()
-const emit = defineEmits(['selectedValue'])
-watch(
-  selectedOption,
-  () => {
-    emit('selectedValue', selectedOption.value)
-  },
-  { immediate: true }
-)
+const selectValue = defineModel()
 </script>
 <template>
   <label for="sort" class="select-input__label">
     <slot>{{ labelSlot }}</slot>
   </label>
-  <select
-    name="sort"
-    id="sort"
-    class="select-input__select"
-    v-model="selectedOption"
-    @change="$emit('selectedValue', selectedOption)"
-  >
+  <select name="sort" id="sort" class="select-input__select" v-model="selectValue">
     <template v-for="item in options" :key="item.value">
       <option
         class="select-input__option"
