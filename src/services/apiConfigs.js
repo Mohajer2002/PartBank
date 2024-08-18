@@ -24,3 +24,7 @@ export const transactionListConfig = {
   method: 'get',
   url: 'transactions'
 }
+export const logoutConfig = {
+  method: 'post',
+  url: 'auth/logout'
+}
