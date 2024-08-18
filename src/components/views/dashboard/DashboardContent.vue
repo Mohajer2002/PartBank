@@ -157,9 +157,8 @@ watch(
 }
 .installment-card {
   &__content {
-    @include global.customFlex(column) {
-      row-gap: 0.75rem;
-    }
+    @include global.customFlex(column);
+    row-gap: 0.75rem;
     padding-top: 2.5rem;
   }
   &__item {

@@ -37,7 +37,7 @@ const modelValue = defineModel()
     <div class="custom-input-component__content" v-if="props.componentType == 'input'">
       <input
         :type="props.type"
-        class="custom-input-component__inputs custom-input-component__inputs--focus"
+        class="custom-input-component__inputs"
         :id="props.name"
         :placeholder="props.placeholder"
         :class="[props.class]"
@@ -89,7 +89,7 @@ const modelValue = defineModel()
       size: 0.875rem;
       weight: 500;
     }
-    &--focus:focus {
+    &:focus {
       outline: 0.125rem solid var(--primary-200);
     }
 

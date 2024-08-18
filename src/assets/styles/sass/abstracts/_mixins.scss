@@ -4,7 +4,6 @@
   justify-content: $justifyContent;
   align-items: $alignItem;
   gap: $gap;
-  @content;
 }
 
 @mixin fontStyle($size: 1rem, $weight: 400, $style: normal, $height: normal) {
