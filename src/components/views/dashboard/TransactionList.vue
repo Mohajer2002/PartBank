@@ -74,7 +74,13 @@ const filteredData = computed(() => {
   return props.transactionData
 })
 
+const searchValue = ref('')
+const dataSearched = ref([])
+
 const showTransactionData = computed(() => {
+  if (dataSearched.value.length > 0) {
+    return dataSearched.value
+  }
   return filteredData.value.slice(
     (currentPage.value - 1) * ITEM_PER_PAGE,
     currentPage.value * ITEM_PER_PAGE
@@ -82,16 +88,24 @@ const showTransactionData = computed(() => {
 })
 
 watch(
-  () => props.transactionData,
+  () => filteredData.value,
   () => {
     numberOfPage.value = Math.floor(
-      props.transactionData.length % ITEM_PER_PAGE
-        ? props.transactionData.length / ITEM_PER_PAGE + 1
-        : props.transactionData.length / ITEM_PER_PAGE
+      filteredData.value.length % ITEM_PER_PAGE
+        ? filteredData.value.length / ITEM_PER_PAGE + 1
+        : filteredData.value.length / ITEM_PER_PAGE
     )
   },
   { deep: true, immediate: true }
 )
+
+const searchInList = () => {
+  if (searchValue.value.length > 0) {
+    dataSearched.value = toRaw(filteredData.value).filter((item) => {
+      return item.amount?.includes(searchValue.value.toString())
+    })
+  }
+}
 </script>
 <template>
   <div class="dashboard-content__transaction transaction">
@@ -109,8 +123,13 @@ watch(
         </div>
         <div class="transaction__search">
           <!-- <CustomInput name="searchList" componentType="text" /> -->
-          <input type="search" placeholder="جستجو" class="transaction__search-input" />
-          <button class="transaction__search-button">
+          <input
+            type="text"
+            placeholder="جستجو"
+            class="transaction__search-input"
+            v-model="searchValue"
+          />
+          <button class="transaction__search-button" @click="searchInList">
             <IconSearch />
           </button>
         </div>
