@@ -202,21 +202,7 @@ const searchInList = () => {
   &__sort {
     @include global.customFlex(row, flex-start, center, 0.5rem);
   }
-  //   &__label-sort {
-  //     @include global.customFlex(row, flex-start, center);
-
-  //     @include global.fontStyle(0.875rem);
-  //   }
-  //   &__select-sort {
-  //     padding: 0.5rem;
-  //     width: 11.4rem;
-  //     height: 2.13rem;
-  //     background-color: var(--white);
-  //     color: var(--text-title);
-  //     border-radius: 0.5rem;
-  //     border: 1px solid var(--input-border-color);
-  //     outline: none;
-  //   }
+ 
 
   &__search {
     width: 16rem;

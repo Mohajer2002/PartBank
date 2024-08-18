@@ -54,7 +54,7 @@ const closeToast = (value) => {
       <IconInfoCircle svgColor="#fff" />
     </template>
   </CustomToast>
-  {{ createAccountStore.accountResponse }}
+
   <section class="confirm-information">
     <div class="information-form">
       <div class="information-form__form-content">
