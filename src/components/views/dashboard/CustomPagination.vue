@@ -1,44 +1,34 @@
 <script setup>
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
-import { ref, watch } from 'vue'
 
 const props = defineProps({
   numberOfPage: {
-    default: 4,
     type: Number,
     required: true
   }
 })
-const currentPage = ref(1)
 
-const emit = defineEmits('currentPage')
+const currentPage = defineModel({ currentPage: { required: true } })
 
-const handleCurrentPage = (event) => {
-  emit('currentPage', event.target.value)
-  currentPage.value = event.target.value
-}
-const handlePreviuosPage = () => {
-  if (currentPage.value > 1) {
-    --currentPage.value
+const step = (stepNumber) => {
+  const newPage = currentPage.value + stepNumber
+  if (newPage >= 1 && newPage <= props.numberOfPage) {
+    return newPage
   }
+  return currentPage.value
 }
-const handleNextPage = () => {
-  if (currentPage.value < props.numberOfPage) {
-    ++currentPage.value
-  }
+
+const changeCurrentPage = (value) => {
+  currentPage.value = Number(value)
 }
-watch(
-  () => currentPage.value,
-  () => {
-    emit('currentPage', currentPage.value)
-  },
-  { immediate: true }
-)
+const changePage = (newNumberOfPage) => {
+  changeCurrentPage(step(newNumberOfPage))
+}
 </script>
 <template>
   <ul class="transaction__pagination pagination">
     <li class="pagination__item">
-      <button class="pagination__button" @click="handlePreviuosPage">
+      <button class="pagination__button" @click="changePage(-1)">
         <IconArrowLeft class="pagination__button--back" />
       </button>
     </li>
@@ -46,14 +36,13 @@ watch(
       <button
         :class="['pagination__button', currentPage == item ? 'pagination__button--active' : '']"
         :value="item"
-        @click="handleCurrentPage"
+        @click="changeCurrentPage($event.target.value)"
       >
         {{ item }}
       </button>
     </li>
-
     <li class="pagination__item">
-      <button class="pagination__button" @click="handleNextPage">
+      <button class="pagination__button" @click="changePage(+1)">
         <IconArrowLeft class="pagination__button--next" />
       </button>
     </li>
@@ -73,7 +62,7 @@ watch(
     border-radius: 0.25rem;
     padding: 0.25rem;
 
-    @include global.fontStyle(0.875rem, 600);
+    @include global.fontStyle(0.875rem, 500);
   }
   &__button--active {
     color: var(--white);

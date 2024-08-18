@@ -6,20 +6,17 @@ import IconArrowSuccess from '@/components/icons/IconArrowSuccess.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconSort from '@/components/icons/IconSort.vue'
 import toFormatBalance from '@/helper/toFormatBalance'
-
 import { ref, watch } from 'vue'
-import Pagination from './Pagination.vue'
+import Pagination from './CustomPagination.vue'
 
 const props = defineProps({
   titleName: {
     type: String,
     default: 'لیست تراکنش‌ها'
-    // required: true
   },
   subTitleName: {
     type: String,
     default: '( ریال )'
-    // required: true
   },
   transactionData: {
     type: Array,
@@ -40,21 +37,17 @@ const props = defineProps({
   }
 })
 
-const MAX_SHOW_ITEM = 5
+const ITEM_PER_PAGE = 5
 const numberOfPage = ref(1)
-
 const currentPage = ref(1)
 
-const getCurrentPage = (value) => {
-  currentPage.value = Number(value)
-}
 watch(
   () => props.transactionData,
   () => {
     numberOfPage.value = Math.floor(
-      props.transactionData.length % MAX_SHOW_ITEM
-        ? props.transactionData.length / MAX_SHOW_ITEM + 1
-        : props.transactionData.length / MAX_SHOW_ITEM
+      props.transactionData.length % ITEM_PER_PAGE
+        ? props.transactionData.length / ITEM_PER_PAGE + 1
+        : props.transactionData.length / ITEM_PER_PAGE
     )
   },
   { deep: true, immediate: true }
@@ -113,8 +106,8 @@ const sortValue = ref([
       <tbody class="transaction-list__body">
         <template
           v-for="(item, index) in transactionData.slice(
-            (currentPage - 1) * MAX_SHOW_ITEM,
-            currentPage * MAX_SHOW_ITEM
+            (currentPage - 1) * ITEM_PER_PAGE,
+            currentPage * ITEM_PER_PAGE
           )"
           :key="index"
         >
@@ -146,7 +139,7 @@ const sortValue = ref([
         </template>
       </tbody>
     </table>
-    <Pagination :numberOfPage="numberOfPage" @currentPage="getCurrentPage" />
+    <Pagination :numberOfPage="numberOfPage" v-model="currentPage" />
   </div>
 </template>
 
