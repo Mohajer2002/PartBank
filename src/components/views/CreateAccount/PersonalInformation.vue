@@ -62,7 +62,7 @@ const saveData = (name, value) => {
 
 watch(
   () => dataStore.userInfo,
-  (value) => {
+  () => {
     if (checkObjectIsEmpty(dataStore.userInfo)) {
       disabledNextSteptButton.value = false
     } else {
