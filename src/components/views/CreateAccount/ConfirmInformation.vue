@@ -10,11 +10,9 @@ import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
 
 import { useRouter } from 'vue-router'
 
-
 const router = useRouter()
 const dataStore = useDataStore()
 const informationForm = ref(dataStore.userInfo)
-
 
 const toastOptions = ref({})
 
@@ -29,6 +27,9 @@ const registerAccount = async () => {
       position: 'top-center',
       show: true
     }
+    dataStore.$reset()
+    router.push('/dashboard')
+    // dataStore.userInfo.$reset()
   } else {
     toastOptions.value = {
       type: 'error',
@@ -43,10 +44,9 @@ const closeToast = (value) => {
 }
 </script>
 <template>
-
-    <CustomToast :config="toastOptions" @toasterTimeOut="closeToast">
+  <CustomToast :config="toastOptions" @toasterTimeOut="closeToast">
     <template v-slot:append-icon-success v-if="toastOptions.type == 'success'">
-      <IconCheck svgColor="#fff"/>
+      <IconCheck svgColor="#fff" />
     </template>
     <template v-slot:append-icon-error v-if="toastOptions.type == 'error'">
       <IconInfoCircle svgColor="#fff" />
@@ -75,17 +75,12 @@ const closeToast = (value) => {
       </div>
     </div>
 
-
-        <div class="button-group">
+    <div class="button-group">
       <div class="button-group__button">
         <CustomButton type="secondary" text="قبلی" @click="router.push('upload-card')" />
       </div>
       <div class="button-group__button">
-        <CustomButton
-          type="primary"
-          text="افتتاح حساب"
-          @click="registerAccount()"
-        />
+        <CustomButton type="primary" text="افتتاح حساب" @click="registerAccount()" />
       </div>
     </div>
   </section>

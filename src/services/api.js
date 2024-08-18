@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { axiosInstance } from './apiSetting'
 
-export function useFetch(config) {
+export async function useFetch(config) {
   const responseData = ref(null)
   const errorMessage = ref(null)
   const isLoading = ref(false)
@@ -18,7 +18,7 @@ export function useFetch(config) {
       isLoading.value = false
     }
   }
-  fetchData(config)
+  await fetchData(config)
 
   return { responseData, errorMessage, isLoading }
 }

@@ -62,7 +62,7 @@ const saveData = (name, value) => {
 
 watch(
   () => dataStore.userInfo,
-  (value) => {
+  () => {
     if (checkObjectIsEmpty(dataStore.userInfo)) {
       disabledNextSteptButton.value = false
     } else {
@@ -75,7 +75,7 @@ watch(
 <template>
   <div class="form-group">
     <div
-      class="form-group__inputs"
+      :class="input.componentType == 'textarea' ? 'form-group__textarea' : 'form-group__inputs'"
       v-for="(input, index) in personalInformationInputs"
       :key="index"
     >
@@ -112,7 +112,10 @@ watch(
   @include global.customFlex(row, space-between, center, 2rem);
   flex-wrap: wrap;
   &__inputs {
-    width: 26rem;
+    width: 24rem;
+  }
+  &__textarea {
+    flex-basis: 100%;
   }
 }
 .button-group {

@@ -44,10 +44,8 @@ const modelValue = defineModel()
         v-model="modelValue"
       />
 
-  
       <div class="custom-input-component__icon">
-      <slot name="prepend-icon"></slot>
-
+        <slot name="prepend-icon"></slot>
       </div>
     </div>
     <div
@@ -89,7 +87,7 @@ const modelValue = defineModel()
     direction: rtl;
     font: {
       size: 0.875rem;
-      weight: 600rem;
+      weight: 500;
     }
     &--focus:focus {
       outline: 0.125rem solid var(--primary-200);

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, toRaw } from 'vue'
 
 import CustomInput from '@/components/common/CustomInput.vue'
 import CustomButton from '@/components/common/CustomButton.vue'
@@ -11,7 +11,7 @@ import { useRouter } from 'vue-router'
 import IconEye from '@/components/icons/IconEye.vue'
 import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
 import { checkObjectIsEmpty } from '@/composables/validation'
-
+import Hash from '@/helper/Storages'
 
 const dataStore = useDataStore()
 const router = useRouter()
@@ -43,6 +43,7 @@ const loginInputs = ref([
 ])
 
 const toastOptions = ref({})
+const customStorage = new Hash('localStorage')
 
 const form = computed(() => {
   return {
@@ -54,9 +55,8 @@ const form = computed(() => {
 const submitLogin = async () => {
   loginConfig['data'] = JSON.stringify(form.value)
 
-  const { errorMessage } = await useFetch(loginConfig)
-
-  if (errorMessage.value) {
+  const { responseData, errorMessage } = await useFetch(loginConfig)
+  if (!responseData.value) {
     toastOptions.value = {
       type: 'error',
       text: errorMessage,
@@ -64,8 +64,9 @@ const submitLogin = async () => {
       show: true
     }
   } else {
-    router.push('/dashboard')
+    customStorage.setItem('token', toRaw(responseData.value.data.token))
     dataStore.setPhoneNumber(form.value.phoneNumber)
+    router.push('/dashboard')
   }
 }
 
@@ -73,14 +74,13 @@ const closeToast = (value) => {
   toastOptions.value.show = value
 }
 
-
 watch(
   () => form.value,
-  (value) => {
+  () => {
     if (checkObjectIsEmpty(form.value)) {
       disabledSubmitButton.value = false
     } else {
-     disabledSubmitButton.value = true
+      disabledSubmitButton.value = true
     }
   },
   { deep: true }

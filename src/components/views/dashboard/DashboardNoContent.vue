@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const goToCreateAccount = () => {
-  router.push('create-account')
+  router.push('create-account/personal-information')
 }
 </script>
 <template>

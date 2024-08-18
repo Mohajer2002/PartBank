@@ -10,18 +10,15 @@ import { ref, shallowRef } from 'vue'
 const props = defineProps({
   cardNumber: {
     type: String,
-    required: true,
-    default: '۱۲۳۴۵۶۷۸۱۲۳۴۵۶۷۸'
+    required: true
   },
   cardBalance: {
     type: String,
-    required: true,
-    default: '۴۳۰۹۷۶۳۱۳۳'
+    required: true
   },
   userId: {
     type: String,
-    required: true,
-    default: ''
+    required: true
   }
 })
 const menuItems = shallowRef([
@@ -47,8 +44,9 @@ const menuButton = ref(false)
 const handleMenu = () => {
   menuButton.value = !menuButton.value
 }
-const handleDeleteAccount = () => {
-  useFetch((deleteDepositAccountConfig['params'] = { id: props.userId }))
+const handleDeleteAccount = async () => {
+  deleteDepositAccountConfig['params'] = { id: props.userId }
+  const { responseData, errorMessage } = await useFetch(deleteDepositAccountConfig)
 }
 </script>
 <template>
@@ -57,7 +55,7 @@ const handleDeleteAccount = () => {
       <div class="account-card__card-quantity">
         <span class="account-card__card-quantity-title">موجودی کل</span>
 
-        <span class="account-card__card-balance"> {{ cardBalance }} </span>
+        <span class="account-card__card-balance"> {{ cardBalance ?? '' }} </span>
       </div>
 
       <button class="account-card__more" @click="handleMenu">
@@ -83,10 +81,10 @@ const handleDeleteAccount = () => {
     </div>
 
     <div class="account-card__card-number">
-      <span> {{ cardNumber.substring(0, 4) }}</span>
-      <span> {{ cardNumber.substring(4, 8) }}</span>
-      <span> {{ cardNumber.substring(8, 12) }}</span>
-      <span> {{ cardNumber.substring(12, 16) }}</span>
+      <span> {{ cardNumber?.substring(0, 4) }}</span>
+      <span> {{ cardNumber?.substring(4, 8) }}</span>
+      <span> {{ cardNumber?.substring(8, 12) }}</span>
+      <span> {{ cardNumber?.substring(12, 16) }}</span>
     </div>
   </div>
 </template>

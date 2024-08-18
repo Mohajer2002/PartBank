@@ -2,20 +2,28 @@
 import { useDataStore } from '@/stores/dataStore'
 import NavbarView from './NavbarView.vue'
 import { toRaw } from 'vue'
+// import { useFetch } from '@/services/api'
+// import { logoutConfig } from '@/services/apiConfigs'
 
 const dataStore = useDataStore()
 
-const { firstName, lastName, postalCode } = toRaw(dataStore.userInfo)
-const fullName = firstName + ' ' + lastName
+// const handleLogout = async () => {
+//   const { responseData } = await useFetch(logoutConfig)
+//   // if()
+// }
+
+const { firstName, lastName, postalCode } = toRaw(dataStore.dashboardUserInfo)
 </script>
 <template>
   <section class="main-dashboard__side-menu side-menu">
     <div class="side-menu__user-info">
       <!-- user info -->
-      <h3 class="side-menu__user-name">{{ fullName }}</h3>
+      <h3 class="side-menu__user-name">
+        {{ `${firstName ?? 'نام'} ${lastName ?? 'نام خانوادگی'}` }}
+      </h3>
       <div class="side-menu__national-code">
         <span class="side-menu__national-code-label"> کدملی </span>
-        <span class="side-menu__national-code-value"> {{ postalCode }} </span>
+        <span class="side-menu__national-code-value"> {{ postalCode ?? '********' }} </span>
       </div>
     </div>
     <hr class="side-menu__hr" />

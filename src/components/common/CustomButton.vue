@@ -18,16 +18,22 @@ const props = defineProps({
     required: false,
     default: 'sm-button'
   },
-  disabledButton:{
-    type:Boolean,
-    required:false,
-    default:false
+  disabledButton: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
 </script>
+
 <template>
   <div class="button-container">
-    <button class="base-button" type="button" :class="[props.type, props.size]" :disabled="props.disabledButton">
+    <button
+      class="base-button"
+      type="button"
+      :class="[props.type, props.size]"
+      :disabled="props.disabledButton"
+    >
       <!-- <Icon Slot/> -->
       <span>
         {{ props.text }}
@@ -35,11 +41,12 @@ const props = defineProps({
     </button>
   </div>
 </template>
+
 <style lang="scss" scoped>
 .button-container {
   // padding: 1rem 0;
   @include global.customFlex(column, center);
-   width: 100%;
+  width: 100%;
 }
 .base-button {
   border: none;
@@ -52,16 +59,13 @@ const props = defineProps({
   font-weight: 700;
   line-height: 2rem;
 
-
-  &:disabled{
-background-color:var(--primary-50) ;
-cursor: not-allowed;
-  
-
+  &:disabled {
+    background-color: var(--primary-50);
+    cursor: not-allowed;
   }
 }
 .primary {
-  color:var(--white);
+  color: var(--white);
   background-color: var(--primary-500);
 }
 .secondary {

@@ -28,7 +28,6 @@ watch(
   <label for="sort" class="select-input__label">
     <slot>{{ labelSlot }}</slot>
   </label>
-  {{ selectedOption }}
   <select
     name="sort"
     id="sort"

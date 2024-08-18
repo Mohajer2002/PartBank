@@ -80,13 +80,13 @@ const sideMenuItems = shallowRef([
     baseStyle: 'navbar__navbar-button navbar-button navbar-button--exit'
   }
 ])
-const emit = defineEmits('')
+const emit = defineEmits('menuAction')
 
 const activeMenuItem = ref(1)
 
 const handleClick = (item) => {
   activeMenuItem.value = item.id
-  emit(item.action)
+  emit('menuAction', item.action)
 }
 </script>
 <template>

@@ -2,12 +2,13 @@
 // import CustomInput from '@/components/common/CustomInput.vue'
 import CustomSelectInput from '@/components/common/CustomSelectInput.vue'
 import IconArrowFail from '@/components/icons/IconArrowFail.vue'
-import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
 import IconArrowSuccess from '@/components/icons/IconArrowSuccess.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconSort from '@/components/icons/IconSort.vue'
+import toFormatBalance from '@/helper/toFormatBalance'
 
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import Pagination from './Pagination.vue'
 
 const props = defineProps({
   titleName: {
@@ -25,21 +26,39 @@ const props = defineProps({
     default: () => {
       return [
         {
-          transactionId: 1,
-          transactionType: 'واریز',
-          transactionDate: '۱۴۰۱/۰۸/۰۱، ۱۲:۴۴',
-          transactionAmount: '۲۱٬۲۰۰٬۰۰۰'
+          type: 'واریز',
+          date: '۱۴۰۱/۰۸/۰۱، ۱۲:۴۴',
+          amount: '۲۱٬۲۰۰٬۰۰۰'
         },
         {
-          transactionId: 2,
-          transactionType: 'برداشت',
-          transactionDate: '۱۴۰۱/۰۸/۰۱، ۱۲:۵۵',
-          transactionAmount: '۴۱٬۲۰۰٬۰۰۰'
+          type: 'برداشت',
+          date: '۱۴۰۱/۰۸/۰۱، ۱۲:۵۵',
+          amount: '۴۱٬۲۰۰٬۰۰۰'
         }
       ]
     }
   }
 })
+
+const MAX_SHOW_ITEM = 5
+const numberOfPage = ref(1)
+
+const currentPage = ref(1)
+
+const getCurrentPage = (value) => {
+  currentPage.value = Number(value)
+}
+watch(
+  () => props.transactionData,
+  () => {
+    numberOfPage.value = Math.floor(
+      props.transactionData.length % MAX_SHOW_ITEM
+        ? props.transactionData.length / MAX_SHOW_ITEM + 1
+        : props.transactionData.length / MAX_SHOW_ITEM
+    )
+  },
+  { deep: true, immediate: true }
+)
 
 const sortValue = ref([
   {
@@ -92,56 +111,42 @@ const sortValue = ref([
         </tr>
       </thead>
       <tbody class="transaction-list__body">
-        <template v-for="item in transactionData" :key="item.transactionId">
+        <template
+          v-for="(item, index) in transactionData.slice(
+            (currentPage - 1) * MAX_SHOW_ITEM,
+            currentPage * MAX_SHOW_ITEM
+          )"
+          :key="index"
+        >
           <tr
             class="transaction-list__transaction-information transaction-list__transaction-information-even"
           >
             <td class="transaction-list__transaction-information-data">
               <IconArrowSuccess
-                v-if="item.transactionType === 'واریز' ? true : false"
+                v-if="item.type === 'withdraw' ? true : false"
                 class="transaction-list__transaction-information-label"
               />
               <IconArrowFail
-                v-else-if="item.transactionType === 'برداشت' ? true : false"
+                v-else-if="item.type === 'deposit' ? true : false"
                 :class="[
-                  item.transactionType === 'برداشت'
+                  item.type === 'deposit'
                     ? 'transaction-list__transaction-information-label--fail'
                     : ''
                 ]"
               />
-              <p>{{ item.transactionType }}</p>
+              <p>{{ item.type == 'withdraw' ? 'واریز' : 'برداشت' }}</p>
             </td>
             <td class="transaction-list__transaction-information-data">
-              <p>{{ item.transactionDate }}</p>
+              <p>{{ item.date }}</p>
             </td>
             <td class="transaction-list__transaction-information-data">
-              <p>{{ item.transactionAmount }}</p>
+              <p>{{ toFormatBalance(item.amount) }}</p>
             </td>
           </tr>
         </template>
       </tbody>
     </table>
-    <ul class="transaction__pagination pagination">
-      <li class="pagination__item">
-        <button class="pagination__button">
-          <IconArrowLeft class="pagination__button--back" />
-        </button>
-      </li>
-      <li class="pagination__item">
-        <button class="pagination__button">۱</button>
-      </li>
-      <li class="pagination__item">
-        <button class="pagination__button pagination__button--active">۲</button>
-      </li>
-      <li class="pagination__item">
-        <button class="pagination__button">۳</button>
-      </li>
-      <li class="pagination__item">
-        <button class="pagination__button">
-          <IconArrowLeft class="pagination__button--next" />
-        </button>
-      </li>
-    </ul>
+    <Pagination :numberOfPage="numberOfPage" @currentPage="getCurrentPage" />
   </div>
 </template>
 
@@ -261,28 +266,6 @@ const sortValue = ref([
   &__transaction-information-data {
     @include global.customFlex(row, center, center);
     padding: 0.5rem;
-  }
-}
-.pagination {
-  list-style: none;
-  @include global.customFlex(row, center, center, 0.5rem);
-  &__button {
-    @include global.customFlex(row, center, center);
-    width: 2rem;
-    height: 2rem;
-    color: var(--text-gray);
-    background: var(--background-input);
-    border-radius: 0.25rem;
-    padding: 0.25rem;
-
-    @include global.fontStyle(0.875rem, 600);
-  }
-  &__button--active {
-    color: var(--white);
-    background: var(--primary-500);
-  }
-  &__button--back {
-    transform: rotate(180deg);
   }
 }
 </style>

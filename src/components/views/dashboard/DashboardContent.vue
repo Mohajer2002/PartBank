@@ -1,5 +1,5 @@
 <script setup>
-import { ref, toRaw } from 'vue'
+import { onMounted, ref, toRaw } from 'vue'
 import DashboardNoContent from './DashboardNoContent.vue'
 import BankCard from './BankCard.vue'
 import AccountInformationCard from './AccountInformationCard.vue'
@@ -8,11 +8,29 @@ import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
 import { useDataStore } from '@/stores/dataStore'
 import toShamsi from '@/helper/toShamsi'
 import toFormatBalance from '@/helper/toFormatBalance'
+import TransactionList from './TransactionList.vue'
+import { useFetch } from '@/services/api'
+import { transactionListConfig } from '@/services/apiConfigs'
 
 const dataStore = useDataStore()
-const createAccountWarring = ref(Object.keys(dataStore.userInfo).length > 0 ? false : true)
+const createAccountWarring = ref(Object.keys(dataStore.dashboardUserInfo).length > 0 ? false : true)
 
-const { cardNumber, balance, score, upcomingInstalment, id: userId } = toRaw(dataStore.userInfo)
+const {
+  cardNumber,
+  balance,
+  score,
+  upcomingInstalment,
+  id: userId
+} = toRaw(dataStore.dashboardUserInfo)
+const transactionListData = ref([])
+
+const getTransactionListData = async () => {
+  const { responseData } = await useFetch(transactionListConfig)
+  transactionListData.value = toRaw(responseData.value.data.results)
+}
+onMounted(() => {
+  getTransactionListData()
+})
 </script>
 <template>
   <section class="main-dashboard__dashboard-content dashboard-content">
@@ -35,11 +53,11 @@ const { cardNumber, balance, score, upcomingInstalment, id: userId } = toRaw(dat
           <template v-slot:content>
             <div class="score-card__content">
               <span class="score-card__amount">
-                <span class="score-card__amount-number">{{ toFormatBalance(score.amount) }}</span>
+                <span class="score-card__amount-number">{{ toFormatBalance(score?.amount) }}</span>
                 <small class="score-card__content-unit">ریال</small>
               </span>
               <span class="score-card__month">
-                <span class="score-card__month-number">{{ score.paymentPeriod }}</span>
+                <span class="score-card__month-number">{{ score?.paymentPeriod }}</span>
                 <small class="score-card__content-unit">ماهه</small>
               </span>
             </div>
@@ -59,7 +77,7 @@ const { cardNumber, balance, score, upcomingInstalment, id: userId } = toRaw(dat
                 <span class="installment-card__item-title">مبلغ قسط:</span>
                 <span class="installment-card__item-value">
                   <p class="installment-card__item-value-amount">
-                    {{ toFormatBalance(upcomingInstalment.amount) }}
+                    {{ toFormatBalance(upcomingInstalment?.amount) }}
                   </p>
                   <span class="installment-card__item-value-unit">ریال</span>
                 </span>
@@ -67,16 +85,14 @@ const { cardNumber, balance, score, upcomingInstalment, id: userId } = toRaw(dat
               <div class="installment-card__item">
                 <span class="installment-card__item-title">تاریخ سررسید:</span>
                 <span class="installment-card__item-value" id="installment-card-dueDate">{{
-                  toShamsi(upcomingInstalment.dueDate)
+                  toShamsi(upcomingInstalment?.dueDate)
                 }}</span>
               </div>
             </div>
           </template>
         </AccountInformationCard>
       </div>
-      <div class="dashboard-content__transaction transaction">
-        <!-- transaction list -->
-      </div>
+      <TransactionList :transaction-data="transactionListData" />
     </div>
   </section>
 </template>
