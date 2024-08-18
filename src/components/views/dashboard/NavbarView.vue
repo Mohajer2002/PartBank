@@ -12,9 +12,7 @@ const sideMenuItems = shallowRef([
   {
     id: 1,
     name: 'داشبورد',
-    action: () => {
-      return 'clickedDashboard'
-    },
+    action: 'clickedDashboard',
     icon: IconDashboard,
     activeStyle: 'navbar-button--active',
     baseStyle: 'navbar__navbar-button navbar-button '
@@ -22,9 +20,7 @@ const sideMenuItems = shallowRef([
   {
     id: 2,
     name: 'حساب',
-    action: () => {
-      return ''
-    },
+    action: '',
     icon: IconWallet,
     activeStyle: 'navbar-button--active',
     baseStyle: 'navbar__navbar-button navbar-button '
@@ -32,9 +28,7 @@ const sideMenuItems = shallowRef([
   {
     id: 3,
     name: 'تسهیلات',
-    action: () => {
-      return ''
-    },
+    action: '',
     icon: IconStrongbox,
     activeStyle: 'navbar-button--active',
     baseStyle: 'navbar__navbar-button navbar-button '
@@ -42,9 +36,7 @@ const sideMenuItems = shallowRef([
   {
     id: 4,
     name: 'عملیات کارت',
-    action: () => {
-      return ''
-    },
+    action: '',
     icon: IconCards,
     activeStyle: 'navbar-button--active',
     baseStyle: 'navbar__navbar-button navbar-button '
@@ -52,9 +44,7 @@ const sideMenuItems = shallowRef([
   {
     id: 5,
     name: 'سفته الکترونیک',
-    action: () => {
-      return ''
-    },
+    action: '',
     icon: IconRecipt,
     activeStyle: 'navbar-button--active',
     baseStyle: 'navbar__navbar-button navbar-button '
@@ -62,9 +52,7 @@ const sideMenuItems = shallowRef([
   {
     id: 6,
     name: 'خدمات',
-    action: () => {
-      return ''
-    },
+    action: '',
     icon: IconCardPos,
     activeStyle: 'navbar-button--active',
     baseStyle: 'navbar__navbar-button navbar-button '
@@ -72,9 +60,7 @@ const sideMenuItems = shallowRef([
   {
     id: 7,
     name: 'خروج',
-    action: () => {
-      return 'logout'
-    },
+    action: 'logout',
     icon: IconLogout,
     activeStyle: 'navbar-button--exit-active',
     baseStyle: 'navbar__navbar-button navbar-button navbar-button--exit'
