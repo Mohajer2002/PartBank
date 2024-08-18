@@ -8,7 +8,7 @@ import { useLoginDataStore } from '@/stores/login-information-store'
 import { useApiStore } from '@/stores/api-store'
 
 import { loginConfig } from '@/services/apiConfigs'
-import { useFetch } from '@/services/api'
+// import { useFetch } from '@/services/api'
 import { useRouter } from 'vue-router'
 import IconEye from '@/components/icons/IconEye.vue'
 import IconEyeClosed from '@/components/icons/IconEyeClosed.vue'
@@ -57,7 +57,8 @@ const form = computed(() => {
 })
 
 const submitLogin = async () => {
-  apiStore.login(form.value)
+  apiStore.postLoginData(form.value)
+
   // loginConfig['data'] = JSON.stringify(form.value)
 
   // const { responseData, errorMessage } = await useFetch(loginConfig)
@@ -78,6 +79,28 @@ const submitLogin = async () => {
 const closeToast = (value) => {
   toastOptions.value.show = value
 }
+
+watch(
+  () => apiStore.loginResponse,
+  () => {
+    if (apiStore.loginResponse) {
+      toastOptions.value = {
+        type: 'success',
+        text: 'عملیات با موفقیت انجام شد',
+        position: 'top-right',
+        show: true
+      }
+    } else {
+       toastOptions.value = {
+        type: 'error',
+        text: apiStore.loginError,
+        position: 'top-right',
+        show: true
+      }
+    }
+  },
+  { deep: true }
+)
 
 watch(
   () => form.value,

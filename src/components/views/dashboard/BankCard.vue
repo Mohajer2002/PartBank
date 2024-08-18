@@ -3,7 +3,7 @@ import CustomMenu from '@/components/common/CustomMenu.vue'
 import IconConvertCard from '@/components/icons/IconConvertCard.vue'
 import IconLogout from '@/components/icons/IconLogout.vue'
 import IconMore from '@/components/icons/IconMore.vue'
-import { useFetch } from '@/services/api'
+// import { useFetch } from '@/services/api'
 import { deleteDepositAccountConfig } from '@/services/apiConfigs'
 import { ref, shallowRef } from 'vue'
 
@@ -46,7 +46,7 @@ const handleMenu = () => {
 }
 const handleDeleteAccount = async () => {
   deleteDepositAccountConfig['params'] = { id: props.userId }
-  const { responseData, errorMessage } = await useFetch(deleteDepositAccountConfig)
+  // const { responseData, errorMessage } = await useFetch(deleteDepositAccountConfig)
 }
 </script>
 <template>

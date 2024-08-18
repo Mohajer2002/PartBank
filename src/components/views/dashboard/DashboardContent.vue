@@ -9,7 +9,7 @@ import { useDashboardDataStore } from '@/stores/dashboard-information-store'
 import toShamsi from '@/helper/toShamsi'
 import toFormatBalance from '@/helper/toFormatBalance'
 import TransactionList from './TransactionList.vue'
-import { useFetch } from '@/services/api'
+// import { useFetch } from '@/services/api'
 import { transactionListConfig } from '@/services/apiConfigs'
 
 const dashboardDataStore = useDashboardDataStore()
@@ -25,7 +25,7 @@ const {
 const transactionListData = ref([])
 
 const getTransactionListData = async () => {
-  const { responseData } = await useFetch(transactionListConfig)
+  // const { responseData } = await useFetch(transactionListConfig)
   transactionListData.value = toRaw(responseData.value.data.results)
 }
 onMounted(() => {

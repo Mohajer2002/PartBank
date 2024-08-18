@@ -3,13 +3,22 @@ import { connectToLoginApi } from '@/repository/login.js'
 
 export const useApiStore = defineStore('apiStore', {
   state: () => {
-    return {}
+    return {
+      loginResponse: {},
+      loginError: null
+    }
   },
   // persist: true,
 
   actions: {
-    login(form) {
+    postLoginData(form) {
       connectToLoginApi(form)
+    },
+    getLoginData(response) {
+      this.loginResponse = response
+    },
+    getLoginError(error) {
+      this.loginError = error
     }
   }
 })

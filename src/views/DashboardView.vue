@@ -5,7 +5,7 @@ import TheHeader from '@/components/common/TheHeader.vue'
 import DashboardContent from '@/components/views/dashboard/DashboardContent.vue'
 import SideMenu from '@/components/views/dashboard/SideMenu.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
-import { useFetch } from '@/services/api'
+// import { useFetch } from '@/services/api'
 import { dashboardConfig } from '@/services/apiConfigs'
 import { useDashboardDataStore } from '@/stores/dashboard-information-store'
 
@@ -13,7 +13,7 @@ import { useDashboardDataStore } from '@/stores/dashboard-information-store'
 const dashboardDataStore = useDashboardDataStore()
 
 const setDataPinia = async () => {
-  const { responseData } = await useFetch(dashboardConfig)
+  // const { responseData } = await useFetch(dashboardConfig)
   // dataStore.setDashboardUserInfo(responseData.value)
   dashboardDataStore.setDashboardData(toRaw(responseData.value.data.result))
 }

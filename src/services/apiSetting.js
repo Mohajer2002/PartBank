@@ -5,7 +5,7 @@ const BASE_URL = 'https://college.apipart.ir/'
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 2000
+  timeout: 5000
 })
 const customSorage = new Hash('localStorage')
 

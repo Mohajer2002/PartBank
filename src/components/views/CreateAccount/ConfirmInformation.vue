@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useAccountDataStore } from '@/stores/create-account-store'
 import CustomButton from '@/components/common/CustomButton.vue'
 import { createAccountConfig } from '@/services/apiConfigs'
-import { useFetch } from '@/services/api'
+// import { useFetch } from '@/services/api'
 
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconInfoCircle from '@/components/icons/IconInfoCircle.vue'
@@ -18,7 +18,7 @@ const toastOptions = ref({})
 
 const registerAccount = async () => {
   createAccountConfig['data'] = JSON.stringify(accountDataStore.userInfo)
-  const { responseData } = await useFetch(createAccountConfig)
+  // const { responseData } = await useFetch(createAccountConfig)
   const status = responseData.value.data
   if (status.result == 'success') {
     toastOptions.value = {
