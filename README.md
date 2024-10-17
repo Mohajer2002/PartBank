@@ -44,6 +44,7 @@ A banking dashboard application built using Vue.js and Sass, focused on secure u
 
 ## Preview
 [![Watch the video](https://github.com/mohajer2002/PartBank/blob/main/Preview/ScreenShot/Thumbnail.jpg?raw=true)](https://youtu.be/6nmstMJZbRg)
+<a href="https://youtu.be/6nmstMJZbRg" target="_blank"><img src="https://github.com/mohajer2002/PartBank/blob/main/Preview/ScreenShot/Thumbnail.jpg?raw=true"/></a>
 > ![screenshot](https://github.com/mohajer2002/PartBank/blob/main/Preview/ScreenShot/1.jpg?raw=true)
 > ![screenshot](https://github.com/mohajer2002/PartBank/blob/main/Preview/ScreenShot/2.jpg?raw=true)
 > ![screenshot](https://github.com/mohajer2002/PartBank/blob/main/Preview/ScreenShot/3.jpg?raw=true)
