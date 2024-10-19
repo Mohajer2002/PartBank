@@ -27,7 +27,7 @@ A banking dashboard application built using Vue.js and Sass, focused on secure u
 
 1. Clone the repository:
    ```bash
-   git clone https://your-repository-link.git
+   git clone https://github.com/Mohajer2002/khazaneh.git
    ```
 2. Navigate to the project directory:
    ```bash
